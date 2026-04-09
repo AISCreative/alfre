@@ -21,11 +21,11 @@
     .welcome { font-size: 1.5rem; color: white; background: linear-gradient(90deg, transparent, rgba(57,255,20,0.3), rgba(255,0,255,0.3), transparent); padding: 0.4rem 2rem; border-radius: 60px; display: inline-block; margin-top: 0.3rem; }
     
     .pestanas-container { overflow-x: auto; white-space: nowrap; padding: 1rem 1.5rem; display: flex; gap: 0.8rem; }
-    .pestana { background: rgba(0, 0, 0, 0.85); border: 2px solid; border-radius: 24px; padding: 0.7rem 1.2rem; display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; transition: all 0.2s; min-width: 110px; position: relative; }
-    .pestana.activa { transform: scale(1.02); box-shadow: 0 0 30px currentColor; border-width: 3px; background: rgba(20, 20, 40, 0.95); }
+    .pestana { background: rgba(0, 0, 0, 0.85); border: 2px solid #39ff14; border-radius: 24px; padding: 0.7rem 1.2rem; display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; transition: all 0.2s; min-width: 110px; position: relative; }
+    .pestana.activa { transform: scale(1.02); box-shadow: 0 0 30px #39ff14; border-width: 3px; background: rgba(20, 20, 40, 0.95); }
     .pestana-icon { font-size: 2rem; }
-    .pestana-text { font-size: 1rem; font-weight: 700; margin-top: 4px; }
-    .pestana-delete { position: absolute; top: -10px; right: -10px; background: #ff00ff; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; cursor: pointer; display: none; box-shadow: 0 0 8px #ff00ff; align-items: center; justify-content: center; }
+    .pestana-text { font-size: 1rem; font-weight: 700; margin-top: 4px; color: white; }
+    .pestana-delete { position: absolute; top: -10px; right: -10px; background: #ff00ff; color: white; border: none; border-radius: 50%; width: 24px; height: 24px; font-size: 12px; cursor: pointer; display: none; box-shadow: 0 0 8px #ff00ff; align-items: center; justify-content: center; z-index: 20; }
     .admin-mode .pestana-delete { display: flex; }
     
     .contenido { flex: 1; overflow-y: auto; padding: 1.5rem; }
@@ -34,7 +34,7 @@
     .seccion-titulo.editable { border: 2px dashed #39ff14; padding: 5px 12px; border-radius: 12px; background: rgba(0,0,0,0.5); }
     .admin-seccion-buttons { position: absolute; top: 15px; right: 15px; display: none; gap: 10px; z-index: 5; }
     .admin-mode .admin-seccion-buttons { display: flex; }
-    .btn-eliminar-seccion, .btn-cambiar-tipo { border: none; border-radius: 30px; padding: 6px 15px; cursor: pointer; font-size: 0.85rem; font-weight: bold; }
+    .btn-eliminar-seccion, .btn-cambiar-tipo { border: none; border-radius: 30px; padding: 8px 18px; cursor: pointer; font-size: 0.9rem; font-weight: bold; }
     .btn-eliminar-seccion { background: #ff00ff; color: white; box-shadow: 0 0 10px #ff00ff; }
     .btn-cambiar-tipo { background: #39ff14; color: black; box-shadow: 0 0 10px #39ff14; }
     
@@ -54,7 +54,7 @@
     .liado-card.drag-over { border: 3px dashed #39ff14; }
     .liado-icon { font-size: 3rem; filter: drop-shadow(0 0 10px #ffff00); pointer-events: none; }
     .liado-card h4 { font-size: 1.1rem; color: #ffff00; margin: 0.5rem 0; }
-    .liado-precio { font-size: 1.1rem; font-weight: 800; background: rgba(255,255,0,0.3); padding: 0.2rem 1rem; border-radius: 30px; display: inline-block; }
+    .liado-precio { font-size: 1.1rem; font-weight: 800; background: rgba(255,255,0,0.3); padding: 0.2rem 1rem; border-radius: 30px; display: inline-block; color: white; }
     
     .items-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
     .item-munchi { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.7); padding: 0.7rem 1.2rem; border-radius: 60px; border: 1px solid #39ff14; cursor: grab; }
@@ -67,7 +67,7 @@
     .eventos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
     .evento-card { border: 3px solid #ff3366; border-radius: 24px; overflow: hidden; aspect-ratio: 1/1.2; position: relative; box-shadow: 0 0 20px rgba(255,51,102,0.4); }
     .evento-card img { width: 100%; height: 100%; object-fit: cover; }
-    .evento-delete { position: absolute; top: 8px; right: 8px; background: #ff00ff; color: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 18px; cursor: pointer; display: none; box-shadow: 0 0 10px #ff00ff; }
+    .evento-delete { position: absolute; top: 8px; right: 8px; background: #ff00ff; color: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 18px; cursor: pointer; display: none; box-shadow: 0 0 10px #ff00ff; z-index: 10; }
     .admin-mode .evento-delete { display: block; }
     
     .save-indicator { position: fixed; bottom: 100px; right: 30px; background: #39ff14; color: black; padding: 15px 25px; border-radius: 50px; font-size: 1.5rem; font-weight: bold; box-shadow: 0 0 30px #39ff14; z-index: 2100; display: none; }
@@ -158,7 +158,7 @@
 
   <script>
     const CONTRASENA = "alfre123";
-    const STORAGE_KEY = 'eltioj_final_v1';
+    const STORAGE_KEY = 'eltioj_final_v2';
 
     let secciones = [];
     let pestanaActiva = null;
@@ -229,8 +229,6 @@
       secciones.forEach((sec) => {
         const btn = document.createElement('div');
         btn.className = `pestana ${pestanaActiva === sec.id ? 'activa' : ''}`;
-        btn.style.borderColor = '#39ff14';
-        btn.style.color = '#39ff14';
         btn.innerHTML = `
           <div class="pestana-icon">${sec.nombre.charAt(0)}</div>
           <div class="pestana-text">${sec.nombre.substring(0, 15)}</div>
@@ -313,7 +311,7 @@
       adminBtns.className = 'admin-seccion-buttons';
       adminBtns.innerHTML = `
         <button class="btn-cambiar-tipo" onclick="cambiarTipoSeccion('${seccion.id}')">🔄 CAMBIAR TIPO</button>
-        <button class="btn-eliminar-seccion" onclick="eliminarSeccionDesdePanel('${seccion.id}')">🗑️ ELIMINAR</button>
+        <button class="btn-eliminar-seccion" onclick="eliminarSeccionDesdePanel('${seccion.id}')">🗑️ ELIMINAR SECCIÓN</button>
       `;
       divSeccion.appendChild(adminBtns);
       
@@ -632,8 +630,13 @@
     function guardarTodo() { guardarDatos(); mostrarIndicator(); }
     function mostrarIndicator() { const ind = document.getElementById('saveIndicator'); ind.style.display = 'block'; setTimeout(() => ind.style.display = 'none', 2000); }
     
-    function mostrarLogin() { document.getElementById('panel-login').style.display = 'flex'; }
-    function cerrarLogin() { document.getElementById('panel-login').style.display = 'none'; document.getElementById('login-password').value = ''; }
+    function mostrarLogin() { 
+      document.getElementById('panel-login').style.display = 'flex'; 
+    }
+    function cerrarLogin() { 
+      document.getElementById('panel-login').style.display = 'none'; 
+      document.getElementById('login-password').value = ''; 
+    }
     function comprobarLogin() {
       if (document.getElementById('login-password').value === CONTRASENA) {
         document.getElementById('panel-login').style.display = 'none';
@@ -641,7 +644,9 @@
         document.body.classList.add('admin-mode');
         document.getElementById('panel-admin').style.display = 'block';
         renderizarTodo();
-      } else { document.getElementById('login-error').style.display = 'block'; }
+      } else { 
+        document.getElementById('login-error').style.display = 'block'; 
+      }
     }
     function cerrarAdmin() {
       adminMode = false;
