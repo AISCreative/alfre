@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#0a2a0a">
   <link rel="manifest" href="manifest.json">
-  <title>El Tio J · Catálogo Rastafari</title>
+  <title>El Tio J · Catálogo</title>
   <style>
     * {
       margin: 0;
@@ -30,17 +30,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 10px;
+      padding: 12px;
       position: relative;
     }
 
-    /* Fondo de marca estilo rasta */
+    /* Fondo de marca */
     body::before {
       content: "EL TIO J";
       position: fixed;
-      bottom: 10%;
-      right: -10%;
-      font-size: clamp(3rem, 12vw, 8rem);
+      bottom: 8%;
+      right: -5%;
+      font-size: clamp(3rem, 10vw, 7rem);
       font-weight: 900;
       color: rgba(255, 0, 0, 0.04);
       white-space: nowrap;
@@ -50,11 +50,12 @@
       letter-spacing: 8px;
     }
 
-    /* Contenedor principal con bordes rasta */
+    /* Contenedor principal - optimizado para tablet vertical */
     .kiosco {
       width: 100%;
-      max-width: 1400px;
+      max-width: 800px;
       height: 100%;
+      max-height: 1280px;
       background: rgba(8, 18, 8, 0.85);
       backdrop-filter: blur(16px);
       border-radius: 48px;
@@ -68,16 +69,17 @@
       z-index: 10;
     }
 
-    /* Header rastafari */
+    /* Header */
     .header {
-      padding: 1.2rem 1.8rem 0.8rem;
+      padding: 1.2rem 1.5rem 0.8rem;
       text-align: center;
       background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(0, 128, 0, 0.08));
       border-bottom: 3px solid #ffcc00;
+      flex-shrink: 0;
     }
 
     .logo-masquehigh {
-      font-size: 3.8rem;
+      font-size: 2.8rem;
       font-weight: 900;
       background: linear-gradient(135deg, #ff0000, #ffcc00, #008000);
       -webkit-background-clip: text;
@@ -88,7 +90,7 @@
     }
 
     .logo-club {
-      font-size: 2rem;
+      font-size: 1.6rem;
       font-weight: 700;
       letter-spacing: 4px;
       color: #ffcc00;
@@ -97,58 +99,59 @@
     }
 
     .welcome {
-      font-size: 1.2rem;
+      font-size: 1rem;
       background: linear-gradient(135deg, rgba(255,0,0,0.2), rgba(0,128,0,0.2));
       display: inline-block;
-      padding: 0.3rem 1.8rem;
+      padding: 0.2rem 1.5rem;
       border-radius: 40px;
       backdrop-filter: blur(4px);
       color: #ffcc00;
       font-weight: 500;
     }
 
-    /* Pestañas dinámicas */
+    /* Pestañas - scroll horizontal si hay muchas */
     .pestanas-wrapper {
       overflow-x: auto;
       overflow-y: hidden;
-      padding: 0.8rem 1rem;
+      padding: 0.6rem 1rem;
       scrollbar-width: thin;
+      flex-shrink: 0;
     }
 
     .pestanas {
       display: flex;
-      gap: 0.8rem;
+      gap: 0.6rem;
       min-width: max-content;
     }
 
     .pestana {
       background: rgba(10, 25, 10, 0.9);
       border: 2px solid #ffcc00;
-      border-radius: 60px;
-      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      padding: 0.4rem 1rem;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
       transition: all 0.2s ease;
       backdrop-filter: blur(8px);
     }
 
     .pestana-icon {
-      font-size: 1.6rem;
+      font-size: 1.3rem;
     }
 
     .pestana-text {
-      font-size: 1rem;
+      font-size: 0.85rem;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       white-space: nowrap;
     }
 
     .pestana.activa {
       background: linear-gradient(135deg, rgba(255,0,0,0.3), rgba(0,128,0,0.3));
       border-color: #ffcc00;
-      box-shadow: 0 0 15px #ffcc00;
+      box-shadow: 0 0 12px #ffcc00;
       transform: scale(1.02);
     }
 
@@ -156,7 +159,7 @@
     .contenido {
       flex: 1;
       overflow-y: auto;
-      padding: 1.2rem;
+      padding: 1rem;
     }
 
     .panel {
@@ -173,101 +176,102 @@
       to { opacity: 1; transform: translateY(0);}
     }
 
-    /* tarjetas estilo rasta */
+    /* Tarjetas de productos - 2 o 3 columnas en tablet vertical */
     .productos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
     }
 
     .producto-card, .liado-card {
       background: rgba(0, 15, 0, 0.7);
       backdrop-filter: blur(12px);
-      border-radius: 28px;
-      padding: 1rem 0.8rem;
+      border-radius: 24px;
+      padding: 0.8rem 0.5rem;
       text-align: center;
       transition: 0.2s;
       border: 1px solid #ffcc00;
     }
 
     .producto-card img {
-      width: 110px;
-      height: 110px;
+      width: 90px;
+      height: 90px;
       object-fit: cover;
-      border-radius: 30px;
+      border-radius: 25px;
       border: 2px solid #ffcc00;
-      margin-bottom: 0.8rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      margin-bottom: 0.6rem;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
     }
 
     .producto-card h4, .liado-card h4 {
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #ffcc00;
-      text-shadow: 0 0 5px #ff0000;
+      text-shadow: 0 0 3px #ff0000;
+      margin-bottom: 0.3rem;
     }
 
     .producto-precio, .liado-precio {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       font-weight: 800;
       background: linear-gradient(135deg, rgba(255,0,0,0.2), rgba(0,128,0,0.2));
       display: inline-block;
-      padding: 0.2rem 1rem;
+      padding: 0.2rem 0.8rem;
       border-radius: 30px;
-      margin-top: 8px;
+      margin-top: 6px;
       border: 1px solid #ffcc00;
       color: #ffcc00;
     }
 
     .liados-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 1rem;
     }
 
     .liado-card {
       border-color: #ffcc00;
     }
-    .liado-card h4 { color: #ffcc00; text-shadow: 0 0 6px #ff0000; }
+    .liado-card h4 { color: #ffcc00; text-shadow: 0 0 3px #ff0000; }
     .liado-precio { border-color: #ffcc00; color: #ffcc00; }
 
     .munchies-categoria {
       background: rgba(0, 20, 0, 0.6);
-      border-radius: 32px;
-      padding: 1.2rem;
-      margin-bottom: 1.5rem;
-      border-left: 6px solid #ff0000;
-      border-right: 2px solid #ffcc00;
+      border-radius: 28px;
+      padding: 1rem;
+      margin-bottom: 1.2rem;
+      border-left: 5px solid #ff0000;
+      border-right: 1px solid #ffcc00;
     }
     .categoria-titulo {
-      font-size: 2rem;
+      font-size: 1.6rem;
       color: #ffcc00;
-      text-shadow: 0 0 5px #ff0000;
-      margin-bottom: 1rem;
+      text-shadow: 0 0 4px #ff0000;
+      margin-bottom: 0.8rem;
     }
     .items-lista {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 0.8rem;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.6rem;
     }
     .item-munchi {
       display: flex;
       justify-content: space-between;
       background: #0a1a0a;
-      padding: 0.7rem 1rem;
-      border-radius: 60px;
+      padding: 0.5rem 0.8rem;
+      border-radius: 50px;
       border: 1px solid #ffcc00;
     }
-    .item-nombre { font-size: 1.2rem; color: #ffffff; }
-    .item-precio { font-size: 1.3rem; font-weight: bold; color: #ffcc00; }
+    .item-nombre { font-size: 1rem; color: #ffffff; }
+    .item-precio { font-size: 1.1rem; font-weight: bold; color: #ffcc00; }
 
     /* EVENTOS GRID */
     .eventos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
     }
     .evento-card {
-      border-radius: 24px;
+      border-radius: 20px;
       overflow: hidden;
       border: 2px solid #ffcc00;
       aspect-ratio: 1 / 1;
@@ -281,40 +285,99 @@
     }
     .evento-delete {
       position: absolute;
-      top: 8px;
-      right: 8px;
+      top: 6px;
+      right: 6px;
       background: #ff0000;
       border: none;
       border-radius: 30px;
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       font-weight: bold;
       cursor: pointer;
       display: none;
       z-index: 20;
+      font-size: 14px;
     }
     .admin-mode .evento-delete { display: block; }
 
-    /* Admin boton flotante rasta */
+    /* Admin boton flotante */
     .admin-fab {
       position: fixed;
-      bottom: 28px;
-      right: 28px;
+      bottom: 20px;
+      right: 20px;
       z-index: 2000;
     }
     .admin-btn-flotante {
-      width: 68px;
-      height: 68px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       background: radial-gradient(circle at 30% 20%, #ff0000, #008000);
       border: 2px solid #ffcc00;
-      font-size: 32px;
-      box-shadow: 0 0 25px #ffcc00;
+      font-size: 28px;
+      box-shadow: 0 0 20px #ffcc00;
       cursor: pointer;
       transition: 0.2s;
     }
 
     /* Paneles admin */
+    .admin-card {
+      background: #0a1a0a;
+      border-radius: 24px;
+      padding: 0.8rem;
+      border: 2px solid #ffcc00;
+    }
+    .admin-img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 8px;
+    }
+    .admin-input, .admin-precio {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 8px;
+      background: #000000aa;
+      border: 1px solid #ffcc00;
+      border-radius: 30px;
+      color: white;
+      font-size: 0.9rem;
+    }
+    .admin-btn {
+      width: 100%;
+      padding: 10px;
+      margin: 4px 0;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-upload { background: #008000; color: white; }
+    .btn-delete { background: #ff0000; color: white; }
+    .btn-add-section { background: #ffcc00; color: black; margin-top: 6px; }
+    .seccion-item-admin {
+      background: #0a1f0a;
+      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 24px;
+      border-left: 6px solid #ffcc00;
+      border-right: 1px solid #ff0000;
+    }
+    .save-indicator {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      background: #ffcc00;
+      color: black;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+      display: none;
+      z-index: 2200;
+      font-size: 0.9rem;
+    }
+
+    /* Modal admin */
     .panel-admin-overlay {
       display: none;
       position: fixed;
@@ -326,63 +389,7 @@
       backdrop-filter: blur(12px);
       z-index: 2100;
       overflow-y: auto;
-      padding: 20px;
-    }
-
-    .admin-card {
-      background: #0a1a0a;
-      border-radius: 28px;
-      padding: 1rem;
-      border: 2px solid #ffcc00;
-    }
-    .admin-img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 20px;
-      margin-bottom: 10px;
-    }
-    .admin-input, .admin-precio {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 10px;
-      background: #000000aa;
-      border: 1px solid #ffcc00;
-      border-radius: 40px;
-      color: white;
-      font-size: 1rem;
-    }
-    .admin-btn {
-      width: 100%;
-      padding: 12px;
-      margin: 5px 0;
-      border-radius: 40px;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-upload { background: #008000; color: white; }
-    .btn-delete { background: #ff0000; color: white; }
-    .btn-add-section { background: #ffcc00; color: black; margin-top: 8px; }
-    .seccion-item-admin {
-      background: #0a1f0a;
-      margin-bottom: 20px;
       padding: 15px;
-      border-radius: 28px;
-      border-left: 8px solid #ffcc00;
-      border-right: 2px solid #ff0000;
-    }
-    .save-indicator {
-      position: fixed;
-      bottom: 120px;
-      right: 30px;
-      background: #ffcc00;
-      color: black;
-      padding: 12px 24px;
-      border-radius: 60px;
-      font-weight: bold;
-      display: none;
-      z-index: 2200;
     }
   </style>
 </head>
@@ -391,7 +398,7 @@
 <main class="kiosco">
   <div class="header">
     <div class="logo-masquehigh">EL TIO J</div>
-    <div class="logo-club">RASTAFARI</div>
+    <div class="logo-club">CLUB</div>
     <div class="welcome">🔥 CATÁLOGO DINÁMICO 🔥</div>
   </div>
 
@@ -408,30 +415,30 @@
 
 <!-- LOGIN MODAL -->
 <div id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000c; backdrop-filter:blur(12px); z-index:3000; align-items:center; justify-content:center;">
-  <div style="background:#0a1a0a; border-radius:48px; padding:2rem; max-width:400px; width:90%; border:2px solid #ffcc00;">
-    <h2 style="color:#ffcc00; font-size:2rem;">🔐 ADMIN</h2>
-    <input type="password" id="adminPass" placeholder="contraseña" style="width:100%; padding:1rem; margin:1rem 0; border-radius:60px; background:#000; border:2px solid #ffcc00; color:white; font-size:1.4rem;">
-    <div style="display:flex; gap:1rem;">
-      <button id="loginSubmit" style="flex:1; background:#008000; border-radius:60px; padding:0.8rem; font-weight:bold; color:white;">ENTRAR</button>
-      <button id="loginClose" style="flex:1; background:#ff0000; border-radius:60px; padding:0.8rem; color:white;">CERRAR</button>
+  <div style="background:#0a1a0a; border-radius:40px; padding:1.5rem; max-width:350px; width:85%; border:2px solid #ffcc00;">
+    <h2 style="color:#ffcc00; font-size:1.8rem; text-align:center;">🔐 ADMIN</h2>
+    <input type="password" id="adminPass" placeholder="contraseña" style="width:100%; padding:0.8rem; margin:1rem 0; border-radius:50px; background:#000; border:2px solid #ffcc00; color:white; font-size:1.2rem;">
+    <div style="display:flex; gap:0.8rem;">
+      <button id="loginSubmit" style="flex:1; background:#008000; border-radius:50px; padding:0.7rem; font-weight:bold; color:white;">ENTRAR</button>
+      <button id="loginClose" style="flex:1; background:#ff0000; border-radius:50px; padding:0.7rem; color:white;">CERRAR</button>
     </div>
-    <div id="loginError" style="color:#ffcc00; margin-top:1rem; text-align:center; display:none;">❌ Contraseña incorrecta</div>
+    <div id="loginError" style="color:#ffcc00; margin-top:0.8rem; text-align:center; display:none;">❌ Contraseña incorrecta</div>
   </div>
 </div>
 
 <!-- PANEL ADMIN PRINCIPAL -->
-<div id="adminMainPanel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#03030cee; backdrop-filter:blur(12px); z-index:3001; overflow-y:auto; padding:20px;">
-  <div style="max-width:1200px; margin:0 auto;">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-      <h2 style="color:#ffcc00;">✏️ GESTIÓN TOTAL - EL TIO J</h2>
-      <button id="closeAdminBtn" style="background:#ff0000; border:none; border-radius:40px; padding:12px 28px; font-weight:bold; cursor:pointer; color:white;">CERRAR</button>
+<div id="adminMainPanel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#03030cee; backdrop-filter:blur(12px); z-index:3001; overflow-y:auto; padding:15px;">
+  <div style="max-width:700px; margin:0 auto;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
+      <h2 style="color:#ffcc00; font-size:1.6rem;">✏️ GESTIÓN TOTAL</h2>
+      <button id="closeAdminBtn" style="background:#ff0000; border:none; border-radius:40px; padding:10px 20px; font-weight:bold; cursor:pointer; color:white;">CERRAR</button>
     </div>
-    <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:28px;">
-      <button id="addSectionBtnAdmin" style="background:#ffcc00; border:none; border-radius:40px; padding:12px 24px; font-weight:bold;">➕ AÑADIR SECCIÓN</button>
-      <button id="editSectionsBtn" style="background:#008000; border:none; border-radius:40px; padding:12px 24px; font-weight:bold; color:white;">📂 GESTIONAR SECCIONES</button>
+    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px;">
+      <button id="addSectionBtnAdmin" style="background:#ffcc00; border:none; border-radius:40px; padding:10px 20px; font-weight:bold;">➕ AÑADIR SECCIÓN</button>
+      <button id="editSectionsBtn" style="background:#008000; border:none; border-radius:40px; padding:10px 20px; font-weight:bold; color:white;">📂 GESTIONAR SECCIONES</button>
     </div>
     <div id="adminSectionsContainer"></div>
-    <button id="globalSaveBtn" style="width:100%; background:#ffcc00; border-radius:60px; padding:18px; font-size:1.8rem; font-weight:bold; margin-top:20px;">💾 GUARDAR TODO</button>
+    <button id="globalSaveBtn" style="width:100%; background:#ffcc00; border-radius:50px; padding:14px; font-size:1.4rem; font-weight:bold; margin-top:15px;">💾 GUARDAR TODO</button>
   </div>
 </div>
 
@@ -439,9 +446,9 @@
 
 <script>
   const PASS = "situs123";
-  const STORAGE_KEY = "eltioj_rasta_catalogo";
+  const STORAGE_KEY = "eltioj_catalogo_tablet";
 
-  // Estructura base: secciones dinámicas con temática rastafari
+  // Estructura base
   let secciones = [
     { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [] },
     { id: "hierbas", nombre: "HIERBAS", icono: "🌿", tipo: "productos", items: [] },
@@ -451,20 +458,19 @@
     { id: "eventos", nombre: "EVENTOS", icono: "🎉", tipo: "eventos", items: [] }
   ];
 
-  // datos por defecto con productos actualizados
   const DEFAULT_EXTRA = [
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='12' text-anchor='middle'%3EBHO%3C/text%3E%3C/svg%3E", nombre: "BHO TROPICANA CHERRY", precio: "28€/g" },
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23008000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='12' text-anchor='middle'%3EICE%3C/text%3E%3C/svg%3E", nombre: "ICE MAC1 PLUS", precio: "18€/g" },
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffcc00'/%3E%3Ctext x='50' y='55' fill='black'%3ETAITELLA%3C/text%3E%3C/svg%3E", nombre: "TAITELLA", precio: "24€/g" }
+    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='10' text-anchor='middle'%3EBHO%3C/text%3E%3C/svg%3E", nombre: "BHO TROPICANA CHERRY", precio: "28€/g" },
+    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23008000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='10' text-anchor='middle'%3EICE%3C/text%3E%3C/svg%3E", nombre: "ICE MAC1 PLUS", precio: "18€/g" },
+    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffcc00'/%3E%3Ctext x='50' y='55' fill='black' font-size='10'%3ETAITELLA%3C/text%3E%3C/svg%3E", nombre: "TAITELLA", precio: "24€/g" }
   ];
   const DEFAULT_HIERBAS = [
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23008000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00'%3ELONDON%3C/text%3E%3C/svg%3E", nombre: "LONDON CAKE", precio: "8€/g" },
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00'%3EAMNESIA%3C/text%3E%3C/svg%3E", nombre: "AMNESIA", precio: "4€/g" },
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffcc00'/%3E%3Ctext x='50' y='55' fill='black'%3ETANGIE%3C/text%3E%3C/svg%3E", nombre: "TANGIE", precio: "7€/g" }
+    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23008000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='9'%3ELONDON%3C/text%3E%3C/svg%3E", nombre: "LONDON CAKE", precio: "8€/g" },
+    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='9'%3EAMNESIA%3C/text%3E%3C/svg%3E", nombre: "AMNESIA", precio: "4€/g" },
+    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffcc00'/%3E%3Ctext x='50' y='55' fill='black' font-size='9'%3ETANGIE%3C/text%3E%3C/svg%3E", nombre: "TANGIE", precio: "7€/g" }
   ];
   const DEFAULT_HASH = [
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23804020'/%3E%3Ctext x='50' y='55' fill='%23ffcc00'%3EGORILA%3C/text%3E%3C/svg%3E", nombre: "GORILA", precio: "6€/g" },
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00'%3ERUNTZ%3C/text%3E%3C/svg%3E", nombre: "RUNTZ", precio: "5€/g" }
+    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23804020'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='9'%3EGORILA%3C/text%3E%3C/svg%3E", nombre: "GORILA", precio: "6€/g" },
+    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='9'%3ERUNTZ%3C/text%3E%3C/svg%3E", nombre: "RUNTZ", precio: "5€/g" }
   ];
   const DEFAULT_LIADOS = [
     { nombre: "CRITICAL X GORILA", precio: "1x3€ | 2x5€" },
@@ -631,9 +637,9 @@
       const secDiv = document.createElement('div');
       secDiv.className = 'seccion-item-admin';
       secDiv.innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:center;"><h3 style="color:#ffcc00;">${sec.icono} ${sec.nombre}</h3>
-        <button class="admin-btn btn-delete" data-removeidx="${idx}" style="width:auto; padding:6px 18px;">🗑️ Eliminar Sección</button></div>
-        <div style="margin-top:10px;"><button class="admin-btn btn-upload" data-editsec="${idx}">✏️ Editar contenido</button></div>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;"><h3 style="color:#ffcc00; font-size:1.2rem;">${sec.icono} ${sec.nombre}</h3>
+        <button class="admin-btn btn-delete" data-removeidx="${idx}" style="width:auto; padding:5px 15px;">🗑️ Eliminar</button></div>
+        <div style="margin-top:8px;"><button class="admin-btn btn-upload" data-editsec="${idx}">✏️ Editar contenido</button></div>
       `;
       container.appendChild(secDiv);
     });
@@ -676,25 +682,25 @@
   function abrirEditorSeccion(secIndex) {
     const sec = secciones[secIndex];
     let modal = document.createElement('div');
-    modal.style.position='fixed'; modal.style.top='0'; modal.style.left='0'; modal.style.width='100%'; modal.style.height='100%'; modal.style.background='#000c'; modal.style.backdropFilter='blur(20px)'; modal.style.zIndex='4000'; modal.style.overflow='auto'; modal.style.padding='20px';
-    modal.innerHTML = `<div style="max-width:700px; margin:auto; background:#0a1a0a; border-radius:32px; padding:20px; border:2px solid #ffcc00;"><div style="display:flex; justify-content:space-between;"><h2 style="color:#ffcc00;">✏️ Editando: ${sec.nombre}</h2><button id="closeEditorBtn" style="background:#ff0000; border:none; border-radius:60px; padding:8px 20px; color:white;">Cerrar</button></div><div id="dynamicEditorContainer"></div></div>`;
+    modal.style.position='fixed'; modal.style.top='0'; modal.style.left='0'; modal.style.width='100%'; modal.style.height='100%'; modal.style.background='#000c'; modal.style.backdropFilter='blur(20px)'; modal.style.zIndex='4000'; modal.style.overflow='auto'; modal.style.padding='15px';
+    modal.innerHTML = `<div style="max-width:600px; margin:auto; background:#0a1a0a; border-radius:28px; padding:15px; border:2px solid #ffcc00;"><div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;"><h2 style="color:#ffcc00; font-size:1.4rem;">✏️ Editando: ${sec.nombre}</h2><button id="closeEditorBtn" style="background:#ff0000; border:none; border-radius:50px; padding:6px 15px; color:white;">Cerrar</button></div><div id="dynamicEditorContainer"></div></div>`;
     document.body.appendChild(modal);
     const containerItems = modal.querySelector('#dynamicEditorContainer');
     
     function renderEditor() {
       if(sec.tipo === 'productos') {
-        containerItems.innerHTML = '<h3 style="color:#ffcc00;">Productos</h3><div id="prodList"></div><button id="addItemBtn" class="admin-btn btn-add-section">➕ Añadir producto</button>';
+        containerItems.innerHTML = '<h3 style="color:#ffcc00; margin:10px 0;">Productos</h3><div id="prodList"></div><button id="addItemBtn" class="admin-btn btn-add-section">➕ Añadir producto</button>';
         const prodDiv = containerItems.querySelector('#prodList');
         prodDiv.innerHTML = '';
         sec.items.forEach((item, idx) => {
           let div = document.createElement('div');
           div.className = 'admin-card';
-          div.innerHTML = `<img src="${item.img}" style="width:80px; height:80px; object-fit:cover; border-radius:20px; margin-bottom:8px;"><br>
-          <input type="file" class="imgUploader" data-idx="${idx}" accept="image/*">
-          <button class="admin-btn btn-upload" data-upimg="${idx}">📷 Subir foto</button>
-          <input type="text" value="${item.nombre.replace(/"/g,'&quot;')}" class="admin-input" data-field="nombre" data-idx="${idx}" placeholder="Nombre">
-          <input type="text" value="${item.precio}" class="admin-precio" data-field="precio" data-idx="${idx}" placeholder="Precio">
-          <button class="admin-btn btn-delete" data-del="${idx}">🗑️ Eliminar</button>`;
+          div.innerHTML = `<img src="${item.img}" style="width:70px; height:70px; object-fit:cover; border-radius:16px; margin-bottom:6px;"><br>
+          <input type="file" class="imgUploader" data-idx="${idx}" accept="image/*" style="margin:5px 0;">
+          <button class="admin-btn btn-upload" data-upimg="${idx}" style="padding:6px;">📷 Subir foto</button>
+          <input type="text" value="${item.nombre.replace(/"/g,'&quot;')}" class="admin-input" data-field="nombre" data-idx="${idx}" placeholder="Nombre" style="padding:8px;">
+          <input type="text" value="${item.precio}" class="admin-precio" data-field="precio" data-idx="${idx}" placeholder="Precio" style="padding:8px;">
+          <button class="admin-btn btn-delete" data-del="${idx}" style="padding:6px;">🗑️ Eliminar</button>`;
           prodDiv.appendChild(div);
         });
         for(let i=0;i<sec.items.length;i++) {
@@ -713,7 +719,7 @@
           btn.onclick = () => { sec.items.splice(parseInt(btn.dataset.del),1); renderEditor(); };
         });
         const addBtn = containerItems.querySelector('#addItemBtn');
-        if(addBtn) addBtn.onclick = () => { sec.items.push({ img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffcc00'/%3E%3Ctext x='50' y='55' fill='black'%3ENUEVO%3C/text%3E%3C/svg%3E", nombre: "Nuevo", precio: "0€" }); renderEditor(); };
+        if(addBtn) addBtn.onclick = () => { sec.items.push({ img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffcc00'/%3E%3Ctext x='50' y='55' fill='black' font-size='9'%3ENUEVO%3C/text%3E%3C/svg%3E", nombre: "Nuevo", precio: "0€" }); renderEditor(); };
       } else if(sec.tipo === 'liados') {
         containerItems.innerHTML = '<h3 style="color:#ffcc00;">Liados</h3><div id="liadosList"></div><button id="addLiadoBtn" class="admin-btn btn-add-section">➕ Añadir liado</button>';
         const listDiv = containerItems.querySelector('#liadosList');
@@ -731,7 +737,7 @@
         listDiv.querySelectorAll('[data-del]').forEach(btn => { btn.onclick = () => { sec.items.splice(parseInt(btn.dataset.del),1); renderEditor(); }; });
         containerItems.querySelector('#addLiadoBtn').onclick = () => { sec.items.push({ nombre: "Nuevo Liado", precio: "0€" }); renderEditor(); };
       } else {
-        containerItems.innerHTML = '<p style="color:#ffcc00;">Edición para este tipo disponible en próximas versiones.</p>';
+        containerItems.innerHTML = '<p style="color:#ffcc00;">Edición para este tipo disponible.</p>';
       }
     }
     renderEditor();
@@ -751,7 +757,7 @@
     reader.readAsDataURL(file);
   }
 
-  function comprimirImagen(dataUrl, calidad=0.7) { return new Promise(resolve => { const img = new Image(); img.onload = () => { const canvas = document.createElement('canvas'); canvas.width = 300; canvas.height = 300; const ctx = canvas.getContext('2d'); ctx.drawImage(img,0,0,300,300); resolve(canvas.toDataURL('image/jpeg',calidad)); }; img.src = dataUrl; }); }
+  function comprimirImagen(dataUrl, calidad=0.7) { return new Promise(resolve => { const img = new Image(); img.onload = () => { const canvas = document.createElement('canvas'); canvas.width = 250; canvas.height = 250; const ctx = canvas.getContext('2d'); ctx.drawImage(img,0,0,250,250); resolve(canvas.toDataURL('image/jpeg',calidad)); }; img.src = dataUrl; }); }
 
   function mostrarToast() {
     const toast = document.getElementById('saveToast');
