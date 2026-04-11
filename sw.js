@@ -1,16 +1,35 @@
-const CACHE_NAME = 'eltioj-tablet-v1';
-const urlsToCache = ['./', './index.html', './manifest.json'];
+const CACHE_NAME = 'eltioj-v1';
+const ASSETS = [
+  './',
+  './index.html',
+  './manifest.json'
+];
 
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
+// Instalación
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
+  );
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)));
+// Activación
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then(keys => 
+      Promise.all(keys.map(key => {
+        if (key !== CACHE_NAME) return caches.delete(key);
+      }))
+    ).then(() => self.clients.claim())
+  );
 });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.map(key => {
-    if (key !== CACHE_NAME) return caches.delete(key);
-  }))));
+// Interceptar peticiones
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request)
+      .then(res => res || fetch(e.request))
+      .catch(() => caches.match('./index.html'))
+  );
 });
