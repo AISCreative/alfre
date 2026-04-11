@@ -1,11 +1,10 @@
-const CACHE_NAME = 'eltioj-v1';
+const CACHE_NAME = 'eltioj-v2';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json'
 ];
 
-// Instalación
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME)
@@ -14,7 +13,6 @@ self.addEventListener('install', (e) => {
   );
 });
 
-// Activación
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then(keys => 
@@ -25,7 +23,6 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Interceptar peticiones
 self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request)
