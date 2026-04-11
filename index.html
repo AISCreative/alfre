@@ -21,7 +21,7 @@
     .logo-club { font-size: 3.5rem; font-weight: 900; letter-spacing: 12px; color: #ffcc00; margin-top: -0.5rem; text-shadow: 0 0 10px #ff0000; }
     .welcome { font-size: 1.6rem; color: #ffffff; background: linear-gradient(90deg, transparent, rgba(255, 204, 0, 0.2), transparent); padding: 0.3rem 1rem; border-radius: 40px; display: inline-block; }
     
-    /* Pestañas dinámicas - se generan por JS */
+    /* Pestañas dinámicas */
     .pestanas-wrapper {
       overflow-x: auto;
       overflow-y: hidden;
@@ -31,8 +31,9 @@
     .pestanas { display: flex; gap: 0.6rem; min-width: max-content; }
     .pestana { background: rgba(10, 10, 20, 0.9); border: 2px solid; border-radius: 12px; padding: 0.5rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; min-width: 100px; }
     .pestana-icon { font-size: 1.8rem; }
-    .pestana-text { font-size: 1rem; font-weight: 700; white-space: nowrap; }
+    .pestana-text { font-size: 1rem; font-weight: 700; white-space: nowrap; color: white; }
     .pestana.activa { transform: scale(1.02); box-shadow: 0 0 20px currentColor; border-width: 3px; background: rgba(30, 30, 40, 0.95); }
+    .pestana.activa .pestana-text { color: white; }
     
     .contenido { flex: 1; overflow-y: auto; padding: 1rem 1rem; }
     .panel { display: none; }
@@ -134,17 +135,10 @@
       </div>
     </div>
     
-    <!-- Gestión de secciones (eliminar) -->
-    <div id="seccionesAdminList" style="margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px;">
-      <!-- Aquí aparecerán los botones para eliminar secciones -->
-    </div>
+    <div id="seccionesAdminList" style="margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
     
-    <!-- Pestañas de edición de contenido -->
-    <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;" id="adminTabsContainer">
-      <!-- Botones dinámicos para cada sección -->
-    </div>
+    <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;" id="adminTabsContainer"></div>
     
-    <!-- Contenido editable -->
     <div id="admin-contenido" style="background: #1a1a2a; border-radius: 30px; padding: 20px; margin-bottom: 20px;">
       <p style="color: white; text-align: center; font-size: 1.8rem;">Selecciona una sección para editar</p>
     </div>
@@ -156,9 +150,8 @@
 
   <script>
     const CONTRASENA = "alfre123";
-    const STORAGE_KEY = 'eltioj_datos_secciones_v2';
+    const STORAGE_KEY = 'eltioj_datos_secciones_v3';
 
-    // ===== ESTRUCTURA BASE CON SECCIONES DINÁMICAS =====
     let secciones = [
       { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [] },
       { id: "hierbas", nombre: "HIERBAS", icono: "🌿", tipo: "productos", items: [] },
@@ -168,7 +161,6 @@
       { id: "eventos", nombre: "EVENTOS", icono: "🎉", tipo: "eventos", items: [] }
     ];
 
-    // Datos por defecto
     const DEFAULT_EXTRA = [
       { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ff0000"/%3E%3Ctext x="50" y="55" fill="%23ffcc00" font-size="10" text-anchor="middle"%3EBHO%3C/text%3E%3C/svg%3E', nombre: 'BHO TROPICANA CHERRY', precio: '28€/g' },
       { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23008000"/%3E%3Ctext x="50" y="55" fill="%23ffcc00" font-size="10"%3EICE%3C/text%3E%3C/svg%3E', nombre: 'ICE MAC1 PLUS', precio: '18€/g' },
@@ -201,7 +193,6 @@
           else secciones = data;
         } catch(e) {}
       }
-      // Asegurar que las secciones tengan los datos por defecto si están vacías
       secciones.forEach(sec => {
         if (sec.tipo === 'productos' && (!sec.items || sec.items.length === 0)) {
           if (sec.id === 'extracciones') sec.items = JSON.parse(JSON.stringify(DEFAULT_EXTRA));
@@ -233,7 +224,11 @@
         const pest = document.createElement('div');
         pest.className = 'pestana';
         if (idx === 0) pest.classList.add('activa');
-        pest.style.borderColor = sec.tipo === 'productos' ? '#ffcc00' : (sec.tipo === 'liados' ? '#ffaa00' : (sec.tipo === 'munchies' ? '#ff18d0' : '#ffff00'));
+        let colorBorde = '#ffcc00';
+        if (sec.tipo === 'liados') colorBorde = '#ffaa00';
+        else if (sec.tipo === 'munchies') colorBorde = '#ff18d0';
+        else if (sec.tipo === 'eventos') colorBorde = '#ffff00';
+        pest.style.borderColor = colorBorde;
         pest.innerHTML = `<div class="pestana-icon">${sec.icono}</div><div class="pestana-text">${sec.nombre}</div>`;
         pest.addEventListener('click', () => {
           document.querySelectorAll('.pestana').forEach(p => p.classList.remove('activa'));
@@ -264,7 +259,6 @@
         panel.innerHTML = html;
         contenedor.appendChild(panel);
       });
-      // Llenar grids
       secciones.forEach(sec => {
         if (sec.tipo === 'productos') llenarProductos(sec);
         if (sec.tipo === 'liados') llenarLiados(sec);
@@ -277,7 +271,7 @@
       const grid = document.getElementById(`grid-${sec.id}`);
       if (!grid) return;
       grid.innerHTML = '';
-      sec.items.forEach((item, i) => {
+      sec.items.forEach((item) => {
         const card = document.createElement('div');
         card.className = 'producto-card';
         card.innerHTML = `<img src="${item.img}"><h4>${item.nombre}</h4><div class="producto-precio">${item.precio}</div>`;
@@ -322,9 +316,7 @@
       });
     }
 
-    // ===== ADMIN =====
-    let adminSeccionActual = null;
-
+    // ADMIN
     function mostrarLogin() {
       document.getElementById('panel-login').style.display = 'flex';
     }
@@ -352,7 +344,6 @@
     }
 
     function renderAdminUI() {
-      // Renderizar lista de secciones para eliminar
       const seccionesList = document.getElementById('seccionesAdminList');
       seccionesList.innerHTML = '<strong style="color:#ffcc00; margin-right:10px;">🗑️ Eliminar sección:</strong>';
       secciones.forEach((sec, idx) => {
@@ -368,10 +359,9 @@
         seccionesList.appendChild(btn);
       });
 
-      // Renderizar tabs de edición
       const tabsContainer = document.getElementById('adminTabsContainer');
       tabsContainer.innerHTML = '';
-      secciones.forEach((sec, idx) => {
+      secciones.forEach((sec) => {
         const tab = document.createElement('button');
         tab.textContent = `${sec.icono} ${sec.nombre}`;
         tab.style.background = '#333';
@@ -384,7 +374,6 @@
         tabsContainer.appendChild(tab);
       });
 
-      // Botón para añadir nueva sección
       document.getElementById('addNewSectionBtn').onclick = () => añadirNuevaSeccion();
     }
 
@@ -426,7 +415,6 @@
     }
 
     function mostrarSeccionAdmin(seccionId) {
-      adminSeccionActual = seccionId;
       const sec = secciones.find(s => s.id === seccionId);
       if (!sec) return;
       
@@ -504,7 +492,6 @@
       document.getElementById('admin-contenido').innerHTML = html;
     }
 
-    // Funciones de manipulación
     function actualizarProducto(secId, index, campo, valor) {
       const sec = secciones.find(s => s.id === secId);
       if (sec && sec.items[index]) {
