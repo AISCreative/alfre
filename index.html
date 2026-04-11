@@ -2,770 +2,665 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#0a2a0a">
+  <meta name="theme-color" content="#0b0c14">
   <link rel="manifest" href="manifest.json">
   <title>El Tio J · Catálogo</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #0a1f0a;
-    }
-
-    body {
-      background: radial-gradient(circle at 80% 20%, #1a3a1a 0%, #0a1a0a 100%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
-      position: relative;
-    }
-
-    /* Fondo de marca */
-    body::before {
-      content: "EL TIO J";
-      position: fixed;
-      bottom: 8%;
-      right: -5%;
-      font-size: clamp(3rem, 10vw, 7rem);
-      font-weight: 900;
-      color: rgba(255, 0, 0, 0.04);
-      white-space: nowrap;
-      pointer-events: none;
-      z-index: 1;
-      transform: rotate(-15deg);
-      letter-spacing: 8px;
-    }
-
-    /* Contenedor principal - optimizado para tablet vertical */
-    .kiosco {
-      width: 100%;
-      max-width: 800px;
-      height: 100%;
-      max-height: 1280px;
-      background: rgba(8, 18, 8, 0.85);
-      backdrop-filter: blur(16px);
-      border-radius: 48px;
-      border: 2px solid;
-      border-image: linear-gradient(135deg, #ff0000, #ffcc00, #008000) 1;
-      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 204, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-      z-index: 10;
-    }
-
-    /* Header */
-    .header {
-      padding: 1.2rem 1.5rem 0.8rem;
-      text-align: center;
-      background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(0, 128, 0, 0.08));
-      border-bottom: 3px solid #ffcc00;
-      flex-shrink: 0;
-    }
-
-    .logo-masquehigh {
-      font-size: 2.8rem;
-      font-weight: 900;
-      background: linear-gradient(135deg, #ff0000, #ffcc00, #008000);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
-      letter-spacing: -1px;
-    }
-
-    .logo-club {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: 4px;
-      color: #ffcc00;
-      text-shadow: 0 0 8px #ffcc00;
-      margin-top: -0.3rem;
-    }
-
-    .welcome {
-      font-size: 1rem;
-      background: linear-gradient(135deg, rgba(255,0,0,0.2), rgba(0,128,0,0.2));
-      display: inline-block;
-      padding: 0.2rem 1.5rem;
-      border-radius: 40px;
-      backdrop-filter: blur(4px);
-      color: #ffcc00;
-      font-weight: 500;
-    }
-
-    /* Pestañas - scroll horizontal si hay muchas */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #0b0c14; }
+    body { background: radial-gradient(circle at 30% 30%, #1a2a3a 0%, #030408 100%); display: flex; justify-content: center; align-items: center; padding: 8px; position: relative; }
+    body::before { content: "EL TIO J"; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-12deg) scale(1.2); font-size: clamp(3rem, 15vw, 10rem); font-weight: 900; color: rgba(255, 204, 0, 0.08); white-space: nowrap; letter-spacing: 12px; text-transform: uppercase; pointer-events: none; z-index: 1; animation: floatLogo 20s infinite alternate ease-in-out; }
+    @keyframes floatLogo { 0% { transform: translate(-50%, -50%) rotate(-12deg) scale(1.2); opacity: 0.08; } 100% { transform: translate(-48%, -52%) rotate(-8deg) scale(1.25); opacity: 0.12; } }
+    .kiosco { width: 100%; max-width: 1280px; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); border: 2px solid #ffcc00; border-radius: 30px; box-shadow: 0 0 40px #ffcc0066; display: flex; flex-direction: column; overflow: hidden; position: relative; z-index: 10; }
+    .header { padding: 1.5rem 1.5rem 0.8rem; text-align: center; border-bottom: 2px solid #ff0000; }
+    .logo-masquehigh { font-size: 4.8rem; font-weight: 900; background: linear-gradient(135deg, #ff0000, #ffcc00, #008000); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 25px #ffcc00; line-height: 1.1; }
+    .logo-club { font-size: 3.5rem; font-weight: 900; letter-spacing: 12px; color: #ffcc00; margin-top: -0.5rem; text-shadow: 0 0 10px #ff0000; }
+    .welcome { font-size: 1.6rem; color: #ffffff; background: linear-gradient(90deg, transparent, rgba(255, 204, 0, 0.2), transparent); padding: 0.3rem 1rem; border-radius: 40px; display: inline-block; }
+    
+    /* Pestañas dinámicas - se generan por JS */
     .pestanas-wrapper {
       overflow-x: auto;
       overflow-y: hidden;
-      padding: 0.6rem 1rem;
+      padding: 0.8rem 1rem;
       scrollbar-width: thin;
-      flex-shrink: 0;
     }
-
-    .pestanas {
-      display: flex;
-      gap: 0.6rem;
-      min-width: max-content;
-    }
-
-    .pestana {
-      background: rgba(10, 25, 10, 0.9);
-      border: 2px solid #ffcc00;
-      border-radius: 40px;
-      padding: 0.4rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      backdrop-filter: blur(8px);
-    }
-
-    .pestana-icon {
-      font-size: 1.3rem;
-    }
-
-    .pestana-text {
-      font-size: 0.85rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
-    }
-
-    .pestana.activa {
-      background: linear-gradient(135deg, rgba(255,0,0,0.3), rgba(0,128,0,0.3));
-      border-color: #ffcc00;
-      box-shadow: 0 0 12px #ffcc00;
-      transform: scale(1.02);
-    }
-
-    /* contenido scroll */
-    .contenido {
-      flex: 1;
-      overflow-y: auto;
-      padding: 1rem;
-    }
-
-    .panel {
-      display: none;
-    }
-
-    .panel.activo {
-      display: block;
-      animation: fadeIn 0.25s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-
-    /* Tarjetas de productos - 2 o 3 columnas en tablet vertical */
-    .productos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1rem;
-    }
-
-    .producto-card, .liado-card {
-      background: rgba(0, 15, 0, 0.7);
-      backdrop-filter: blur(12px);
-      border-radius: 24px;
-      padding: 0.8rem 0.5rem;
-      text-align: center;
-      transition: 0.2s;
-      border: 1px solid #ffcc00;
-    }
-
-    .producto-card img {
-      width: 90px;
-      height: 90px;
-      object-fit: cover;
-      border-radius: 25px;
-      border: 2px solid #ffcc00;
-      margin-bottom: 0.6rem;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-    }
-
-    .producto-card h4, .liado-card h4 {
-      font-size: 1rem;
-      color: #ffcc00;
-      text-shadow: 0 0 3px #ff0000;
-      margin-bottom: 0.3rem;
-    }
-
-    .producto-precio, .liado-precio {
-      font-size: 1.1rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, rgba(255,0,0,0.2), rgba(0,128,0,0.2));
-      display: inline-block;
-      padding: 0.2rem 0.8rem;
-      border-radius: 30px;
-      margin-top: 6px;
-      border: 1px solid #ffcc00;
-      color: #ffcc00;
-    }
-
-    .liados-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 1rem;
-    }
-
-    .liado-card {
-      border-color: #ffcc00;
-    }
-    .liado-card h4 { color: #ffcc00; text-shadow: 0 0 3px #ff0000; }
-    .liado-precio { border-color: #ffcc00; color: #ffcc00; }
-
-    .munchies-categoria {
-      background: rgba(0, 20, 0, 0.6);
-      border-radius: 28px;
-      padding: 1rem;
-      margin-bottom: 1.2rem;
-      border-left: 5px solid #ff0000;
-      border-right: 1px solid #ffcc00;
-    }
-    .categoria-titulo {
-      font-size: 1.6rem;
-      color: #ffcc00;
-      text-shadow: 0 0 4px #ff0000;
-      margin-bottom: 0.8rem;
-    }
-    .items-lista {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 0.6rem;
-    }
-    .item-munchi {
-      display: flex;
-      justify-content: space-between;
-      background: #0a1a0a;
-      padding: 0.5rem 0.8rem;
-      border-radius: 50px;
-      border: 1px solid #ffcc00;
-    }
-    .item-nombre { font-size: 1rem; color: #ffffff; }
-    .item-precio { font-size: 1.1rem; font-weight: bold; color: #ffcc00; }
-
-    /* EVENTOS GRID */
-    .eventos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-    .evento-card {
-      border-radius: 20px;
-      overflow: hidden;
-      border: 2px solid #ffcc00;
-      aspect-ratio: 1 / 1;
-      position: relative;
-      background: #000;
-    }
-    .evento-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .evento-delete {
-      position: absolute;
-      top: 6px;
-      right: 6px;
-      background: #ff0000;
-      border: none;
-      border-radius: 30px;
-      width: 28px;
-      height: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      display: none;
-      z-index: 20;
-      font-size: 14px;
-    }
+    .pestanas { display: flex; gap: 0.6rem; min-width: max-content; }
+    .pestana { background: rgba(10, 10, 20, 0.9); border: 2px solid; border-radius: 12px; padding: 0.5rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; min-width: 100px; }
+    .pestana-icon { font-size: 1.8rem; }
+    .pestana-text { font-size: 1rem; font-weight: 700; white-space: nowrap; }
+    .pestana.activa { transform: scale(1.02); box-shadow: 0 0 20px currentColor; border-width: 3px; background: rgba(30, 30, 40, 0.95); }
+    
+    .contenido { flex: 1; overflow-y: auto; padding: 1rem 1rem; }
+    .panel { display: none; }
+    .panel.activo { display: block; }
+    
+    .subseccion { background: rgba(0, 0, 0, 0.5); border: 1px solid #ffcc00; border-radius: 20px; padding: 1rem; margin-bottom: 1.2rem; }
+    .subseccion-titulo { font-size: 2rem; color: #ffcc00; text-shadow: 0 0 10px #ff0000; margin-bottom: 1rem; padding-left: 0.8rem; border-left: 6px solid #ffcc00; }
+    
+    .productos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+    .producto-card { background: #0d0f1a; border: 2px solid #3a2b4a; border-radius: 18px; padding: 0.8rem 0.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .producto-card img { width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 3px solid #ffcc00; box-shadow: 0 0 0 2px #ff0000; margin-bottom: 0.5rem; }
+    .producto-card h4 { font-size: 1.2rem; color: white; text-shadow: 0 0 5px #ffcc00; margin-bottom: 0.25rem; }
+    .producto-precio { font-size: 1.3rem; font-weight: 800; color: #ffcc00; background: rgba(255, 204, 0, 0.2); padding: 0.2rem 1rem; border-radius: 30px; border: 1px solid #ff0000; display: inline-block; }
+    
+    .liados-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.2rem; }
+    .liado-card { background: linear-gradient(145deg, #1a1a2a, #0d0f1a); border: 3px solid #ffaa00; border-radius: 20px; padding: 1.2rem 0.8rem; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: 0 0 15px rgba(255, 170, 0, 0.3); }
+    .liado-icon { font-size: 4rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 10px #ffaa00); }
+    .liado-card h4 { font-size: 1.5rem; color: #ffaa00; text-shadow: 0 0 10px #ffaa00; margin-bottom: 0.5rem; }
+    .liado-precio { font-size: 1.4rem; font-weight: 800; color: white; background: rgba(255, 170, 0, 0.3); padding: 0.3rem 1.2rem; border-radius: 30px; border: 2px solid #ffaa00; display: inline-block; }
+    
+    .munchies-categoria { background: rgba(20, 5, 25, 0.7); border: 2px solid #ffcc00; border-radius: 30px; padding: 1.5rem 1.2rem; margin-bottom: 1.5rem; }
+    .categoria-titulo { font-size: 2.6rem; color: #ffcc00; text-shadow: 0 0 15px #ff0000; margin-bottom: 1.5rem; border-bottom: 3px dotted #ffcc00; padding-bottom: 0.5rem; display: inline-block; }
+    .items-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; }
+    .item-munchi { display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.6); padding: 0.8rem 1.2rem; border-radius: 60px; border: 1px solid #ffcc00; }
+    .item-nombre { font-size: 1.4rem; color: white; text-transform: uppercase; }
+    .item-precio { font-size: 1.5rem; font-weight: 800; color: #ffcc00; }
+    
+    .eventos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 0.5rem; }
+    .evento-card { background: transparent; border: 3px solid #ffff00; border-radius: 20px; overflow: hidden; aspect-ratio: 1/1.2; position: relative; }
+    .evento-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .evento-delete { position: absolute; top: 5px; right: 5px; background: #ff18d0; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 20px; cursor: pointer; display: none; z-index: 100; }
     .admin-mode .evento-delete { display: block; }
+    
+    .save-indicator { position: fixed; bottom: 100px; right: 30px; background: #ffcc00; color: black; padding: 15px 25px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; box-shadow: 0 0 20px #ffcc00; z-index: 2100; display: none; }
 
-    /* Admin boton flotante */
-    .admin-fab {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 2000;
-    }
-    .admin-btn-flotante {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 20%, #ff0000, #008000);
-      border: 2px solid #ffcc00;
-      font-size: 28px;
-      box-shadow: 0 0 20px #ffcc00;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    /* Paneles admin */
-    .admin-card {
-      background: #0a1a0a;
-      border-radius: 24px;
-      padding: 0.8rem;
-      border: 2px solid #ffcc00;
-    }
-    .admin-img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 16px;
-      margin-bottom: 8px;
-    }
-    .admin-input, .admin-precio {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 8px;
-      background: #000000aa;
-      border: 1px solid #ffcc00;
-      border-radius: 30px;
-      color: white;
-      font-size: 0.9rem;
-    }
-    .admin-btn {
-      width: 100%;
-      padding: 10px;
-      margin: 4px 0;
-      border-radius: 30px;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-    }
-    .btn-upload { background: #008000; color: white; }
+    /* Estilos admin */
+    .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 20px; }
+    .admin-card { background: #0d0f1a; border: 2px solid; border-radius: 20px; padding: 15px; }
+    .admin-img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; margin-bottom: 10px; border: 2px solid #ffcc00; }
+    .admin-input { width: 100%; padding: 10px; margin-bottom: 10px; background: #000; border: 2px solid #ffcc00; border-radius: 10px; color: white; font-size: 1.4rem; }
+    .admin-precio { width: 100%; padding: 10px; margin-bottom: 10px; background: #000; border: 2px solid #ff0000; border-radius: 10px; color: #ffcc00; font-size: 1.4rem; }
+    .admin-file-input { display: none; }
+    .admin-btn { width: 100%; padding: 10px; border: none; border-radius: 30px; font-size: 1.4rem; cursor: pointer; margin-bottom: 5px; font-weight: bold; }
+    .btn-upload { background: #ffcc00; color: black; }
     .btn-delete { background: #ff0000; color: white; }
-    .btn-add-section { background: #ffcc00; color: black; margin-top: 6px; }
+    .btn-add { background: #ffff00; color: black; }
     .seccion-item-admin {
-      background: #0a1f0a;
+      background: #0d0f1a;
       margin-bottom: 15px;
-      padding: 12px;
-      border-radius: 24px;
-      border-left: 6px solid #ffcc00;
-      border-right: 1px solid #ff0000;
-    }
-    .save-indicator {
-      position: fixed;
-      bottom: 100px;
-      right: 20px;
-      background: #ffcc00;
-      color: black;
-      padding: 10px 20px;
-      border-radius: 50px;
-      font-weight: bold;
-      display: none;
-      z-index: 2200;
-      font-size: 0.9rem;
-    }
-
-    /* Modal admin */
-    .panel-admin-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #01010cee;
-      backdrop-filter: blur(12px);
-      z-index: 2100;
-      overflow-y: auto;
       padding: 15px;
+      border-radius: 20px;
+      border-left: 6px solid #ffcc00;
     }
   </style>
 </head>
 <body>
-
-<main class="kiosco">
-  <div class="header">
-    <div class="logo-masquehigh">EL TIO J</div>
-    <div class="logo-club">CLUB</div>
-    <div class="welcome">🔥 CATÁLOGO DINÁMICO 🔥</div>
-  </div>
-
-  <div class="pestanas-wrapper">
-    <div class="pestanas" id="pestanasContainer"></div>
-  </div>
-
-  <div class="contenido" id="contenidoPaneles"></div>
-</main>
-
-<div class="admin-fab">
-  <button id="btnAdminMain" class="admin-btn-flotante">🔧</button>
-</div>
-
-<!-- LOGIN MODAL -->
-<div id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000c; backdrop-filter:blur(12px); z-index:3000; align-items:center; justify-content:center;">
-  <div style="background:#0a1a0a; border-radius:40px; padding:1.5rem; max-width:350px; width:85%; border:2px solid #ffcc00;">
-    <h2 style="color:#ffcc00; font-size:1.8rem; text-align:center;">🔐 ADMIN</h2>
-    <input type="password" id="adminPass" placeholder="contraseña" style="width:100%; padding:0.8rem; margin:1rem 0; border-radius:50px; background:#000; border:2px solid #ffcc00; color:white; font-size:1.2rem;">
-    <div style="display:flex; gap:0.8rem;">
-      <button id="loginSubmit" style="flex:1; background:#008000; border-radius:50px; padding:0.7rem; font-weight:bold; color:white;">ENTRAR</button>
-      <button id="loginClose" style="flex:1; background:#ff0000; border-radius:50px; padding:0.7rem; color:white;">CERRAR</button>
+  <main class="kiosco">
+    <div class="header">
+      <div class="logo">
+        <div class="logo-masquehigh">EL TIO J</div>
+        <div class="logo-club">CLUB</div>
+      </div>
+      <div class="welcome">✨ Bienvenido a El Tio J Club ✨</div>
     </div>
-    <div id="loginError" style="color:#ffcc00; margin-top:0.8rem; text-align:center; display:none;">❌ Contraseña incorrecta</div>
-  </div>
-</div>
 
-<!-- PANEL ADMIN PRINCIPAL -->
-<div id="adminMainPanel" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#03030cee; backdrop-filter:blur(12px); z-index:3001; overflow-y:auto; padding:15px;">
-  <div style="max-width:700px; margin:0 auto;">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; flex-wrap:wrap; gap:10px;">
-      <h2 style="color:#ffcc00; font-size:1.6rem;">✏️ GESTIÓN TOTAL</h2>
-      <button id="closeAdminBtn" style="background:#ff0000; border:none; border-radius:40px; padding:10px 20px; font-weight:bold; cursor:pointer; color:white;">CERRAR</button>
+    <div class="pestanas-wrapper">
+      <div class="pestanas" id="pestanasContainer"></div>
     </div>
-    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px;">
-      <button id="addSectionBtnAdmin" style="background:#ffcc00; border:none; border-radius:40px; padding:10px 20px; font-weight:bold;">➕ AÑADIR SECCIÓN</button>
-      <button id="editSectionsBtn" style="background:#008000; border:none; border-radius:40px; padding:10px 20px; font-weight:bold; color:white;">📂 GESTIONAR SECCIONES</button>
-    </div>
-    <div id="adminSectionsContainer"></div>
-    <button id="globalSaveBtn" style="width:100%; background:#ffcc00; border-radius:50px; padding:14px; font-size:1.4rem; font-weight:bold; margin-top:15px;">💾 GUARDAR TODO</button>
+
+    <div class="contenido" id="contenidoPaneles"></div>
+  </main>
+
+  <!-- Botón ADMIN -->
+  <div style="position: fixed; bottom: 30px; right: 30px; z-index: 2000;">
+    <button id="btn-admin" onclick="mostrarLogin()" style="width: 70px; height: 70px; border-radius: 50%; background: #ffcc00; border: 4px solid #ff0000; color: black; font-size: 30px; box-shadow: 0 0 30px #ffcc00; cursor: pointer;">⚙️</button>
   </div>
-</div>
 
-<div id="saveToast" class="save-indicator">✅ GUARDADO</div>
+  <!-- PANEL LOGIN -->
+  <div id="panel-login" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2001; align-items: center; justify-content: center;">
+    <div style="background: #0b0c14; border: 4px solid #ffcc00; border-radius: 40px; padding: 40px; width: 90%; max-width: 500px; box-shadow: 0 0 60px #ff0000;">
+      <h2 style="color: #ffcc00; text-align: center; font-size: 3rem; margin-bottom: 30px;">🔐 ADMIN</h2>
+      <input type="password" id="login-password" placeholder="Contraseña" style="width: 100%; padding: 25px; font-size: 2rem; background: #1a1a2a; border: 3px solid #ff0000; border-radius: 30px; color: white; margin-bottom: 30px; text-align: center;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <button onclick="comprobarLogin()" style="background: #ffcc00; border: none; border-radius: 30px; padding: 25px; font-size: 2rem; font-weight: bold; cursor: pointer;">ENTRAR</button>
+        <button onclick="cerrarLogin()" style="background: #ff0000; border: none; border-radius: 30px; padding: 25px; font-size: 2rem; font-weight: bold; color: white; cursor: pointer;">CERRAR</button>
+      </div>
+      <p id="login-error" style="color: #ff0000; text-align: center; font-size: 1.8rem; margin-top: 20px; display: none;">❌ Contraseña incorrecta</p>
+    </div>
+  </div>
 
-<script>
-  const PASS = "situs123";
-  const STORAGE_KEY = "eltioj_catalogo_tablet";
-
-  // Estructura base
-  let secciones = [
-    { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [] },
-    { id: "hierbas", nombre: "HIERBAS", icono: "🌿", tipo: "productos", items: [] },
-    { id: "hash", nombre: "HASH", icono: "🍫", tipo: "productos", items: [] },
-    { id: "liados", nombre: "LIADOS", icono: "🚬", tipo: "liados", items: [] },
-    { id: "munchies", nombre: "MUNCHIES", icono: "🍕", tipo: "munchies", sub: { bebidas: [], picar: [] } },
-    { id: "eventos", nombre: "EVENTOS", icono: "🎉", tipo: "eventos", items: [] }
-  ];
-
-  const DEFAULT_EXTRA = [
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='10' text-anchor='middle'%3EBHO%3C/text%3E%3C/svg%3E", nombre: "BHO TROPICANA CHERRY", precio: "28€/g" },
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23008000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='10' text-anchor='middle'%3EICE%3C/text%3E%3C/svg%3E", nombre: "ICE MAC1 PLUS", precio: "18€/g" },
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffcc00'/%3E%3Ctext x='50' y='55' fill='black' font-size='10'%3ETAITELLA%3C/text%3E%3C/svg%3E", nombre: "TAITELLA", precio: "24€/g" }
-  ];
-  const DEFAULT_HIERBAS = [
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23008000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='9'%3ELONDON%3C/text%3E%3C/svg%3E", nombre: "LONDON CAKE", precio: "8€/g" },
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='9'%3EAMNESIA%3C/text%3E%3C/svg%3E", nombre: "AMNESIA", precio: "4€/g" },
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffcc00'/%3E%3Ctext x='50' y='55' fill='black' font-size='9'%3ETANGIE%3C/text%3E%3C/svg%3E", nombre: "TANGIE", precio: "7€/g" }
-  ];
-  const DEFAULT_HASH = [
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23804020'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='9'%3EGORILA%3C/text%3E%3C/svg%3E", nombre: "GORILA", precio: "6€/g" },
-    { img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff0000'/%3E%3Ctext x='50' y='55' fill='%23ffcc00' font-size='9'%3ERUNTZ%3C/text%3E%3C/svg%3E", nombre: "RUNTZ", precio: "5€/g" }
-  ];
-  const DEFAULT_LIADOS = [
-    { nombre: "CRITICAL X GORILA", precio: "1x3€ | 2x5€" },
-    { nombre: "AMNESIA", precio: "1x3€ | 2x5€" },
-    { nombre: "TROPICANA", precio: "1x3€ | 2x5€" }
-  ];
-  const DEFAULT_BEBIDAS = [{ nombre: "COCACOLA", precio: "2€" }, { nombre: "AGUA", precio: "1.50€" }, { nombre: "REDBULL", precio: "2.50€" }, { nombre: "MONSTER", precio: "2.50€" }];
-  const DEFAULT_PICAR = [{ nombre: "PATATAS", precio: "1.50€" }, { nombre: "CHUCHAS", precio: "1.50€" }, { nombre: "PALOMITAS", precio: "1.20€" }];
-  const DEFAULT_EVENTOS = ["data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23ff0000'/%3E%3Ctext x='100' y='110' fill='%23ffcc00' text-anchor='middle'%3EEVENTO%3C/text%3E%3C/svg%3E","data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23008000'/%3E%3Ctext x='100' y='110' fill='%23ffcc00'%3EFIESTA%3C/text%3E%3C/svg%3E"];
-
-  function cargarDatos() {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if(stored) {
-      try {
-        const data = JSON.parse(stored);
-        if(data.secciones) secciones = data.secciones;
-        else secciones = data;
-      } catch(e) {}
-    }
-    if(secciones.length === 0) secciones = [...secciones];
-    secciones.forEach(sec => {
-      if(sec.tipo === 'productos' && !sec.items.length) {
-        if(sec.id === 'extracciones') sec.items = JSON.parse(JSON.stringify(DEFAULT_EXTRA));
-        else if(sec.id === 'hierbas') sec.items = JSON.parse(JSON.stringify(DEFAULT_HIERBAS));
-        else if(sec.id === 'hash') sec.items = JSON.parse(JSON.stringify(DEFAULT_HASH));
-        else sec.items = [];
-      }
-      if(sec.tipo === 'liados' && !sec.items.length) sec.items = JSON.parse(JSON.stringify(DEFAULT_LIADOS));
-      if(sec.tipo === 'munchies' && (!sec.sub || !sec.sub.bebidas)) sec.sub = { bebidas: JSON.parse(JSON.stringify(DEFAULT_BEBIDAS)), picar: JSON.parse(JSON.stringify(DEFAULT_PICAR)) };
-      if(sec.tipo === 'eventos' && !sec.items.length) sec.items = JSON.parse(JSON.stringify(DEFAULT_EVENTOS));
-    });
-    renderizarTodo();
-  }
-
-  function guardarCompleto() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(secciones));
-    mostrarToast();
-  }
-
-  function renderizarTodo() {
-    renderPestanas();
-    renderPaneles();
-  }
-
-  function renderPestanas() {
-    const container = document.getElementById('pestanasContainer');
-    container.innerHTML = '';
-    secciones.forEach((sec, idx) => {
-      const pest = document.createElement('div');
-      pest.className = 'pestana' + (idx === 0 ? ' activa' : '');
-      pest.dataset.idx = idx;
-      pest.innerHTML = `<div class="pestana-icon">${sec.icono}</div><div class="pestana-text">${sec.nombre}</div>`;
-      pest.addEventListener('click', () => {
-        document.querySelectorAll('.pestana').forEach(p => p.classList.remove('activa'));
-        pest.classList.add('activa');
-        document.querySelectorAll('.panel').forEach((p, i) => { p.classList.toggle('activo', i === idx); });
-      });
-      container.appendChild(pest);
-    });
-  }
-
-  function renderPaneles() {
-    const contenedorPaneles = document.getElementById('contenidoPaneles');
-    contenedorPaneles.innerHTML = '';
-    secciones.forEach((sec, idx) => {
-      const panel = document.createElement('div');
-      panel.className = 'panel' + (idx === 0 ? ' activo' : '');
-      panel.id = `panel-${idx}`;
-      let html = '';
-      if(sec.tipo === 'productos') {
-        html = `<div class="subseccion"><h3 class="categoria-titulo" style="color:#ffcc00;">${sec.icono} ${sec.nombre}</h3><div class="productos-grid" id="grid-${sec.id}"></div></div>`;
-      } else if(sec.tipo === 'liados') {
-        html = `<div><h3 class="categoria-titulo" style="color:#ffcc00;">🚬 ${sec.nombre}</h3><div class="liados-grid" id="grid-${sec.id}"></div></div>`;
-      } else if(sec.tipo === 'munchies') {
-        html = `<div><div class="munchies-categoria"><div class="categoria-titulo">🥤 BEBIDAS</div><div class="items-lista" id="bebidas-lista-${sec.id}"></div></div>
-                <div class="munchies-categoria"><div class="categoria-titulo">🍿 PICAR</div><div class="items-lista" id="picar-lista-${sec.id}"></div></div></div>`;
-      } else if(sec.tipo === 'eventos') {
-        html = `<div><h3 class="categoria-titulo" style="color:#ffcc00;">🎉 ${sec.nombre}</h3><div class="eventos-grid" id="eventos-grid-${sec.id}"></div></div>`;
-      }
-      panel.innerHTML = html;
-      contenedorPaneles.appendChild(panel);
-    });
-    secciones.forEach(sec => {
-      if(sec.tipo === 'productos') llenarProductos(sec);
-      if(sec.tipo === 'liados') llenarLiados(sec);
-      if(sec.tipo === 'munchies') llenarMunchies(sec);
-      if(sec.tipo === 'eventos') llenarEventos(sec);
-    });
-  }
-
-  function llenarProductos(sec) {
-    const grid = document.getElementById(`grid-${sec.id}`);
-    if(!grid) return;
-    grid.innerHTML = '';
-    sec.items.forEach((item, i) => {
-      const card = document.createElement('div');
-      card.className = 'producto-card';
-      card.innerHTML = `<img src="${item.img}" id="img-${sec.id}-${i}"><h4 id="nom-${sec.id}-${i}">${item.nombre}</h4><div class="producto-precio" id="precio-${sec.id}-${i}">${item.precio}</div>`;
-      grid.appendChild(card);
-    });
-  }
-
-  function llenarLiados(sec) {
-    const grid = document.getElementById(`grid-${sec.id}`);
-    if(!grid) return;
-    grid.innerHTML = '';
-    sec.items.forEach((item, i) => {
-      const div = document.createElement('div');
-      div.className = 'liado-card';
-      div.innerHTML = `<div class="liado-icon">🚬</div><h4>${item.nombre}</h4><div class="liado-precio">${item.precio}</div>`;
-      grid.appendChild(div);
-    });
-  }
-
-  function llenarMunchies(sec) {
-    const bebidasDiv = document.getElementById(`bebidas-lista-${sec.id}`);
-    const picarDiv = document.getElementById(`picar-lista-${sec.id}`);
-    if(bebidasDiv) {
-      bebidasDiv.innerHTML = '';
-      sec.sub.bebidas.forEach((item) => { bebidasDiv.innerHTML += `<div class="item-munchi"><span class="item-nombre">${item.nombre}</span><span class="item-precio">${item.precio}</span></div>`; });
-    }
-    if(picarDiv) {
-      picarDiv.innerHTML = '';
-      sec.sub.picar.forEach((item) => { picarDiv.innerHTML += `<div class="item-munchi"><span class="item-nombre">${item.nombre}</span><span class="item-precio">${item.precio}</span></div>`; });
-    }
-  }
-
-  function llenarEventos(sec) {
-    const grid = document.getElementById(`eventos-grid-${sec.id}`);
-    if(!grid) return;
-    grid.innerHTML = '';
-    sec.items.forEach((img, idx) => {
-      const card = document.createElement('div');
-      card.className = 'evento-card';
-      card.innerHTML = `<img src="${img}"><button class="evento-delete" data-sec="${sec.id}" data-evidx="${idx}">✖</button>`;
-      grid.appendChild(card);
-    });
-  }
-
-  // ADMIN
-  document.getElementById('btnAdminMain').onclick = () => document.getElementById('loginModal').style.display = 'flex';
-  document.getElementById('loginClose').onclick = () => document.getElementById('loginModal').style.display = 'none';
-  document.getElementById('loginSubmit').onclick = () => {
-    if(document.getElementById('adminPass').value === PASS) {
-      document.getElementById('loginModal').style.display = 'none';
-      abrirAdminPanel();
-    } else document.getElementById('loginError').style.display = 'block';
-  };
-
-  function abrirAdminPanel() {
-    document.getElementById('adminMainPanel').style.display = 'block';
-    renderAdminSections();
-    document.body.classList.add('admin-mode');
-  }
-  document.getElementById('closeAdminBtn').onclick = () => {
-    document.getElementById('adminMainPanel').style.display = 'none';
-    document.body.classList.remove('admin-mode');
-  };
-
-  function renderAdminSections() {
-    const container = document.getElementById('adminSectionsContainer');
-    container.innerHTML = '';
-    secciones.forEach((sec, idx) => {
-      const secDiv = document.createElement('div');
-      secDiv.className = 'seccion-item-admin';
-      secDiv.innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;"><h3 style="color:#ffcc00; font-size:1.2rem;">${sec.icono} ${sec.nombre}</h3>
-        <button class="admin-btn btn-delete" data-removeidx="${idx}" style="width:auto; padding:5px 15px;">🗑️ Eliminar</button></div>
-        <div style="margin-top:8px;"><button class="admin-btn btn-upload" data-editsec="${idx}">✏️ Editar contenido</button></div>
-      `;
-      container.appendChild(secDiv);
-    });
-    document.querySelectorAll('[data-removeidx]').forEach(btn => {
-      btn.onclick = () => {
-        let idx = parseInt(btn.dataset.removeidx);
-        if(secciones.length <= 1) { alert("Debe haber al menos una sección"); return; }
-        if(confirm(`¿Eliminar sección "${secciones[idx].nombre}"?`)) {
-          secciones.splice(idx,1);
-          renderizarTodo();
-          renderAdminSections();
-          guardarCompleto();
-        }
-      };
-    });
-    document.querySelectorAll('[data-editsec]').forEach(btn => {
-      btn.onclick = () => abrirEditorSeccion(parseInt(btn.dataset.editsec));
-    });
-    document.getElementById('addSectionBtnAdmin').onclick = () => {
-      let nombreNuevo = prompt("Nombre de nueva sección (ej: 'CREMAS')");
-      if(!nombreNuevo) return;
-      let icono = prompt("Ícono emoji (ej: 💎)", "💎");
-      let tipo = prompt("Tipo: 'productos', 'liados', 'eventos', 'munchies'", "productos");
-      if(!['productos','liados','eventos','munchies'].includes(tipo)) tipo="productos";
-      const newId = "sec_"+Date.now();
-      let nuevaSec = { id: newId, nombre: nombreNuevo.toUpperCase(), icono: icono || "📦", tipo: tipo };
-      if(tipo === 'productos') nuevaSec.items = [];
-      else if(tipo === 'liados') nuevaSec.items = [];
-      else if(tipo === 'eventos') nuevaSec.items = [];
-      else if(tipo === 'munchies') nuevaSec.sub = { bebidas: [], picar: [] };
-      secciones.push(nuevaSec);
-      renderizarTodo();
-      renderAdminSections();
-      guardarCompleto();
-    };
-    document.getElementById('editSectionsBtn').onclick = () => { alert("Puedes eliminar secciones con los botones rojos. Para editar productos usa 'Editar contenido'."); };
-    document.getElementById('globalSaveBtn').onclick = () => { guardarCompleto(); alert("Todo guardado correctamente"); };
-  }
-
-  function abrirEditorSeccion(secIndex) {
-    const sec = secciones[secIndex];
-    let modal = document.createElement('div');
-    modal.style.position='fixed'; modal.style.top='0'; modal.style.left='0'; modal.style.width='100%'; modal.style.height='100%'; modal.style.background='#000c'; modal.style.backdropFilter='blur(20px)'; modal.style.zIndex='4000'; modal.style.overflow='auto'; modal.style.padding='15px';
-    modal.innerHTML = `<div style="max-width:600px; margin:auto; background:#0a1a0a; border-radius:28px; padding:15px; border:2px solid #ffcc00;"><div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;"><h2 style="color:#ffcc00; font-size:1.4rem;">✏️ Editando: ${sec.nombre}</h2><button id="closeEditorBtn" style="background:#ff0000; border:none; border-radius:50px; padding:6px 15px; color:white;">Cerrar</button></div><div id="dynamicEditorContainer"></div></div>`;
-    document.body.appendChild(modal);
-    const containerItems = modal.querySelector('#dynamicEditorContainer');
+  <!-- PANEL ADMIN -->
+  <div id="panel-admin" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0b0c14; z-index: 2002; overflow-y: auto; padding: 20px;">
     
-    function renderEditor() {
-      if(sec.tipo === 'productos') {
-        containerItems.innerHTML = '<h3 style="color:#ffcc00; margin:10px 0;">Productos</h3><div id="prodList"></div><button id="addItemBtn" class="admin-btn btn-add-section">➕ Añadir producto</button>';
-        const prodDiv = containerItems.querySelector('#prodList');
-        prodDiv.innerHTML = '';
-        sec.items.forEach((item, idx) => {
-          let div = document.createElement('div');
-          div.className = 'admin-card';
-          div.innerHTML = `<img src="${item.img}" style="width:70px; height:70px; object-fit:cover; border-radius:16px; margin-bottom:6px;"><br>
-          <input type="file" class="imgUploader" data-idx="${idx}" accept="image/*" style="margin:5px 0;">
-          <button class="admin-btn btn-upload" data-upimg="${idx}" style="padding:6px;">📷 Subir foto</button>
-          <input type="text" value="${item.nombre.replace(/"/g,'&quot;')}" class="admin-input" data-field="nombre" data-idx="${idx}" placeholder="Nombre" style="padding:8px;">
-          <input type="text" value="${item.precio}" class="admin-precio" data-field="precio" data-idx="${idx}" placeholder="Precio" style="padding:8px;">
-          <button class="admin-btn btn-delete" data-del="${idx}" style="padding:6px;">🗑️ Eliminar</button>`;
-          prodDiv.appendChild(div);
-        });
-        for(let i=0;i<sec.items.length;i++) {
-          const upBtn = prodDiv.querySelector(`[data-upimg="${i}"]`);
-          if(upBtn) upBtn.onclick = () => { const fileInput = prodDiv.querySelector(`.imgUploader[data-idx="${i}"]`); if(fileInput) fileInput.click(); };
-          const fileInput = prodDiv.querySelector(`.imgUploader[data-idx="${i}"]`);
-          if(fileInput) fileInput.onchange = (e) => handleImageUploadSec(sec, i, e.target.files[0], modal);
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+      <h2 style="color: #ffcc00; font-size: 2.5rem;">✏️ EDITAR TODO</h2>
+      <div style="display: flex; gap: 10px;">
+        <button id="addNewSectionBtn" style="background: #ffcc00; border: none; border-radius: 40px; padding: 12px 24px; font-size: 1.4rem; font-weight: bold; cursor: pointer;">➕ AÑADIR SECCIÓN</button>
+        <button onclick="cerrarAdmin()" style="background: #ff0000; border: none; border-radius: 40px; padding: 12px 24px; font-size: 1.4rem; color: white; cursor: pointer;">CERRAR</button>
+      </div>
+    </div>
+    
+    <!-- Gestión de secciones (eliminar) -->
+    <div id="seccionesAdminList" style="margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px;">
+      <!-- Aquí aparecerán los botones para eliminar secciones -->
+    </div>
+    
+    <!-- Pestañas de edición de contenido -->
+    <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;" id="adminTabsContainer">
+      <!-- Botones dinámicos para cada sección -->
+    </div>
+    
+    <!-- Contenido editable -->
+    <div id="admin-contenido" style="background: #1a1a2a; border-radius: 30px; padding: 20px; margin-bottom: 20px;">
+      <p style="color: white; text-align: center; font-size: 1.8rem;">Selecciona una sección para editar</p>
+    </div>
+    
+    <button onclick="guardarTodo()" style="width: 100%; background: #ffcc00; border: 4px solid #ff0000; border-radius: 60px; padding: 25px; font-size: 2.5rem; font-weight: bold; cursor: pointer;">💾 GUARDAR CAMBIOS</button>
+  </div>
+
+  <div id="saveIndicator" class="save-indicator">✅ GUARDADO</div>
+
+  <script>
+    const CONTRASENA = "alfre123";
+    const STORAGE_KEY = 'eltioj_datos_secciones_v2';
+
+    // ===== ESTRUCTURA BASE CON SECCIONES DINÁMICAS =====
+    let secciones = [
+      { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [] },
+      { id: "hierbas", nombre: "HIERBAS", icono: "🌿", tipo: "productos", items: [] },
+      { id: "hash", nombre: "HASH", icono: "🍫", tipo: "productos", items: [] },
+      { id: "liados", nombre: "LIADOS", icono: "🚬", tipo: "liados", items: [] },
+      { id: "munchies", nombre: "MUNCHIES", icono: "🍕", tipo: "munchies", sub: { bebidas: [], picar: [] } },
+      { id: "eventos", nombre: "EVENTOS", icono: "🎉", tipo: "eventos", items: [] }
+    ];
+
+    // Datos por defecto
+    const DEFAULT_EXTRA = [
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ff0000"/%3E%3Ctext x="50" y="55" fill="%23ffcc00" font-size="10" text-anchor="middle"%3EBHO%3C/text%3E%3C/svg%3E', nombre: 'BHO TROPICANA CHERRY', precio: '28€/g' },
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23008000"/%3E%3Ctext x="50" y="55" fill="%23ffcc00" font-size="10"%3EICE%3C/text%3E%3C/svg%3E', nombre: 'ICE MAC1 PLUS', precio: '18€/g' },
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ffcc00"/%3E%3Ctext x="50" y="55" fill="black"%3ETAITELLA%3C/text%3E%3C/svg%3E', nombre: 'TAITELLA', precio: '24€/g' }
+    ];
+    const DEFAULT_HIERBAS = [
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23008000"/%3E%3Ctext x="50" y="55" fill="%23ffcc00"%3ELONDON%3C/text%3E%3C/svg%3E', nombre: 'LONDON CAKE', precio: '8€/g' },
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ff0000"/%3E%3Ctext x="50" y="55" fill="%23ffcc00"%3EAMNESIA%3C/text%3E%3C/svg%3E', nombre: 'AMNESIA', precio: '4€/g' }
+    ];
+    const DEFAULT_HASH = [
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23804020"/%3E%3Ctext x="50" y="55" fill="%23ffcc00"%3EGORILA%3C/text%3E%3C/svg%3E', nombre: 'GORILA', precio: '6€/g' }
+    ];
+    const DEFAULT_LIADOS = [
+      { nombre: 'CRITICAL X GORILA', precio: '1x3€ | 2x5€' },
+      { nombre: 'AMNESIA', precio: '1x3€ | 2x5€' }
+    ];
+    const DEFAULT_BEBIDAS = [{ nombre: 'COCACOLA', precio: '2€' }, { nombre: 'AGUA', precio: '1.50€' }];
+    const DEFAULT_PICAR = [{ nombre: 'PATATAS', precio: '1.50€' }];
+    const DEFAULT_EVENTOS = [
+      'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23ff0000"/%3E%3Ctext x="100" y="110" fill="%23ffcc00" text-anchor="middle"%3EEVENTO%3C/text%3E%3C/svg%3E',
+      'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23008000"/%3E%3Ctext x="100" y="110" fill="%23ffcc00"%3EFIESTA%3C/text%3E%3C/svg%3E'
+    ];
+
+    function cargarDatos() {
+      const guardado = localStorage.getItem(STORAGE_KEY);
+      if (guardado) {
+        try {
+          const data = JSON.parse(guardado);
+          if (data.secciones) secciones = data.secciones;
+          else secciones = data;
+        } catch(e) {}
+      }
+      // Asegurar que las secciones tengan los datos por defecto si están vacías
+      secciones.forEach(sec => {
+        if (sec.tipo === 'productos' && (!sec.items || sec.items.length === 0)) {
+          if (sec.id === 'extracciones') sec.items = JSON.parse(JSON.stringify(DEFAULT_EXTRA));
+          else if (sec.id === 'hierbas') sec.items = JSON.parse(JSON.stringify(DEFAULT_HIERBAS));
+          else if (sec.id === 'hash') sec.items = JSON.parse(JSON.stringify(DEFAULT_HASH));
+          else sec.items = [];
         }
-        prodDiv.querySelectorAll('[data-field="nombre"]').forEach(inp => {
-          inp.onchange = (e) => { sec.items[inp.dataset.idx].nombre = e.target.value; renderEditor(); };
+        if (sec.tipo === 'liados' && (!sec.items || sec.items.length === 0)) sec.items = JSON.parse(JSON.stringify(DEFAULT_LIADOS));
+        if (sec.tipo === 'munchies' && (!sec.sub || !sec.sub.bebidas)) sec.sub = { bebidas: JSON.parse(JSON.stringify(DEFAULT_BEBIDAS)), picar: JSON.parse(JSON.stringify(DEFAULT_PICAR)) };
+        if (sec.tipo === 'eventos' && (!sec.items || sec.items.length === 0)) sec.items = JSON.parse(JSON.stringify(DEFAULT_EVENTOS));
+      });
+      renderizarTodo();
+    }
+
+    function guardarCompleto() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ secciones: secciones }));
+      mostrarIndicator();
+    }
+
+    function renderizarTodo() {
+      renderPestanas();
+      renderPaneles();
+    }
+
+    function renderPestanas() {
+      const container = document.getElementById('pestanasContainer');
+      container.innerHTML = '';
+      secciones.forEach((sec, idx) => {
+        const pest = document.createElement('div');
+        pest.className = 'pestana';
+        if (idx === 0) pest.classList.add('activa');
+        pest.style.borderColor = sec.tipo === 'productos' ? '#ffcc00' : (sec.tipo === 'liados' ? '#ffaa00' : (sec.tipo === 'munchies' ? '#ff18d0' : '#ffff00'));
+        pest.innerHTML = `<div class="pestana-icon">${sec.icono}</div><div class="pestana-text">${sec.nombre}</div>`;
+        pest.addEventListener('click', () => {
+          document.querySelectorAll('.pestana').forEach(p => p.classList.remove('activa'));
+          pest.classList.add('activa');
+          document.querySelectorAll('.panel').forEach((p, i) => { p.classList.toggle('activo', i === idx); });
         });
-        prodDiv.querySelectorAll('[data-field="precio"]').forEach(inp => {
-          inp.onchange = (e) => { sec.items[inp.dataset.idx].precio = e.target.value; };
-        });
-        prodDiv.querySelectorAll('[data-del]').forEach(btn => {
-          btn.onclick = () => { sec.items.splice(parseInt(btn.dataset.del),1); renderEditor(); };
-        });
-        const addBtn = containerItems.querySelector('#addItemBtn');
-        if(addBtn) addBtn.onclick = () => { sec.items.push({ img: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ffcc00'/%3E%3Ctext x='50' y='55' fill='black' font-size='9'%3ENUEVO%3C/text%3E%3C/svg%3E", nombre: "Nuevo", precio: "0€" }); renderEditor(); };
-      } else if(sec.tipo === 'liados') {
-        containerItems.innerHTML = '<h3 style="color:#ffcc00;">Liados</h3><div id="liadosList"></div><button id="addLiadoBtn" class="admin-btn btn-add-section">➕ Añadir liado</button>';
-        const listDiv = containerItems.querySelector('#liadosList');
-        listDiv.innerHTML = '';
-        sec.items.forEach((item, idx) => {
-          let div = document.createElement('div');
-          div.className = 'admin-card';
-          div.innerHTML = `<input type="text" value="${item.nombre}" class="admin-input" data-lnombre="${idx}" placeholder="Nombre">
-          <input type="text" value="${item.precio}" class="admin-precio" data-lprecio="${idx}" placeholder="Precio">
-          <button class="admin-btn btn-delete" data-del="${idx}">🗑️ Eliminar</button>`;
-          listDiv.appendChild(div);
-        });
-        listDiv.querySelectorAll('[data-lnombre]').forEach(inp => { inp.onchange = (e) => { sec.items[inp.dataset.lnombre].nombre = e.target.value; }; });
-        listDiv.querySelectorAll('[data-lprecio]').forEach(inp => { inp.onchange = (e) => { sec.items[inp.dataset.lprecio].precio = e.target.value; }; });
-        listDiv.querySelectorAll('[data-del]').forEach(btn => { btn.onclick = () => { sec.items.splice(parseInt(btn.dataset.del),1); renderEditor(); }; });
-        containerItems.querySelector('#addLiadoBtn').onclick = () => { sec.items.push({ nombre: "Nuevo Liado", precio: "0€" }); renderEditor(); };
-      } else {
-        containerItems.innerHTML = '<p style="color:#ffcc00;">Edición para este tipo disponible.</p>';
+        container.appendChild(pest);
+      });
+    }
+
+    function renderPaneles() {
+      const contenedor = document.getElementById('contenidoPaneles');
+      contenedor.innerHTML = '';
+      secciones.forEach((sec, idx) => {
+        const panel = document.createElement('div');
+        panel.className = 'panel' + (idx === 0 ? ' activo' : '');
+        let html = '';
+        if (sec.tipo === 'productos') {
+          html = `<div class="subseccion"><h3 class="subseccion-titulo">${sec.icono} ${sec.nombre}</h3><div class="productos-grid" id="grid-${sec.id}"></div></div>`;
+        } else if (sec.tipo === 'liados') {
+          html = `<div class="subseccion" style="border-color: #ffaa00;"><h3 class="subseccion-titulo" style="color: #ffaa00; border-left-color: #ffaa00;">🚬 ${sec.nombre}</h3><div class="liados-grid" id="grid-${sec.id}"></div></div>`;
+        } else if (sec.tipo === 'munchies') {
+          html = `<div><div class="munchies-categoria"><div class="categoria-titulo">🥤 BEBIDAS</div><div class="items-lista" id="bebidas-lista-${sec.id}"></div></div>
+                  <div class="munchies-categoria"><div class="categoria-titulo">🍿 PICAR</div><div class="items-lista" id="picar-lista-${sec.id}"></div></div></div>`;
+        } else if (sec.tipo === 'eventos') {
+          html = `<div class="subseccion"><h3 class="subseccion-titulo">🎉 ${sec.nombre}</h3><div class="eventos-grid" id="eventos-grid-${sec.id}"></div></div>`;
+        }
+        panel.innerHTML = html;
+        contenedor.appendChild(panel);
+      });
+      // Llenar grids
+      secciones.forEach(sec => {
+        if (sec.tipo === 'productos') llenarProductos(sec);
+        if (sec.tipo === 'liados') llenarLiados(sec);
+        if (sec.tipo === 'munchies') llenarMunchies(sec);
+        if (sec.tipo === 'eventos') llenarEventos(sec);
+      });
+    }
+
+    function llenarProductos(sec) {
+      const grid = document.getElementById(`grid-${sec.id}`);
+      if (!grid) return;
+      grid.innerHTML = '';
+      sec.items.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'producto-card';
+        card.innerHTML = `<img src="${item.img}"><h4>${item.nombre}</h4><div class="producto-precio">${item.precio}</div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function llenarLiados(sec) {
+      const grid = document.getElementById(`grid-${sec.id}`);
+      if (!grid) return;
+      grid.innerHTML = '';
+      sec.items.forEach((item) => {
+        const div = document.createElement('div');
+        div.className = 'liado-card';
+        div.innerHTML = `<div class="liado-icon">🚬</div><h4>${item.nombre}</h4><div class="liado-precio">${item.precio}</div>`;
+        grid.appendChild(div);
+      });
+    }
+
+    function llenarMunchies(sec) {
+      const bebidasDiv = document.getElementById(`bebidas-lista-${sec.id}`);
+      const picarDiv = document.getElementById(`picar-lista-${sec.id}`);
+      if (bebidasDiv) {
+        bebidasDiv.innerHTML = '';
+        sec.sub.bebidas.forEach(item => { bebidasDiv.innerHTML += `<div class="item-munchi"><span class="item-nombre">${item.nombre}</span><span class="item-precio">${item.precio}</span></div>`; });
+      }
+      if (picarDiv) {
+        picarDiv.innerHTML = '';
+        sec.sub.picar.forEach(item => { picarDiv.innerHTML += `<div class="item-munchi"><span class="item-nombre">${item.nombre}</span><span class="item-precio">${item.precio}</span></div>`; });
       }
     }
-    renderEditor();
-    modal.querySelector('#closeEditorBtn').onclick = () => { modal.remove(); renderizarTodo(); guardarCompleto(); };
-  }
 
-  async function handleImageUploadSec(sec, idx, file, modal) {
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const compressed = await comprimirImagen(e.target.result);
-      sec.items[idx].img = compressed;
-      if(modal) abrirEditorSeccion(secciones.findIndex(s => s.id === sec.id));
-      renderizarTodo();
+    function llenarEventos(sec) {
+      const grid = document.getElementById(`eventos-grid-${sec.id}`);
+      if (!grid) return;
+      grid.innerHTML = '';
+      sec.items.forEach((img, idx) => {
+        const card = document.createElement('div');
+        card.className = 'evento-card';
+        card.innerHTML = `<img src="${img}"><button class="evento-delete" onclick="eliminarEvento('${sec.id}', ${idx})">✖</button>`;
+        grid.appendChild(card);
+      });
+    }
+
+    // ===== ADMIN =====
+    let adminSeccionActual = null;
+
+    function mostrarLogin() {
+      document.getElementById('panel-login').style.display = 'flex';
+    }
+
+    function cerrarLogin() {
+      document.getElementById('panel-login').style.display = 'none';
+      document.getElementById('login-password').value = '';
+    }
+
+    function comprobarLogin() {
+      if (document.getElementById('login-password').value === CONTRASENA) {
+        document.getElementById('panel-login').style.display = 'none';
+        document.getElementById('panel-admin').style.display = 'block';
+        document.getElementById('login-error').style.display = 'none';
+        document.body.classList.add('admin-mode');
+        renderAdminUI();
+      } else {
+        document.getElementById('login-error').style.display = 'block';
+      }
+    }
+
+    function cerrarAdmin() {
+      document.getElementById('panel-admin').style.display = 'none';
+      document.body.classList.remove('admin-mode');
+    }
+
+    function renderAdminUI() {
+      // Renderizar lista de secciones para eliminar
+      const seccionesList = document.getElementById('seccionesAdminList');
+      seccionesList.innerHTML = '<strong style="color:#ffcc00; margin-right:10px;">🗑️ Eliminar sección:</strong>';
+      secciones.forEach((sec, idx) => {
+        const btn = document.createElement('button');
+        btn.textContent = `❌ ${sec.nombre}`;
+        btn.style.background = '#ff0000';
+        btn.style.color = 'white';
+        btn.style.border = 'none';
+        btn.style.borderRadius = '20px';
+        btn.style.padding = '8px 16px';
+        btn.style.cursor = 'pointer';
+        btn.onclick = () => eliminarSeccion(idx);
+        seccionesList.appendChild(btn);
+      });
+
+      // Renderizar tabs de edición
+      const tabsContainer = document.getElementById('adminTabsContainer');
+      tabsContainer.innerHTML = '';
+      secciones.forEach((sec, idx) => {
+        const tab = document.createElement('button');
+        tab.textContent = `${sec.icono} ${sec.nombre}`;
+        tab.style.background = '#333';
+        tab.style.border = '2px solid #ffcc00';
+        tab.style.borderRadius = '20px';
+        tab.style.padding = '10px 20px';
+        tab.style.cursor = 'pointer';
+        tab.style.color = '#ffcc00';
+        tab.onclick = () => mostrarSeccionAdmin(sec.id);
+        tabsContainer.appendChild(tab);
+      });
+
+      // Botón para añadir nueva sección
+      document.getElementById('addNewSectionBtn').onclick = () => añadirNuevaSeccion();
+    }
+
+    function eliminarSeccion(index) {
+      if (secciones.length <= 1) {
+        alert("No puedes eliminar la única sección que queda.");
+        return;
+      }
+      if (confirm(`¿Eliminar la sección "${secciones[index].nombre}"?`)) {
+        secciones.splice(index, 1);
+        guardarCompleto();
+        renderizarTodo();
+        renderAdminUI();
+        document.getElementById('admin-contenido').innerHTML = '<p style="color: white; text-align: center; font-size: 1.8rem;">Selecciona una sección para editar</p>';
+      }
+    }
+
+    function añadirNuevaSeccion() {
+      let nombre = prompt("Nombre de la nueva sección (ej: 'CREMAS', 'PIPAS'):");
+      if (!nombre) return;
+      let icono = prompt("Icono emoji (ej: 💎, 🧴, 🥨):", "📦");
+      if (!icono) icono = "📦";
+      let tipo = prompt("Tipo: 'productos', 'liados', 'eventos', 'munchies'", "productos");
+      if (!['productos', 'liados', 'eventos', 'munchies'].includes(tipo)) tipo = "productos";
+      
+      const newId = "sec_" + Date.now();
+      let nuevaSeccion = { id: newId, nombre: nombre.toUpperCase(), icono: icono, tipo: tipo };
+      
+      if (tipo === 'productos') nuevaSeccion.items = [];
+      else if (tipo === 'liados') nuevaSeccion.items = [];
+      else if (tipo === 'eventos') nuevaSeccion.items = [];
+      else if (tipo === 'munchies') nuevaSeccion.sub = { bebidas: [], picar: [] };
+      
+      secciones.push(nuevaSeccion);
       guardarCompleto();
-    };
-    reader.readAsDataURL(file);
-  }
+      renderizarTodo();
+      renderAdminUI();
+      mostrarSeccionAdmin(newId);
+    }
 
-  function comprimirImagen(dataUrl, calidad=0.7) { return new Promise(resolve => { const img = new Image(); img.onload = () => { const canvas = document.createElement('canvas'); canvas.width = 250; canvas.height = 250; const ctx = canvas.getContext('2d'); ctx.drawImage(img,0,0,250,250); resolve(canvas.toDataURL('image/jpeg',calidad)); }; img.src = dataUrl; }); }
+    function mostrarSeccionAdmin(seccionId) {
+      adminSeccionActual = seccionId;
+      const sec = secciones.find(s => s.id === seccionId);
+      if (!sec) return;
+      
+      let html = '';
+      if (sec.tipo === 'productos') {
+        html = `<h3 style="color: #ffcc00; margin-bottom: 20px;">${sec.icono} ${sec.nombre}</h3><div class="admin-grid">`;
+        sec.items.forEach((item, i) => {
+          html += `
+            <div class="admin-card" style="border-color: #ffcc00;">
+              <img src="${item.img}" id="admin-img-${sec.id}-${i}" class="admin-img">
+              <input type="file" id="file-${sec.id}-${i}" accept="image/*" class="admin-file-input" onchange="subirImagenProducto('${sec.id}', ${i})">
+              <button onclick="document.getElementById('file-${sec.id}-${i}').click()" class="admin-btn btn-upload">📷 CAMBIAR FOTO</button>
+              <input type="text" id="nombre-${sec.id}-${i}" value="${item.nombre.replace(/"/g, '&quot;')}" class="admin-input" placeholder="Nombre" onchange="actualizarProducto('${sec.id}', ${i}, 'nombre', this.value)">
+              <input type="text" id="precio-${sec.id}-${i}" value="${item.precio.replace(/"/g, '&quot;')}" class="admin-precio" placeholder="Precio" onchange="actualizarProducto('${sec.id}', ${i}, 'precio', this.value)">
+              <button onclick="eliminarProductoItem('${sec.id}', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR</button>
+            </div>
+          `;
+        });
+        html += '</div><button onclick="añadirProductoItem(\'' + sec.id + '\')" style="width:100%; background:#ffcc00; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; cursor:pointer;">➕ AÑADIR PRODUCTO</button>';
+      } 
+      else if (sec.tipo === 'liados') {
+        html = `<h3 style="color: #ffaa00; margin-bottom: 20px;">${sec.icono} ${sec.nombre}</h3><div class="admin-grid">`;
+        sec.items.forEach((item, i) => {
+          html += `
+            <div class="admin-card" style="border-color: #ffaa00;">
+              <div class="liado-icon" style="font-size: 5rem; text-align: center;">🚬</div>
+              <input type="text" id="nombre-${sec.id}-${i}" value="${item.nombre.replace(/"/g, '&quot;')}" class="admin-input" placeholder="Nombre" onchange="actualizarProducto('${sec.id}', ${i}, 'nombre', this.value)">
+              <input type="text" id="precio-${sec.id}-${i}" value="${item.precio.replace(/"/g, '&quot;')}" class="admin-precio" placeholder="Precio" onchange="actualizarProducto('${sec.id}', ${i}, 'precio', this.value)">
+              <button onclick="eliminarProductoItem('${sec.id}', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR</button>
+            </div>
+          `;
+        });
+        html += '</div><button onclick="añadirProductoItem(\'' + sec.id + '\')" style="width:100%; background:#ffaa00; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; cursor:pointer;">➕ AÑADIR LIADO</button>';
+      }
+      else if (sec.tipo === 'munchies') {
+        html = `<h3 style="color: #ff18d0; margin-bottom: 20px;">${sec.icono} ${sec.nombre} - BEBIDAS</h3><div class="admin-grid">`;
+        sec.sub.bebidas.forEach((item, i) => {
+          html += `
+            <div class="admin-card" style="border-color: #ff18d0;">
+              <input type="text" id="bebida-nombre-${sec.id}-${i}" value="${item.nombre.replace(/"/g, '&quot;')}" class="admin-input" placeholder="Nombre" onchange="actualizarMunchi('${sec.id}', 'bebidas', ${i}, 'nombre', this.value)">
+              <input type="text" id="bebida-precio-${sec.id}-${i}" value="${item.precio}" class="admin-precio" placeholder="Precio" onchange="actualizarMunchi('${sec.id}', 'bebidas', ${i}, 'precio', this.value)">
+              <button onclick="eliminarMunchiItem('${sec.id}', 'bebidas', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR</button>
+            </div>
+          `;
+        });
+        html += '</div><button onclick="añadirMunchiItem(\'' + sec.id + '\', \'bebidas\')" style="width:100%; background:#ff18d0; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR BEBIDA</button>';
+        
+        html += `<h3 style="color: #ff18d0; margin-top: 30px; margin-bottom: 20px;">${sec.icono} ${sec.nombre} - PARA PICAR</h3><div class="admin-grid">`;
+        sec.sub.picar.forEach((item, i) => {
+          html += `
+            <div class="admin-card" style="border-color: #ff18d0;">
+              <input type="text" id="picar-nombre-${sec.id}-${i}" value="${item.nombre.replace(/"/g, '&quot;')}" class="admin-input" placeholder="Nombre" onchange="actualizarMunchi('${sec.id}', 'picar', ${i}, 'nombre', this.value)">
+              <input type="text" id="picar-precio-${sec.id}-${i}" value="${item.precio}" class="admin-precio" placeholder="Precio" onchange="actualizarMunchi('${sec.id}', 'picar', ${i}, 'precio', this.value)">
+              <button onclick="eliminarMunchiItem('${sec.id}', 'picar', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR</button>
+            </div>
+          `;
+        });
+        html += '</div><button onclick="añadirMunchiItem(\'' + sec.id + '\', \'picar\')" style="width:100%; background:#ff18d0; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR PRODUCTO</button>';
+      }
+      else if (sec.tipo === 'eventos') {
+        html = `<h3 style="color: #ffff00; margin-bottom: 20px;">${sec.icono} ${sec.nombre}</h3><div class="admin-grid">`;
+        sec.items.forEach((img, i) => {
+          html += `
+            <div class="admin-card" style="border-color: #ffff00;">
+              <img src="${img}" id="evento-img-${sec.id}-${i}" class="admin-img">
+              <input type="file" id="evento-file-${sec.id}-${i}" accept="image/*" class="admin-file-input" onchange="subirImagenEvento('${sec.id}', ${i})">
+              <button onclick="document.getElementById('evento-file-${sec.id}-${i}').click()" class="admin-btn btn-upload">📷 CAMBIAR FOTO</button>
+              <button onclick="eliminarEvento('${sec.id}', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR CARTEL</button>
+            </div>
+          `;
+        });
+        html += '</div><button onclick="añadirEventoItem(\'' + sec.id + '\')" style="width:100%; background:#ffff00; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; cursor:pointer;">➕ AÑADIR NUEVO CARTEL</button>';
+      }
+      
+      document.getElementById('admin-contenido').innerHTML = html;
+    }
 
-  function mostrarToast() {
-    const toast = document.getElementById('saveToast');
-    toast.style.display = 'block';
-    setTimeout(() => toast.style.display = 'none', 1800);
-  }
-  cargarDatos();
-  setInterval(() => guardarCompleto(), 15000);
-</script>
+    // Funciones de manipulación
+    function actualizarProducto(secId, index, campo, valor) {
+      const sec = secciones.find(s => s.id === secId);
+      if (sec && sec.items[index]) {
+        sec.items[index][campo] = valor;
+        guardarCompleto();
+        renderizarTodo();
+        mostrarSeccionAdmin(secId);
+      }
+    }
+
+    function añadirProductoItem(secId) {
+      const sec = secciones.find(s => s.id === secId);
+      if (sec) {
+        if (sec.tipo === 'productos') {
+          sec.items.push({ img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ffcc00"/%3E%3Ctext x="50" y="55" fill="black"%3ENUEVO%3C/text%3E%3C/svg%3E', nombre: 'NUEVO PRODUCTO', precio: '0€' });
+        } else if (sec.tipo === 'liados') {
+          sec.items.push({ nombre: 'NUEVO LIADO', precio: '0€' });
+        }
+        guardarCompleto();
+        renderizarTodo();
+        mostrarSeccionAdmin(secId);
+      }
+    }
+
+    function eliminarProductoItem(secId, index) {
+      if (!confirm('¿Eliminar este producto?')) return;
+      const sec = secciones.find(s => s.id === secId);
+      if (sec && sec.items[index]) {
+        sec.items.splice(index, 1);
+        guardarCompleto();
+        renderizarTodo();
+        mostrarSeccionAdmin(secId);
+      }
+    }
+
+    function actualizarMunchi(secId, subTipo, index, campo, valor) {
+      const sec = secciones.find(s => s.id === secId);
+      if (sec && sec.sub[subTipo][index]) {
+        sec.sub[subTipo][index][campo] = valor;
+        guardarCompleto();
+        renderizarTodo();
+        mostrarSeccionAdmin(secId);
+      }
+    }
+
+    function añadirMunchiItem(secId, subTipo) {
+      const sec = secciones.find(s => s.id === secId);
+      if (sec) {
+        sec.sub[subTipo].push({ nombre: 'NUEVO PRODUCTO', precio: '0€' });
+        guardarCompleto();
+        renderizarTodo();
+        mostrarSeccionAdmin(secId);
+      }
+    }
+
+    function eliminarMunchiItem(secId, subTipo, index) {
+      if (!confirm('¿Eliminar este producto?')) return;
+      const sec = secciones.find(s => s.id === secId);
+      if (sec && sec.sub[subTipo][index]) {
+        sec.sub[subTipo].splice(index, 1);
+        guardarCompleto();
+        renderizarTodo();
+        mostrarSeccionAdmin(secId);
+      }
+    }
+
+    function añadirEventoItem(secId) {
+      const sec = secciones.find(s => s.id === secId);
+      if (sec) {
+        sec.items.push('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23ffcc00"/%3E%3Ctext x="100" y="110" fill="black"%3ENUEVO%3C/text%3E%3C/svg%3E');
+        guardarCompleto();
+        renderizarTodo();
+        mostrarSeccionAdmin(secId);
+      }
+    }
+
+    function eliminarEvento(secId, index) {
+      if (!confirm('¿Eliminar este cartel?')) return;
+      const sec = secciones.find(s => s.id === secId);
+      if (sec && sec.items[index]) {
+        sec.items.splice(index, 1);
+        guardarCompleto();
+        renderizarTodo();
+        mostrarSeccionAdmin(secId);
+      }
+    }
+
+    async function subirImagenProducto(secId, index) {
+      const input = document.getElementById(`file-${secId}-${index}`);
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+          const imgComprimida = await comprimirImagen(e.target.result);
+          const sec = secciones.find(s => s.id === secId);
+          if (sec && sec.items[index]) {
+            sec.items[index].img = imgComprimida;
+            guardarCompleto();
+            renderizarTodo();
+            mostrarSeccionAdmin(secId);
+          }
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    async function subirImagenEvento(secId, index) {
+      const input = document.getElementById(`evento-file-${secId}-${index}`);
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+          const imgComprimida = await comprimirImagen(e.target.result);
+          const sec = secciones.find(s => s.id === secId);
+          if (sec && sec.items[index]) {
+            sec.items[index] = imgComprimida;
+            guardarCompleto();
+            renderizarTodo();
+            mostrarSeccionAdmin(secId);
+          }
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function comprimirImagen(dataUrl, calidad = 0.7, maxAncho = 600) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          let ancho = img.width;
+          let alto = img.height;
+          if (ancho > maxAncho) {
+            alto = (maxAncho / ancho) * alto;
+            ancho = maxAncho;
+          }
+          canvas.width = ancho;
+          canvas.height = alto;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, ancho, alto);
+          resolve(canvas.toDataURL('image/jpeg', calidad));
+        };
+        img.src = dataUrl;
+      });
+    }
+
+    function guardarTodo() {
+      guardarCompleto();
+      alert("✅ Todos los cambios guardados correctamente");
+    }
+
+    function mostrarIndicator() {
+      const indicator = document.getElementById('saveIndicator');
+      indicator.style.display = 'block';
+      setTimeout(() => indicator.style.display = 'none', 2000);
+    }
+
+    window.addEventListener('load', cargarDatos);
+  </script>
 </body>
 </html>
