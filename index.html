@@ -21,7 +21,6 @@
     .logo-club { font-size: 3.5rem; font-weight: 900; letter-spacing: 12px; color: #ffcc00; margin-top: -0.5rem; text-shadow: 0 0 10px #ff0000; }
     .welcome { font-size: 1.6rem; color: #ffffff; background: linear-gradient(90deg, transparent, rgba(255, 204, 0, 0.2), transparent); padding: 0.3rem 1rem; border-radius: 40px; display: inline-block; }
     
-    /* Pestañas dinámicas - GRANDES para tablet */
     .pestanas-wrapper {
       overflow-x: auto;
       overflow-y: hidden;
@@ -45,7 +44,6 @@
     .pestana-icon { font-size: 2.5rem; }
     .pestana-text { font-size: 1.3rem; font-weight: 700; white-space: nowrap; color: white; letter-spacing: 1px; }
     .pestana.activa { transform: scale(1.02); box-shadow: 0 0 20px currentColor; border-width: 3px; background: rgba(30, 30, 40, 0.95); }
-    .pestana.activa .pestana-text { color: white; }
     
     .contenido { flex: 1; overflow-y: auto; padding: 1.2rem; }
     .panel { display: none; }
@@ -54,21 +52,18 @@
     .subseccion { background: rgba(0, 0, 0, 0.5); border: 1px solid #ffcc00; border-radius: 24px; padding: 1.2rem; margin-bottom: 1.5rem; }
     .subseccion-titulo { font-size: 2.2rem; color: #ffcc00; text-shadow: 0 0 10px #ff0000; margin-bottom: 1.2rem; padding-left: 1rem; border-left: 8px solid #ffcc00; }
     
-    /* PRODUCTOS - MÁS GRANDES para Lenovo Tab P11 */
     .productos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
     .producto-card { background: #0d0f1a; border: 2px solid #3a2b4a; border-radius: 24px; padding: 1.2rem 0.8rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
     .producto-card img { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; border: 3px solid #ffcc00; box-shadow: 0 0 0 2px #ff0000; margin-bottom: 0.8rem; }
     .producto-card h4 { font-size: 1.4rem; color: white; text-shadow: 0 0 5px #ffcc00; margin-bottom: 0.5rem; }
     .producto-precio { font-size: 1.5rem; font-weight: 800; color: #ffcc00; background: rgba(255, 204, 0, 0.2); padding: 0.3rem 1.2rem; border-radius: 40px; border: 1px solid #ff0000; display: inline-block; }
     
-    /* LIADOS - MÁS GRANDES */
     .liados-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
     .liado-card { background: linear-gradient(145deg, #1a1a2a, #0d0f1a); border: 3px solid #ffaa00; border-radius: 24px; padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: 0 0 15px rgba(255, 170, 0, 0.3); }
     .liado-icon { font-size: 5rem; margin-bottom: 0.8rem; filter: drop-shadow(0 0 10px #ffaa00); }
     .liado-card h4 { font-size: 1.6rem; color: #ffaa00; text-shadow: 0 0 10px #ffaa00; margin-bottom: 0.8rem; }
     .liado-precio { font-size: 1.5rem; font-weight: 800; color: white; background: rgba(255, 170, 0, 0.3); padding: 0.4rem 1.5rem; border-radius: 40px; border: 2px solid #ffaa00; display: inline-block; }
     
-    /* MUNCHIES - MÁS GRANDES */
     .munchies-categoria { background: rgba(20, 5, 25, 0.7); border: 2px solid #ffcc00; border-radius: 30px; padding: 1.5rem 1.5rem; margin-bottom: 1.5rem; }
     .categoria-titulo { font-size: 2.8rem; color: #ffcc00; text-shadow: 0 0 15px #ff0000; margin-bottom: 1.5rem; border-bottom: 3px dotted #ffcc00; padding-bottom: 0.5rem; display: inline-block; }
     .items-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
@@ -76,7 +71,6 @@
     .item-nombre { font-size: 1.5rem; color: white; text-transform: uppercase; }
     .item-precio { font-size: 1.6rem; font-weight: 800; color: #ffcc00; }
     
-    /* EVENTOS */
     .eventos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 0.5rem; }
     .evento-card { background: transparent; border: 3px solid #ffff00; border-radius: 24px; overflow: hidden; aspect-ratio: 1/1.2; position: relative; }
     .evento-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -85,9 +79,19 @@
     
     .save-indicator { position: fixed; bottom: 100px; right: 30px; background: #ffcc00; color: black; padding: 15px 25px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; box-shadow: 0 0 20px #ffcc00; z-index: 2100; display: none; }
 
-    /* Estilos admin */
+    /* Estilos admin - con soporte para drag & drop */
     .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-bottom: 20px; }
-    .admin-card { background: #0d0f1a; border: 2px solid; border-radius: 20px; padding: 15px; }
+    .admin-card { 
+      background: #0d0f1a; 
+      border: 2px solid; 
+      border-radius: 20px; 
+      padding: 15px; 
+      cursor: grab;
+      transition: all 0.2s ease;
+    }
+    .admin-card:active { cursor: grabbing; }
+    .admin-card.dragging { opacity: 0.5; cursor: grabbing; }
+    .admin-card.drag-over { border: 3px dashed #ffcc00; background: #1a1a2a; }
     .admin-img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 10px; border: 2px solid #ffcc00; }
     .admin-input { width: 100%; padding: 12px; margin-bottom: 10px; background: #000; border: 2px solid #ffcc00; border-radius: 10px; color: white; font-size: 1.4rem; }
     .admin-precio { width: 100%; padding: 12px; margin-bottom: 10px; background: #000; border: 2px solid #ff0000; border-radius: 10px; color: #ffcc00; font-size: 1.4rem; }
@@ -96,6 +100,17 @@
     .btn-upload { background: #ffcc00; color: black; }
     .btn-delete { background: #ff0000; color: white; }
     .btn-add { background: #ffff00; color: black; }
+    .drag-handle { 
+      text-align: center; 
+      font-size: 1.2rem; 
+      color: #ffcc00; 
+      margin-bottom: 10px; 
+      cursor: grab;
+      background: rgba(255,204,0,0.2);
+      border-radius: 30px;
+      padding: 5px;
+    }
+    .drag-handle:active { cursor: grabbing; }
     .seccion-item-admin {
       background: #0d0f1a;
       margin-bottom: 15px;
@@ -166,7 +181,7 @@
 
   <script>
     const CONTRASENA = "alfre123";
-    const STORAGE_KEY = 'eltioj_datos_secciones_v5';
+    const STORAGE_KEY = 'eltioj_datos_secciones_v6';
 
     let secciones = [
       { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [] },
@@ -199,6 +214,10 @@
       'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23ff0000"/%3E%3Ctext x="100" y="110" fill="%23ffcc00" text-anchor="middle"%3EEVENTO%3C/text%3E%3C/svg%3E',
       'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23008000"/%3E%3Ctext x="100" y="110" fill="%23ffcc00"%3EFIESTA%3C/text%3E%3C/svg%3E'
     ];
+
+    let draggedItem = null;
+    let draggedIndex = null;
+    let currentSecId = null;
 
     function cargarDatos() {
       const guardado = localStorage.getItem(STORAGE_KEY);
@@ -332,19 +351,73 @@
       });
     }
 
+    // Funciones de drag & drop para reordenar productos
+    function iniciarDrag(e, index, secId) {
+      draggedIndex = index;
+      currentSecId = secId;
+      e.dataTransfer.setData('text/plain', index);
+      e.target.closest('.admin-card')?.classList.add('dragging');
+    }
+
+    function finalizarDrag(e) {
+      if (e.target.closest('.admin-card')) {
+        e.target.closest('.admin-card').classList.remove('dragging');
+      }
+      draggedIndex = null;
+      currentSecId = null;
+    }
+
+    function permitirDrop(e) {
+      e.preventDefault();
+    }
+
+    function soltarDrop(e, targetIndex, secId) {
+      e.preventDefault();
+      if (draggedIndex !== null && currentSecId === secId && draggedIndex !== targetIndex) {
+        const sec = secciones.find(s => s.id === secId);
+        if (sec && sec.items) {
+          const [movedItem] = sec.items.splice(draggedIndex, 1);
+          sec.items.splice(targetIndex, 0, movedItem);
+          guardarCompleto();
+          renderizarTodo();
+          mostrarSeccionAdmin(secId);
+        }
+      }
+      document.querySelectorAll('.admin-card').forEach(card => {
+        card.classList.remove('drag-over', 'dragging');
+      });
+    }
+
+    function marcarSobreDrop(e) {
+      e.preventDefault();
+      const targetCard = e.target.closest('.admin-card');
+      if (targetCard) {
+        document.querySelectorAll('.admin-card').forEach(card => card.classList.remove('drag-over'));
+        targetCard.classList.add('drag-over');
+      }
+    }
+
+    function limpiarMarcador(e) {
+      const targetCard = e.target.closest('.admin-card');
+      if (targetCard) targetCard.classList.remove('drag-over');
+    }
+
     // ADMIN
     function mostrarLogin() {
       document.getElementById('panel-login').style.display = 'flex';
+      document.getElementById('login-password').value = ''; // Limpiar contraseña
     }
 
     function cerrarLogin() {
       document.getElementById('panel-login').style.display = 'none';
-      document.getElementById('login-password').value = '';
+      document.getElementById('login-password').value = ''; // Limpiar contraseña al cerrar
+      document.getElementById('login-error').style.display = 'none';
     }
 
     function comprobarLogin() {
       if (document.getElementById('login-password').value === CONTRASENA) {
         document.getElementById('panel-login').style.display = 'none';
+        document.getElementById('login-password').value = ''; // Limpiar después de entrar
         document.getElementById('panel-admin').style.display = 'block';
         document.getElementById('login-error').style.display = 'none';
         document.body.classList.add('admin-mode');
@@ -436,10 +509,17 @@
       
       let html = '';
       if (sec.tipo === 'productos') {
-        html = `<h3 style="color: #ffcc00; margin-bottom: 20px;">${sec.icono} ${sec.nombre}</h3><div class="admin-grid">`;
+        html = `<h3 style="color: #ffcc00; margin-bottom: 20px;">${sec.icono} ${sec.nombre} <span style="font-size:1rem;">(Arrastra para reordenar)</span></h3><div class="admin-grid" id="admin-grid-${sec.id}">`;
         sec.items.forEach((item, i) => {
           html += `
-            <div class="admin-card" style="border-color: #ffcc00;">
+            <div class="admin-card" style="border-color: #ffcc00;" draggable="true" data-index="${i}" data-secid="${sec.id}" 
+                 ondragstart="iniciarDrag(event, ${i}, '${sec.id}')" 
+                 ondragend="finalizarDrag(event)" 
+                 ondragover="permitirDrop(event)"
+                 ondrop="soltarDrop(event, ${i}, '${sec.id}')"
+                 ondragenter="marcarSobreDrop(event)"
+                 ondragleave="limpiarMarcador(event)">
+              <div class="drag-handle">⋮⋮ ARRASTRAR ⋮⋮</div>
               <img src="${item.img}" id="admin-img-${sec.id}-${i}" class="admin-img">
               <input type="file" id="file-${sec.id}-${i}" accept="image/*" class="admin-file-input" onchange="subirImagenProducto('${sec.id}', ${i})">
               <button onclick="document.getElementById('file-${sec.id}-${i}').click()" class="admin-btn btn-upload">📷 CAMBIAR FOTO</button>
@@ -452,10 +532,17 @@
         html += '</div><button onclick="añadirProductoItem(\'' + sec.id + '\')" style="width:100%; background:#ffcc00; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; cursor:pointer;">➕ AÑADIR PRODUCTO</button>';
       } 
       else if (sec.tipo === 'liados') {
-        html = `<h3 style="color: #ffaa00; margin-bottom: 20px;">${sec.icono} ${sec.nombre}</h3><div class="admin-grid">`;
+        html = `<h3 style="color: #ffaa00; margin-bottom: 20px;">${sec.icono} ${sec.nombre} <span style="font-size:1rem;">(Arrastra para reordenar)</span></h3><div class="admin-grid" id="admin-grid-${sec.id}">`;
         sec.items.forEach((item, i) => {
           html += `
-            <div class="admin-card" style="border-color: #ffaa00;">
+            <div class="admin-card" style="border-color: #ffaa00;" draggable="true" data-index="${i}" data-secid="${sec.id}" 
+                 ondragstart="iniciarDrag(event, ${i}, '${sec.id}')" 
+                 ondragend="finalizarDrag(event)" 
+                 ondragover="permitirDrop(event)"
+                 ondrop="soltarDrop(event, ${i}, '${sec.id}')"
+                 ondragenter="marcarSobreDrop(event)"
+                 ondragleave="limpiarMarcador(event)">
+              <div class="drag-handle">⋮⋮ ARRASTRAR ⋮⋮</div>
               <div class="liado-icon" style="font-size: 5rem; text-align: center;">🚬</div>
               <input type="text" id="nombre-${sec.id}-${i}" value="${item.nombre.replace(/"/g, '&quot;')}" class="admin-input" placeholder="Nombre" onchange="actualizarProducto('${sec.id}', ${i}, 'nombre', this.value)">
               <input type="text" id="precio-${sec.id}-${i}" value="${item.precio.replace(/"/g, '&quot;')}" class="admin-precio" placeholder="Precio" onchange="actualizarProducto('${sec.id}', ${i}, 'precio', this.value)">
