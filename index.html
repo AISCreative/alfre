@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,17 +22,29 @@
     .logo-club { font-size: 3.5rem; font-weight: 900; letter-spacing: 12px; color: #ffcc00; margin-top: -0.5rem; text-shadow: 0 0 10px #ff0000; }
     .welcome { font-size: 1.6rem; color: #ffffff; background: linear-gradient(90deg, transparent, rgba(255, 204, 0, 0.2), transparent); padding: 0.3rem 1rem; border-radius: 40px; display: inline-block; }
     
-    /* Pestañas dinámicas */
+    /* Pestañas dinámicas - MÁS GRANDES */
     .pestanas-wrapper {
       overflow-x: auto;
       overflow-y: hidden;
-      padding: 0.8rem 1rem;
+      padding: 1rem 1rem;
       scrollbar-width: thin;
     }
-    .pestanas { display: flex; gap: 0.6rem; min-width: max-content; }
-    .pestana { background: rgba(10, 10, 20, 0.9); border: 2px solid; border-radius: 12px; padding: 0.5rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; min-width: 100px; }
-    .pestana-icon { font-size: 1.8rem; }
-    .pestana-text { font-size: 1rem; font-weight: 700; white-space: nowrap; color: white; }
+    .pestanas { display: flex; gap: 1rem; min-width: max-content; }
+    .pestana { 
+      background: rgba(10, 10, 20, 0.9); 
+      border: 2px solid; 
+      border-radius: 16px; 
+      padding: 0.8rem 1.5rem; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; 
+      cursor: pointer; 
+      transition: all 0.2s ease; 
+      min-width: 130px; 
+    }
+    .pestana-icon { font-size: 2.2rem; }
+    .pestana-text { font-size: 1.2rem; font-weight: 700; white-space: nowrap; color: white; letter-spacing: 1px; }
     .pestana.activa { transform: scale(1.02); box-shadow: 0 0 20px currentColor; border-width: 3px; background: rgba(30, 30, 40, 0.95); }
     .pestana.activa .pestana-text { color: white; }
     
@@ -150,7 +163,7 @@
 
   <script>
     const CONTRASENA = "alfre123";
-    const STORAGE_KEY = 'eltioj_datos_secciones_v3';
+    const STORAGE_KEY = 'eltioj_datos_secciones_v4';
 
     let secciones = [
       { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [] },
