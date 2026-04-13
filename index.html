@@ -12,14 +12,15 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #0a0a0f; }
-    body { background: radial-gradient(circle at 30% 30%, #1a1a2e 0%, #05050a 100%); display: flex; justify-content: center; align-items: center; padding: 12px; position: relative; }
-    body::before { content: "EL TIO J"; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-12deg) scale(1.2); font-size: clamp(3rem, 15vw, 10rem); font-weight: 900; color: rgba(180, 130, 255, 0.04); white-space: nowrap; letter-spacing: 12px; text-transform: uppercase; pointer-events: none; z-index: 1; animation: floatLogo 20s infinite alternate ease-in-out; }
-    @keyframes floatLogo { 0% { transform: translate(-50%, -50%) rotate(-12deg) scale(1.2); opacity: 0.04; } 100% { transform: translate(-48%, -52%) rotate(-8deg) scale(1.25); opacity: 0.07; } }
-    .kiosco { width: 100%; max-width: 1280px; height: 100%; background: rgba(10, 10, 15, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(180, 130, 255, 0.3); border-radius: 30px; box-shadow: 0 0 40px rgba(180, 130, 255, 0.15); display: flex; flex-direction: column; overflow: hidden; position: relative; z-index: 10; }
-    .header { padding: 1.5rem 1.5rem 0.8rem; text-align: center; border-bottom: 1px solid rgba(180, 130, 255, 0.2); }
-    .logo-masquehigh { font-size: 4.8rem; font-weight: 900; background: linear-gradient(135deg, #b482ff, #7c3aed, #a855f7); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 25px rgba(124, 58, 237, 0.3); line-height: 1.1; }
-    .logo-club { font-size: 3.5rem; font-weight: 900; letter-spacing: 12px; background: linear-gradient(135deg, #d8b4fe, #a855f7); -webkit-background-clip: text; background-clip: text; color: transparent; margin-top: -0.5rem; text-shadow: 0 0 10px rgba(168, 85, 247, 0.3); }
-    .welcome { font-size: 1.6rem; color: #d8b4fe; background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.15), transparent); padding: 0.3rem 1rem; border-radius: 40px; display: inline-block; }
+    body { background: radial-gradient(circle at 30% 30%, #0f0f1a 0%, #050508 100%); display: flex; justify-content: center; align-items: center; padding: 12px; position: relative; }
+    body::before { content: "EL TIO J"; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-12deg) scale(1.2); font-size: clamp(3rem, 15vw, 10rem); font-weight: 900; color: rgba(255, 255, 255, 0.03); white-space: nowrap; letter-spacing: 12px; text-transform: uppercase; pointer-events: none; z-index: 1; animation: floatLogo 20s infinite alternate ease-in-out; }
+    @keyframes floatLogo { 0% { transform: translate(-50%, -50%) rotate(-12deg) scale(1.2); opacity: 0.03; } 100% { transform: translate(-48%, -52%) rotate(-8deg) scale(1.25); opacity: 0.06; } }
+    .kiosco { width: 100%; max-width: 1280px; height: 100%; background: rgba(8, 8, 12, 0.88); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 30px; box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; overflow: hidden; position: relative; z-index: 10; }
+    .header { padding: 1.5rem 1.5rem 0.8rem; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .logo-masquehigh { font-size: 4.8rem; font-weight: 900; background: linear-gradient(135deg, #ff2d75, #ff6b4a, #ffb347); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 30px rgba(255, 45, 117, 0.3); line-height: 1.1; animation: logoPulse 3s infinite; }
+    @keyframes logoPulse { 0%, 100% { text-shadow: 0 0 30px rgba(255, 45, 117, 0.3); } 50% { text-shadow: 0 0 50px rgba(255, 107, 74, 0.5); } }
+    .logo-club { font-size: 3.5rem; font-weight: 900; letter-spacing: 12px; background: linear-gradient(135deg, #00d4ff, #00ff88); -webkit-background-clip: text; background-clip: text; color: transparent; margin-top: -0.5rem; text-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
+    .welcome { font-size: 1.6rem; color: #ffffff; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent); padding: 0.3rem 1rem; border-radius: 40px; display: inline-block; }
     
     .pestanas-wrapper {
       overflow-x: auto;
@@ -29,7 +30,7 @@
     }
     .pestanas { display: flex; gap: 1rem; min-width: max-content; }
     .pestana { 
-      background: rgba(20, 20, 30, 0.8); 
+      background: rgba(12, 12, 18, 0.9); 
       border: 1px solid; 
       border-radius: 20px; 
       padding: 1rem 1.8rem; 
@@ -40,91 +41,79 @@
       cursor: pointer; 
       transition: all 0.2s ease; 
       min-width: 150px; 
-      border-color: rgba(168, 85, 247, 0.3);
     }
     .pestana-icon { font-size: 2.5rem; }
-    .pestana-text { font-size: 1.3rem; font-weight: 700; white-space: nowrap; color: #d4d4d8; letter-spacing: 1px; }
-    .pestana.activa { transform: scale(1.02); box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); border-width: 1px; background: rgba(168, 85, 247, 0.15); border-color: #a855f7; }
-    .pestana.activa .pestana-text { color: #e9d5ff; }
+    .pestana-text { font-size: 1.3rem; font-weight: 700; white-space: nowrap; color: #e4e4e7; letter-spacing: 1px; }
+    .pestana.activa { transform: scale(1.02); border-width: 2px; background: rgba(255, 255, 255, 0.05); }
     
     .contenido { flex: 1; overflow-y: auto; padding: 1.2rem; }
     .panel { display: none; }
     .panel.activo { display: block; }
     
-    .subseccion { background: rgba(15, 15, 22, 0.6); border: 1px solid rgba(168, 85, 247, 0.25); border-radius: 24px; padding: 1.2rem; margin-bottom: 1.5rem; }
-    .subseccion-titulo { font-size: 2.2rem; color: #c084fc; text-shadow: 0 0 10px rgba(168, 85, 247, 0.3); margin-bottom: 1.2rem; padding-left: 1rem; border-left: 8px solid #a855f7; }
+    .subseccion { background: rgba(10, 10, 16, 0.6); border-radius: 24px; padding: 1.2rem; margin-bottom: 1.5rem; }
+    .subseccion-titulo { font-size: 2.2rem; margin-bottom: 1.2rem; padding-left: 1rem; border-left: 8px solid; }
     
     .productos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
-    .producto-card { background: rgba(25, 25, 35, 0.9); border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 24px; padding: 1.2rem 0.8rem; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.2s ease; }
-    .producto-card:hover { border-color: #a855f7; box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
-    .producto-card img { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; border: 2px solid #a855f7; box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5); margin-bottom: 0.8rem; }
+    .producto-card { background: rgba(16, 16, 24, 0.9); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 1.2rem 0.8rem; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.2s ease; }
+    .producto-card:hover { transform: translateY(-3px); }
+    .producto-card img { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; margin-bottom: 0.8rem; }
     .producto-card h4 { font-size: 1.4rem; color: #f4f4f5; margin-bottom: 0.5rem; }
-    .producto-precio { font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, #c084fc, #a855f7); -webkit-background-clip: text; background-clip: text; color: transparent; background-color: rgba(168, 85, 247, 0.1); padding: 0.3rem 1.2rem; border-radius: 40px; border: 1px solid rgba(168, 85, 247, 0.4); display: inline-block; }
+    .producto-precio { font-size: 1.5rem; font-weight: 800; padding: 0.3rem 1.2rem; border-radius: 40px; display: inline-block; }
     
     .liados-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
-    .liado-card { background: linear-gradient(145deg, rgba(30, 25, 45, 0.9), rgba(20, 18, 35, 0.9)); border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 24px; padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: 0 0 15px rgba(168, 85, 247, 0.1); }
-    .liado-icon { font-size: 5rem; margin-bottom: 0.8rem; filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5)); }
-    .liado-card h4 { font-size: 1.6rem; color: #e9d5ff; text-shadow: 0 0 10px rgba(168, 85, 247, 0.3); margin-bottom: 0.8rem; }
-    .liado-precio { font-size: 1.5rem; font-weight: 800; color: #c084fc; background: rgba(168, 85, 247, 0.15); padding: 0.4rem 1.5rem; border-radius: 40px; border: 1px solid rgba(168, 85, 247, 0.4); display: inline-block; }
+    .liado-card { background: linear-gradient(145deg, rgba(20, 18, 28, 0.9), rgba(14, 12, 22, 0.9)); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .liado-icon { font-size: 5rem; margin-bottom: 0.8rem; }
+    .liado-card h4 { font-size: 1.6rem; margin-bottom: 0.8rem; }
+    .liado-precio { font-size: 1.5rem; font-weight: 800; padding: 0.4rem 1.5rem; border-radius: 40px; display: inline-block; }
     
-    .munchies-categoria { background: rgba(20, 15, 30, 0.6); border: 1px solid rgba(168, 85, 247, 0.25); border-radius: 30px; padding: 1.5rem 1.5rem; margin-bottom: 1.5rem; }
-    .categoria-titulo { font-size: 2.8rem; background: linear-gradient(135deg, #d8b4fe, #a855f7); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1.5rem; border-bottom: 2px dotted rgba(168, 85, 247, 0.4); padding-bottom: 0.5rem; display: inline-block; }
+    .munchies-categoria { background: rgba(12, 10, 20, 0.6); border-radius: 30px; padding: 1.5rem 1.5rem; margin-bottom: 1.5rem; }
+    .categoria-titulo { font-size: 2.8rem; margin-bottom: 1.5rem; border-bottom: 2px dotted rgba(255, 255, 255, 0.2); padding-bottom: 0.5rem; display: inline-block; }
     .items-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
-    .item-munchi { display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.4); padding: 1rem 1.5rem; border-radius: 60px; border: 1px solid rgba(168, 85, 247, 0.3); }
+    .item-munchi { display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.4); padding: 1rem 1.5rem; border-radius: 60px; border: 1px solid rgba(255, 255, 255, 0.08); }
     .item-nombre { font-size: 1.5rem; color: #e4e4e7; text-transform: uppercase; }
-    .item-precio { font-size: 1.6rem; font-weight: 800; color: #c084fc; }
+    .item-precio { font-size: 1.6rem; font-weight: 800; }
     
     .eventos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 0.5rem; }
-    .evento-card { background: transparent; border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 24px; overflow: hidden; aspect-ratio: 1/1.2; position: relative; }
+    .evento-card { background: transparent; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 24px; overflow: hidden; aspect-ratio: 1/1.2; position: relative; transition: all 0.2s ease; }
+    .evento-card:hover { transform: scale(1.02); box-shadow: 0 0 30px currentColor; }
     .evento-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .evento-delete { position: absolute; top: 8px; right: 8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 22px; cursor: pointer; display: none; z-index: 100; }
+    .evento-delete { position: absolute; top: 8px; right: 8px; background: #ff2d75; color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 22px; cursor: pointer; display: none; z-index: 100; box-shadow: 0 0 10px #ff2d75; }
     .admin-mode .evento-delete { display: block; }
     
-    .save-indicator { position: fixed; bottom: 100px; right: 30px; background: #a855f7; color: white; padding: 15px 25px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; box-shadow: 0 0 20px #a855f7; z-index: 2100; display: none; }
+    .save-indicator { position: fixed; bottom: 100px; right: 30px; padding: 15px 25px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; box-shadow: 0 0 20px; z-index: 2100; display: none; }
 
     /* Estilos admin */
     .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-bottom: 20px; }
     .admin-card { 
-      background: #18181b; 
+      background: #111118; 
       border: 1px solid; 
       border-radius: 20px; 
       padding: 15px; 
       cursor: grab;
       transition: all 0.2s ease;
-      border-color: rgba(168, 85, 247, 0.4);
     }
     .admin-card:active { cursor: grabbing; }
     .admin-card.dragging { opacity: 0.5; cursor: grabbing; }
-    .admin-card.drag-over { border: 2px dashed #a855f7; background: #27272a; }
-    .admin-img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 10px; border: 1px solid #a855f7; }
-    .admin-input { width: 100%; padding: 12px; margin-bottom: 10px; background: #09090b; border: 1px solid #3f3f46; border-radius: 10px; color: white; font-size: 1.4rem; }
-    .admin-input:focus { outline: none; border-color: #a855f7; }
-    .admin-precio { width: 100%; padding: 12px; margin-bottom: 10px; background: #09090b; border: 1px solid #a855f7; border-radius: 10px; color: #c084fc; font-size: 1.4rem; }
+    .admin-card.drag-over { border: 2px dashed; background: #1a1a24; }
+    .admin-img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 10px; }
+    .admin-input { width: 100%; padding: 12px; margin-bottom: 10px; background: #09090c; border: 1px solid #2a2a35; border-radius: 10px; color: white; font-size: 1.4rem; }
+    .admin-input:focus { outline: none; border-color: currentColor; }
+    .admin-precio { width: 100%; padding: 12px; margin-bottom: 10px; background: #09090c; border: 1px solid; border-radius: 10px; font-size: 1.4rem; font-weight: bold; }
     .admin-file-input { display: none; }
     .admin-btn { width: 100%; padding: 12px; border: none; border-radius: 30px; font-size: 1.4rem; cursor: pointer; margin-bottom: 5px; font-weight: bold; }
-    .btn-upload { background: #3f3f46; color: #e4e4e7; }
-    .btn-upload:hover { background: #52525b; }
-    .btn-delete { background: #ef4444; color: white; }
-    .btn-delete:hover { background: #dc2626; }
-    .btn-add { background: #a855f7; color: white; }
+    .btn-upload { background: #2a2a35; color: #e4e4e7; }
+    .btn-delete { background: #ff2d75; color: white; }
+    .btn-add { background: #00ff88; color: black; }
     .drag-handle { 
       text-align: center; 
       font-size: 1.2rem; 
-      color: #a855f7; 
       margin-bottom: 10px; 
       cursor: grab;
-      background: rgba(168, 85, 247, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 30px;
       padding: 5px;
     }
     .drag-handle:active { cursor: grabbing; }
-    .seccion-item-admin {
-      background: #18181b;
-      margin-bottom: 15px;
-      padding: 15px;
-      border-radius: 20px;
-      border-left: 4px solid #a855f7;
-    }
   </style>
 </head>
 <body>
@@ -146,19 +135,19 @@
 
   <!-- Botón ADMIN -->
   <div style="position: fixed; bottom: 30px; right: 30px; z-index: 2000;">
-    <button id="btn-admin" onclick="mostrarLogin()" style="width: 80px; height: 80px; border-radius: 50%; background: #18181b; border: 2px solid #a855f7; color: #a855f7; font-size: 36px; box-shadow: 0 0 20px rgba(168, 85, 247, 0.3); cursor: pointer;">⚙️</button>
+    <button id="btn-admin" onclick="mostrarLogin()" style="width: 80px; height: 80px; border-radius: 50%; background: #111118; border: 2px solid #00d4ff; color: #00d4ff; font-size: 36px; box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); cursor: pointer;">⚙️</button>
   </div>
 
   <!-- PANEL LOGIN -->
-  <div id="panel-login" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2001; align-items: center; justify-content: center;">
-    <div style="background: #18181b; border: 1px solid #a855f7; border-radius: 40px; padding: 40px; width: 90%; max-width: 500px; box-shadow: 0 0 60px rgba(168, 85, 247, 0.2);">
-      <h2 style="background: linear-gradient(135deg, #d8b4fe, #a855f7); -webkit-background-clip: text; background-clip: text; color: transparent; text-align: center; font-size: 3rem; margin-bottom: 30px;">🔐 ADMIN</h2>
-      <input type="password" id="login-password" placeholder="Contraseña" style="width: 100%; padding: 25px; font-size: 2rem; background: #09090b; border: 1px solid #3f3f46; border-radius: 30px; color: white; margin-bottom: 30px; text-align: center;">
+  <div id="panel-login" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 2001; align-items: center; justify-content: center;">
+    <div style="background: #111118; border: 1px solid #00d4ff; border-radius: 40px; padding: 40px; width: 90%; max-width: 500px; box-shadow: 0 0 60px rgba(0, 212, 255, 0.2);">
+      <h2 style="background: linear-gradient(135deg, #ff2d75, #ff6b4a); -webkit-background-clip: text; background-clip: text; color: transparent; text-align: center; font-size: 3rem; margin-bottom: 30px;">🔐 ADMIN</h2>
+      <input type="password" id="login-password" placeholder="Contraseña" style="width: 100%; padding: 25px; font-size: 2rem; background: #09090c; border: 1px solid #2a2a35; border-radius: 30px; color: white; margin-bottom: 30px; text-align: center;">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-        <button onclick="comprobarLogin()" style="background: #a855f7; border: none; border-radius: 30px; padding: 25px; font-size: 2rem; font-weight: bold; color: white; cursor: pointer;">ENTRAR</button>
-        <button onclick="cerrarLogin()" style="background: #3f3f46; border: none; border-radius: 30px; padding: 25px; font-size: 2rem; font-weight: bold; color: white; cursor: pointer;">CERRAR</button>
+        <button onclick="comprobarLogin()" style="background: #00ff88; border: none; border-radius: 30px; padding: 25px; font-size: 2rem; font-weight: bold; color: black; cursor: pointer;">ENTRAR</button>
+        <button onclick="cerrarLogin()" style="background: #2a2a35; border: none; border-radius: 30px; padding: 25px; font-size: 2rem; font-weight: bold; color: white; cursor: pointer;">CERRAR</button>
       </div>
-      <p id="login-error" style="color: #ef4444; text-align: center; font-size: 1.8rem; margin-top: 20px; display: none;">❌ Contraseña incorrecta</p>
+      <p id="login-error" style="color: #ff2d75; text-align: center; font-size: 1.8rem; margin-top: 20px; display: none;">❌ Contraseña incorrecta</p>
     </div>
   </div>
 
@@ -166,10 +155,10 @@
   <div id="panel-admin" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0a0a0f; z-index: 2002; overflow-y: auto; padding: 20px;">
     
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-      <h2 style="background: linear-gradient(135deg, #d8b4fe, #a855f7); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 2.5rem;">✏️ EDITAR TODO</h2>
+      <h2 style="background: linear-gradient(135deg, #ff2d75, #ff6b4a, #ffb347); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 2.5rem;">✏️ EDITAR TODO</h2>
       <div style="display: flex; gap: 10px;">
-        <button id="addNewSectionBtn" style="background: #a855f7; border: none; border-radius: 40px; padding: 12px 24px; font-size: 1.4rem; font-weight: bold; color: white; cursor: pointer;">➕ AÑADIR SECCIÓN</button>
-        <button onclick="cerrarAdmin()" style="background: #3f3f46; border: none; border-radius: 40px; padding: 12px 24px; font-size: 1.4rem; color: white; cursor: pointer;">CERRAR</button>
+        <button id="addNewSectionBtn" style="background: #00ff88; border: none; border-radius: 40px; padding: 12px 24px; font-size: 1.4rem; font-weight: bold; color: black; cursor: pointer;">➕ AÑADIR SECCIÓN</button>
+        <button onclick="cerrarAdmin()" style="background: #2a2a35; border: none; border-radius: 40px; padding: 12px 24px; font-size: 1.4rem; color: white; cursor: pointer;">CERRAR</button>
       </div>
     </div>
     
@@ -177,39 +166,62 @@
     
     <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;" id="adminTabsContainer"></div>
     
-    <div id="admin-contenido" style="background: #18181b; border-radius: 30px; padding: 20px; margin-bottom: 20px;">
+    <div id="admin-contenido" style="background: #111118; border-radius: 30px; padding: 20px; margin-bottom: 20px;">
       <p style="color: #a1a1aa; text-align: center; font-size: 1.8rem;">Selecciona una sección para editar</p>
     </div>
     
-    <button onclick="guardarTodo()" style="width: 100%; background: #a855f7; border: none; border-radius: 60px; padding: 25px; font-size: 2.5rem; font-weight: bold; color: white; cursor: pointer;">💾 GUARDAR CAMBIOS</button>
+    <button onclick="guardarTodo()" style="width: 100%; background: linear-gradient(135deg, #ff2d75, #ff6b4a); border: none; border-radius: 60px; padding: 25px; font-size: 2.5rem; font-weight: bold; color: white; cursor: pointer;">💾 GUARDAR CAMBIOS</button>
   </div>
 
   <div id="saveIndicator" class="save-indicator">✅ GUARDADO</div>
 
   <script>
     const CONTRASENA = "alfre123";
-    const STORAGE_KEY = 'eltioj_datos_secciones_v6';
+    const STORAGE_KEY = 'eltioj_datos_secciones_v7';
+
+    // Colores neón para cada sección
+    const COLORES_NEON = {
+      // Tonos cálidos
+      rosa: { color: '#ff2d75', glow: 'rgba(255, 45, 117, 0.4)', bg: 'rgba(255, 45, 117, 0.08)' },
+      naranja: { color: '#ff6b4a', glow: 'rgba(255, 107, 74, 0.4)', bg: 'rgba(255, 107, 74, 0.08)' },
+      amarillo: { color: '#ffb347', glow: 'rgba(255, 179, 71, 0.4)', bg: 'rgba(255, 179, 71, 0.08)' },
+      // Tonos fríos
+      cian: { color: '#00d4ff', glow: 'rgba(0, 212, 255, 0.4)', bg: 'rgba(0, 212, 255, 0.08)' },
+      verde: { color: '#00ff88', glow: 'rgba(0, 255, 136, 0.4)', bg: 'rgba(0, 255, 136, 0.08)' },
+      azul: { color: '#3b82f6', glow: 'rgba(59, 130, 246, 0.4)', bg: 'rgba(59, 130, 246, 0.08)' },
+      morado: { color: '#a855f7', glow: 'rgba(168, 85, 247, 0.4)', bg: 'rgba(168, 85, 247, 0.08)' },
+      fucsia: { color: '#e879f9', glow: 'rgba(232, 121, 249, 0.4)', bg: 'rgba(232, 121, 249, 0.08)' }
+    };
+
+    const COLORES_POR_TIPO = {
+      extracciones: COLORES_NEON.rosa,
+      hierbas: COLORES_NEON.verde,
+      hash: COLORES_NEON.naranja,
+      liados: COLORES_NEON.cian,
+      munchies: COLORES_NEON.amarillo,
+      eventos: COLORES_NEON.morado
+    };
 
     let secciones = [
-      { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [] },
-      { id: "hierbas", nombre: "HIERBAS", icono: "🌿", tipo: "productos", items: [] },
-      { id: "hash", nombre: "HASH", icono: "🍫", tipo: "productos", items: [] },
-      { id: "liados", nombre: "LIADOS", icono: "🚬", tipo: "liados", items: [] },
-      { id: "munchies", nombre: "MUNCHIES", icono: "🍕", tipo: "munchies", sub: { bebidas: [], picar: [] } },
-      { id: "eventos", nombre: "EVENTOS", icono: "🎉", tipo: "eventos", items: [] }
+      { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [], colorKey: "extracciones" },
+      { id: "hierbas", nombre: "HIERBAS", icono: "🌿", tipo: "productos", items: [], colorKey: "hierbas" },
+      { id: "hash", nombre: "HASH", icono: "🍫", tipo: "productos", items: [], colorKey: "hash" },
+      { id: "liados", nombre: "LIADOS", icono: "🚬", tipo: "liados", items: [], colorKey: "liados" },
+      { id: "munchies", nombre: "MUNCHIES", icono: "🍕", tipo: "munchies", sub: { bebidas: [], picar: [] }, colorKey: "munchies" },
+      { id: "eventos", nombre: "EVENTOS", icono: "🎉", tipo: "eventos", items: [], colorKey: "eventos" }
     ];
 
     const DEFAULT_EXTRA = [
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%237c3aed"/%3E%3Ctext x="50" y="55" fill="%23d8b4fe" font-size="12" text-anchor="middle"%3EBHO%3C/text%3E%3C/svg%3E', nombre: 'BHO TROPICANA CHERRY', precio: '28€/g' },
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%233b076b"/%3E%3Ctext x="50" y="55" fill="%23d8b4fe" font-size="12"%3EICE%3C/text%3E%3C/svg%3E', nombre: 'ICE MAC1 PLUS', precio: '18€/g' },
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%236b21a8"/%3E%3Ctext x="50" y="55" fill="%23d8b4fe"%3ETAITELLA%3C/text%3E%3C/svg%3E', nombre: 'TAITELLA', precio: '24€/g' }
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ff2d75"/%3E%3Ctext x="50" y="55" fill="white" font-size="12" text-anchor="middle"%3EBHO%3C/text%3E%3C/svg%3E', nombre: 'BHO TROPICANA CHERRY', precio: '28€/g' },
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%2300d4ff"/%3E%3Ctext x="50" y="55" fill="white" font-size="12"%3EICE%3C/text%3E%3C/svg%3E', nombre: 'ICE MAC1 PLUS', precio: '18€/g' },
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ffb347"/%3E%3Ctext x="50" y="55" fill="black"%3ETAITELLA%3C/text%3E%3C/svg%3E', nombre: 'TAITELLA', precio: '24€/g' }
     ];
     const DEFAULT_HIERBAS = [
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%233b076b"/%3E%3Ctext x="50" y="55" fill="%23d8b4fe"%3ELONDON%3C/text%3E%3C/svg%3E', nombre: 'LONDON CAKE', precio: '8€/g' },
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%237c3aed"/%3E%3Ctext x="50" y="55" fill="%23d8b4fe"%3EAMNESIA%3C/text%3E%3C/svg%3E', nombre: 'AMNESIA', precio: '4€/g' }
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%2300ff88"/%3E%3Ctext x="50" y="55" fill="black"%3ELONDON%3C/text%3E%3C/svg%3E', nombre: 'LONDON CAKE', precio: '8€/g' },
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23e879f9"/%3E%3Ctext x="50" y="55" fill="black"%3EAMNESIA%3C/text%3E%3C/svg%3E', nombre: 'AMNESIA', precio: '4€/g' }
     ];
     const DEFAULT_HASH = [
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%234c1d95"/%3E%3Ctext x="50" y="55" fill="%23d8b4fe"%3EGORILA%3C/text%3E%3C/svg%3E', nombre: 'GORILA', precio: '6€/g' }
+      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ff6b4a"/%3E%3Ctext x="50" y="55" fill="white"%3EGORILA%3C/text%3E%3C/svg%3E', nombre: 'GORILA', precio: '6€/g' }
     ];
     const DEFAULT_LIADOS = [
       { nombre: 'CRITICAL X GORILA', precio: '1x3€ | 2x5€' },
@@ -218,13 +230,20 @@
     const DEFAULT_BEBIDAS = [{ nombre: 'COCACOLA', precio: '2€' }, { nombre: 'AGUA', precio: '1.50€' }];
     const DEFAULT_PICAR = [{ nombre: 'PATATAS', precio: '1.50€' }];
     const DEFAULT_EVENTOS = [
-      'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%237c3aed"/%3E%3Ctext x="100" y="110" fill="%23d8b4fe" text-anchor="middle"%3EEVENTO%3C/text%3E%3C/svg%3E',
-      'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%236b21a8"/%3E%3Ctext x="100" y="110" fill="%23d8b4fe"%3EFIESTA%3C/text%3E%3C/svg%3E'
+      'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23a855f7"/%3E%3Ctext x="100" y="110" fill="white" text-anchor="middle"%3EEVENTO%3C/text%3E%3C/svg%3E',
+      'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23e879f9"/%3E%3Ctext x="100" y="110" fill="white"%3EFIESTA%3C/text%3E%3C/svg%3E'
     ];
 
     let draggedItem = null;
     let draggedIndex = null;
     let currentSecId = null;
+
+    function getColorForSection(sec) {
+      if (sec.colorKey && COLORES_POR_TIPO[sec.colorKey]) return COLORES_POR_TIPO[sec.colorKey];
+      const coloresLista = Object.values(COLORES_NEON);
+      const hash = (sec.id || sec.nombre).length;
+      return coloresLista[hash % coloresLista.length];
+    }
 
     function cargarDatos() {
       const guardado = localStorage.getItem(STORAGE_KEY);
@@ -236,6 +255,15 @@
         } catch(e) {}
       }
       secciones.forEach(sec => {
+        if (!sec.colorKey) {
+          if (sec.id === 'extracciones') sec.colorKey = 'extracciones';
+          else if (sec.id === 'hierbas') sec.colorKey = 'hierbas';
+          else if (sec.id === 'hash') sec.colorKey = 'hash';
+          else if (sec.id === 'liados') sec.colorKey = 'liados';
+          else if (sec.id === 'munchies') sec.colorKey = 'munchies';
+          else if (sec.id === 'eventos') sec.colorKey = 'eventos';
+          else sec.colorKey = 'cian';
+        }
         if (sec.tipo === 'productos' && (!sec.items || sec.items.length === 0)) {
           if (sec.id === 'extracciones') sec.items = JSON.parse(JSON.stringify(DEFAULT_EXTRA));
           else if (sec.id === 'hierbas') sec.items = JSON.parse(JSON.stringify(DEFAULT_HIERBAS));
@@ -266,15 +294,22 @@
         const pest = document.createElement('div');
         pest.className = 'pestana';
         if (idx === 0) pest.classList.add('activa');
-        let colorBorde = '#a855f7';
-        if (sec.tipo === 'liados') colorBorde = '#c084fc';
-        else if (sec.tipo === 'munchies') colorBorde = '#d8b4fe';
-        else if (sec.tipo === 'eventos') colorBorde = '#b482ff';
-        pest.style.borderColor = colorBorde;
+        const color = getColorForSection(sec);
+        pest.style.borderColor = color.color;
+        if (pest.classList.contains('activa')) {
+          pest.style.boxShadow = `0 0 20px ${color.glow}`;
+          pest.style.background = color.bg;
+        }
         pest.innerHTML = `<div class="pestana-icon">${sec.icono}</div><div class="pestana-text">${sec.nombre}</div>`;
         pest.addEventListener('click', () => {
-          document.querySelectorAll('.pestana').forEach(p => p.classList.remove('activa'));
+          document.querySelectorAll('.pestana').forEach(p => {
+            p.classList.remove('activa');
+            p.style.boxShadow = '';
+            p.style.background = '';
+          });
           pest.classList.add('activa');
+          pest.style.boxShadow = `0 0 20px ${color.glow}`;
+          pest.style.background = color.bg;
           document.querySelectorAll('.panel').forEach((p, i) => { p.classList.toggle('activo', i === idx); });
         });
         container.appendChild(pest);
@@ -289,14 +324,14 @@
         panel.className = 'panel' + (idx === 0 ? ' activo' : '');
         let html = '';
         if (sec.tipo === 'productos') {
-          html = `<div class="subseccion"><h3 class="subseccion-titulo">${sec.icono} ${sec.nombre}</h3><div class="productos-grid" id="grid-${sec.id}"></div></div>`;
+          html = `<div class="subseccion"><h3 class="subseccion-titulo" style="border-left-color: ${getColorForSection(sec).color}; color: ${getColorForSection(sec).color};">${sec.icono} ${sec.nombre}</h3><div class="productos-grid" id="grid-${sec.id}"></div></div>`;
         } else if (sec.tipo === 'liados') {
-          html = `<div class="subseccion" style="border-color: rgba(192, 132, 252, 0.4);"><h3 class="subseccion-titulo" style="color: #c084fc; border-left-color: #c084fc;">🚬 ${sec.nombre}</h3><div class="liados-grid" id="grid-${sec.id}"></div></div>`;
+          html = `<div class="subseccion"><h3 class="subseccion-titulo" style="border-left-color: ${getColorForSection(sec).color}; color: ${getColorForSection(sec).color};">🚬 ${sec.nombre}</h3><div class="liados-grid" id="grid-${sec.id}"></div></div>`;
         } else if (sec.tipo === 'munchies') {
-          html = `<div><div class="munchies-categoria"><div class="categoria-titulo">🥤 BEBIDAS</div><div class="items-lista" id="bebidas-lista-${sec.id}"></div></div>
-                  <div class="munchies-categoria"><div class="categoria-titulo">🍿 PICAR</div><div class="items-lista" id="picar-lista-${sec.id}"></div></div></div>`;
+          html = `<div><div class="munchies-categoria"><div class="categoria-titulo" style="color: ${getColorForSection(sec).color}; border-bottom-color: ${getColorForSection(sec).color};">🥤 BEBIDAS</div><div class="items-lista" id="bebidas-lista-${sec.id}"></div></div>
+                  <div class="munchies-categoria"><div class="categoria-titulo" style="color: ${getColorForSection(sec).color}; border-bottom-color: ${getColorForSection(sec).color};">🍿 PICAR</div><div class="items-lista" id="picar-lista-${sec.id}"></div></div></div>`;
         } else if (sec.tipo === 'eventos') {
-          html = `<div class="subseccion"><h3 class="subseccion-titulo">🎉 ${sec.nombre}</h3><div class="eventos-grid" id="eventos-grid-${sec.id}"></div></div>`;
+          html = `<div class="subseccion"><h3 class="subseccion-titulo" style="border-left-color: ${getColorForSection(sec).color}; color: ${getColorForSection(sec).color};">🎉 ${sec.nombre}</h3><div class="eventos-grid" id="eventos-grid-${sec.id}"></div></div>`;
         }
         panel.innerHTML = html;
         contenedor.appendChild(panel);
@@ -312,11 +347,14 @@
     function llenarProductos(sec) {
       const grid = document.getElementById(`grid-${sec.id}`);
       if (!grid) return;
+      const color = getColorForSection(sec);
       grid.innerHTML = '';
       sec.items.forEach((item) => {
         const card = document.createElement('div');
         card.className = 'producto-card';
-        card.innerHTML = `<img src="${item.img}"><h4>${item.nombre}</h4><div class="producto-precio">${item.precio}</div>`;
+        card.style.borderColor = color.color;
+        card.style.boxShadow = `0 0 15px ${color.glow}`;
+        card.innerHTML = `<img src="${item.img}" style="border: 2px solid ${color.color}; box-shadow: 0 0 0 1px ${color.color};"><h4>${item.nombre}</h4><div class="producto-precio" style="color: ${color.color}; border: 1px solid ${color.color}; background: ${color.bg};">${item.precio}</div>`;
         grid.appendChild(card);
       });
     }
@@ -324,41 +362,48 @@
     function llenarLiados(sec) {
       const grid = document.getElementById(`grid-${sec.id}`);
       if (!grid) return;
+      const color = getColorForSection(sec);
       grid.innerHTML = '';
       sec.items.forEach((item) => {
         const div = document.createElement('div');
         div.className = 'liado-card';
-        div.innerHTML = `<div class="liado-icon">🚬</div><h4>${item.nombre}</h4><div class="liado-precio">${item.precio}</div>`;
+        div.style.borderColor = color.color;
+        div.style.boxShadow = `0 0 15px ${color.glow}`;
+        div.innerHTML = `<div class="liado-icon" style="filter: drop-shadow(0 0 10px ${color.color});">🚬</div><h4 style="color: ${color.color};">${item.nombre}</h4><div class="liado-precio" style="color: ${color.color}; border: 1px solid ${color.color}; background: ${color.bg};">${item.precio}</div>`;
         grid.appendChild(div);
       });
     }
 
     function llenarMunchies(sec) {
+      const color = getColorForSection(sec);
       const bebidasDiv = document.getElementById(`bebidas-lista-${sec.id}`);
       const picarDiv = document.getElementById(`picar-lista-${sec.id}`);
       if (bebidasDiv) {
         bebidasDiv.innerHTML = '';
-        sec.sub.bebidas.forEach(item => { bebidasDiv.innerHTML += `<div class="item-munchi"><span class="item-nombre">${item.nombre}</span><span class="item-precio">${item.precio}</span></div>`; });
+        sec.sub.bebidas.forEach(item => { bebidasDiv.innerHTML += `<div class="item-munchi" style="border-color: ${color.color};"><span class="item-nombre">${item.nombre}</span><span class="item-precio" style="color: ${color.color};">${item.precio}</span></div>`; });
       }
       if (picarDiv) {
         picarDiv.innerHTML = '';
-        sec.sub.picar.forEach(item => { picarDiv.innerHTML += `<div class="item-munchi"><span class="item-nombre">${item.nombre}</span><span class="item-precio">${item.precio}</span></div>`; });
+        sec.sub.picar.forEach(item => { picarDiv.innerHTML += `<div class="item-munchi" style="border-color: ${color.color};"><span class="item-nombre">${item.nombre}</span><span class="item-precio" style="color: ${color.color};">${item.precio}</span></div>`; });
       }
     }
 
     function llenarEventos(sec) {
       const grid = document.getElementById(`eventos-grid-${sec.id}`);
       if (!grid) return;
+      const color = getColorForSection(sec);
       grid.innerHTML = '';
       sec.items.forEach((img, idx) => {
         const card = document.createElement('div');
         card.className = 'evento-card';
-        card.innerHTML = `<img src="${img}"><button class="evento-delete" onclick="eliminarEvento('${sec.id}', ${idx})">✖</button>`;
+        card.style.borderColor = color.color;
+        card.style.color = color.color;
+        card.innerHTML = `<img src="${img}"><button class="evento-delete" onclick="eliminarEvento('${sec.id}', ${idx})" style="background: ${color.color};">✖</button>`;
         grid.appendChild(card);
       });
     }
 
-    // Funciones de drag & drop para reordenar productos
+    // Funciones de drag & drop
     function iniciarDrag(e, index, secId) {
       draggedIndex = index;
       currentSecId = secId;
@@ -374,9 +419,7 @@
       currentSecId = null;
     }
 
-    function permitirDrop(e) {
-      e.preventDefault();
-    }
+    function permitirDrop(e) { e.preventDefault(); }
 
     function soltarDrop(e, targetIndex, secId) {
       e.preventDefault();
@@ -441,11 +484,12 @@
 
     function renderAdminUI() {
       const seccionesList = document.getElementById('seccionesAdminList');
-      seccionesList.innerHTML = '<strong style="color:#a855f7; margin-right:10px;">🗑️ Eliminar sección:</strong>';
+      seccionesList.innerHTML = '<strong style="color:#ff2d75; margin-right:10px;">🗑️ Eliminar sección:</strong>';
       secciones.forEach((sec, idx) => {
+        const color = getColorForSection(sec);
         const btn = document.createElement('button');
         btn.textContent = `❌ ${sec.nombre}`;
-        btn.style.background = '#ef4444';
+        btn.style.background = color.color;
         btn.style.color = 'white';
         btn.style.border = 'none';
         btn.style.borderRadius = '20px';
@@ -458,14 +502,15 @@
       const tabsContainer = document.getElementById('adminTabsContainer');
       tabsContainer.innerHTML = '';
       secciones.forEach((sec) => {
+        const color = getColorForSection(sec);
         const tab = document.createElement('button');
         tab.textContent = `${sec.icono} ${sec.nombre}`;
-        tab.style.background = '#27272a';
-        tab.style.border = '1px solid #a855f7';
+        tab.style.background = color.bg;
+        tab.style.border = `1px solid ${color.color}`;
         tab.style.borderRadius = '20px';
         tab.style.padding = '10px 20px';
         tab.style.cursor = 'pointer';
-        tab.style.color = '#d4d4d8';
+        tab.style.color = color.color;
         tab.onclick = () => mostrarSeccionAdmin(sec.id);
         tabsContainer.appendChild(tab);
       });
@@ -496,7 +541,10 @@
       if (!['productos', 'liados', 'eventos', 'munchies'].includes(tipo)) tipo = "productos";
       
       const newId = "sec_" + Date.now();
-      let nuevaSeccion = { id: newId, nombre: nombre.toUpperCase(), icono: icono, tipo: tipo };
+      const coloresLista = Object.values(COLORES_NEON);
+      const colorAleatorio = coloresLista[Math.floor(Math.random() * coloresLista.length)];
+      
+      let nuevaSeccion = { id: newId, nombre: nombre.toUpperCase(), icono: icono, tipo: tipo, colorKey: Object.keys(COLORES_NEON)[Math.floor(Math.random() * Object.keys(COLORES_NEON).length)] };
       
       if (tipo === 'productos') nuevaSeccion.items = [];
       else if (tipo === 'liados') nuevaSeccion.items = [];
@@ -513,90 +561,91 @@
     function mostrarSeccionAdmin(seccionId) {
       const sec = secciones.find(s => s.id === seccionId);
       if (!sec) return;
+      const color = getColorForSection(sec);
       
       let html = '';
       if (sec.tipo === 'productos') {
-        html = `<h3 style="color: #c084fc; margin-bottom: 20px;">${sec.icono} ${sec.nombre} <span style="font-size:1rem;">(Arrastra para reordenar)</span></h3><div class="admin-grid" id="admin-grid-${sec.id}">`;
+        html = `<h3 style="color: ${color.color}; margin-bottom: 20px;">${sec.icono} ${sec.nombre} <span style="font-size:1rem;">(Arrastra para reordenar)</span></h3><div class="admin-grid" id="admin-grid-${sec.id}">`;
         sec.items.forEach((item, i) => {
           html += `
-            <div class="admin-card" style="border-color: #a855f7;" draggable="true" data-index="${i}" data-secid="${sec.id}" 
+            <div class="admin-card" style="border-color: ${color.color};" draggable="true" data-index="${i}" data-secid="${sec.id}" 
                  ondragstart="iniciarDrag(event, ${i}, '${sec.id}')" 
                  ondragend="finalizarDrag(event)" 
                  ondragover="permitirDrop(event)"
                  ondrop="soltarDrop(event, ${i}, '${sec.id}')"
                  ondragenter="marcarSobreDrop(event)"
                  ondragleave="limpiarMarcador(event)">
-              <div class="drag-handle">⋮⋮ ARRASTRAR ⋮⋮</div>
-              <img src="${item.img}" id="admin-img-${sec.id}-${i}" class="admin-img">
+              <div class="drag-handle" style="color: ${color.color};">⋮⋮ ARRASTRAR ⋮⋮</div>
+              <img src="${item.img}" id="admin-img-${sec.id}-${i}" class="admin-img" style="border: 2px solid ${color.color};">
               <input type="file" id="file-${sec.id}-${i}" accept="image/*" class="admin-file-input" onchange="subirImagenProducto('${sec.id}', ${i})">
               <button onclick="document.getElementById('file-${sec.id}-${i}').click()" class="admin-btn btn-upload">📷 CAMBIAR FOTO</button>
               <input type="text" id="nombre-${sec.id}-${i}" value="${item.nombre.replace(/"/g, '&quot;')}" class="admin-input" placeholder="Nombre" onchange="actualizarProducto('${sec.id}', ${i}, 'nombre', this.value)">
-              <input type="text" id="precio-${sec.id}-${i}" value="${item.precio.replace(/"/g, '&quot;')}" class="admin-precio" placeholder="Precio" onchange="actualizarProducto('${sec.id}', ${i}, 'precio', this.value)">
+              <input type="text" id="precio-${sec.id}-${i}" value="${item.precio.replace(/"/g, '&quot;')}" class="admin-precio" style="border-color: ${color.color}; color: ${color.color};" placeholder="Precio" onchange="actualizarProducto('${sec.id}', ${i}, 'precio', this.value)">
               <button onclick="eliminarProductoItem('${sec.id}', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR</button>
             </div>
           `;
         });
-        html += '</div><button onclick="añadirProductoItem(\'' + sec.id + '\')" style="width:100%; background:#a855f7; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR PRODUCTO</button>';
+        html += '</div><button onclick="añadirProductoItem(\'' + sec.id + '\')" style="width:100%; background: linear-gradient(135deg, ' + color.color + ', ' + color.color + '); border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR PRODUCTO</button>';
       } 
       else if (sec.tipo === 'liados') {
-        html = `<h3 style="color: #c084fc; margin-bottom: 20px;">${sec.icono} ${sec.nombre} <span style="font-size:1rem;">(Arrastra para reordenar)</span></h3><div class="admin-grid" id="admin-grid-${sec.id}">`;
+        html = `<h3 style="color: ${color.color}; margin-bottom: 20px;">${sec.icono} ${sec.nombre} <span style="font-size:1rem;">(Arrastra para reordenar)</span></h3><div class="admin-grid" id="admin-grid-${sec.id}">`;
         sec.items.forEach((item, i) => {
           html += `
-            <div class="admin-card" style="border-color: #c084fc;" draggable="true" data-index="${i}" data-secid="${sec.id}" 
+            <div class="admin-card" style="border-color: ${color.color};" draggable="true" data-index="${i}" data-secid="${sec.id}" 
                  ondragstart="iniciarDrag(event, ${i}, '${sec.id}')" 
                  ondragend="finalizarDrag(event)" 
                  ondragover="permitirDrop(event)"
                  ondrop="soltarDrop(event, ${i}, '${sec.id}')"
                  ondragenter="marcarSobreDrop(event)"
                  ondragleave="limpiarMarcador(event)">
-              <div class="drag-handle">⋮⋮ ARRASTRAR ⋮⋮</div>
-              <div class="liado-icon" style="font-size: 5rem; text-align: center;">🚬</div>
+              <div class="drag-handle" style="color: ${color.color};">⋮⋮ ARRASTRAR ⋮⋮</div>
+              <div class="liado-icon" style="font-size: 5rem; text-align: center; filter: drop-shadow(0 0 10px ${color.color});">🚬</div>
               <input type="text" id="nombre-${sec.id}-${i}" value="${item.nombre.replace(/"/g, '&quot;')}" class="admin-input" placeholder="Nombre" onchange="actualizarProducto('${sec.id}', ${i}, 'nombre', this.value)">
-              <input type="text" id="precio-${sec.id}-${i}" value="${item.precio.replace(/"/g, '&quot;')}" class="admin-precio" placeholder="Precio" onchange="actualizarProducto('${sec.id}', ${i}, 'precio', this.value)">
+              <input type="text" id="precio-${sec.id}-${i}" value="${item.precio.replace(/"/g, '&quot;')}" class="admin-precio" style="border-color: ${color.color}; color: ${color.color};" placeholder="Precio" onchange="actualizarProducto('${sec.id}', ${i}, 'precio', this.value)">
               <button onclick="eliminarProductoItem('${sec.id}', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR</button>
             </div>
           `;
         });
-        html += '</div><button onclick="añadirProductoItem(\'' + sec.id + '\')" style="width:100%; background:#c084fc; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR LIADO</button>';
+        html += '</div><button onclick="añadirProductoItem(\'' + sec.id + '\')" style="width:100%; background: linear-gradient(135deg, ' + color.color + ', ' + color.color + '); border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR LIADO</button>';
       }
       else if (sec.tipo === 'munchies') {
-        html = `<h3 style="color: #d8b4fe; margin-bottom: 20px;">${sec.icono} ${sec.nombre} - BEBIDAS</h3><div class="admin-grid">`;
+        html = `<h3 style="color: ${color.color}; margin-bottom: 20px;">${sec.icono} ${sec.nombre} - BEBIDAS</h3><div class="admin-grid">`;
         sec.sub.bebidas.forEach((item, i) => {
           html += `
-            <div class="admin-card" style="border-color: #d8b4fe;">
+            <div class="admin-card" style="border-color: ${color.color};">
               <input type="text" id="bebida-nombre-${sec.id}-${i}" value="${item.nombre.replace(/"/g, '&quot;')}" class="admin-input" placeholder="Nombre" onchange="actualizarMunchi('${sec.id}', 'bebidas', ${i}, 'nombre', this.value)">
-              <input type="text" id="bebida-precio-${sec.id}-${i}" value="${item.precio}" class="admin-precio" placeholder="Precio" onchange="actualizarMunchi('${sec.id}', 'bebidas', ${i}, 'precio', this.value)">
+              <input type="text" id="bebida-precio-${sec.id}-${i}" value="${item.precio}" class="admin-precio" style="border-color: ${color.color}; color: ${color.color};" placeholder="Precio" onchange="actualizarMunchi('${sec.id}', 'bebidas', ${i}, 'precio', this.value)">
               <button onclick="eliminarMunchiItem('${sec.id}', 'bebidas', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR</button>
             </div>
           `;
         });
-        html += '</div><button onclick="añadirMunchiItem(\'' + sec.id + '\', \'bebidas\')" style="width:100%; background:#a855f7; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR BEBIDA</button>';
+        html += '</div><button onclick="añadirMunchiItem(\'' + sec.id + '\', \'bebidas\')" style="width:100%; background: linear-gradient(135deg, ' + color.color + ', ' + color.color + '); border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR BEBIDA</button>';
         
-        html += `<h3 style="color: #d8b4fe; margin-top: 30px; margin-bottom: 20px;">${sec.icono} ${sec.nombre} - PARA PICAR</h3><div class="admin-grid">`;
+        html += `<h3 style="color: ${color.color}; margin-top: 30px; margin-bottom: 20px;">${sec.icono} ${sec.nombre} - PARA PICAR</h3><div class="admin-grid">`;
         sec.sub.picar.forEach((item, i) => {
           html += `
-            <div class="admin-card" style="border-color: #d8b4fe;">
+            <div class="admin-card" style="border-color: ${color.color};">
               <input type="text" id="picar-nombre-${sec.id}-${i}" value="${item.nombre.replace(/"/g, '&quot;')}" class="admin-input" placeholder="Nombre" onchange="actualizarMunchi('${sec.id}', 'picar', ${i}, 'nombre', this.value)">
-              <input type="text" id="picar-precio-${sec.id}-${i}" value="${item.precio}" class="admin-precio" placeholder="Precio" onchange="actualizarMunchi('${sec.id}', 'picar', ${i}, 'precio', this.value)">
+              <input type="text" id="picar-precio-${sec.id}-${i}" value="${item.precio}" class="admin-precio" style="border-color: ${color.color}; color: ${color.color};" placeholder="Precio" onchange="actualizarMunchi('${sec.id}', 'picar', ${i}, 'precio', this.value)">
               <button onclick="eliminarMunchiItem('${sec.id}', 'picar', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR</button>
             </div>
           `;
         });
-        html += '</div><button onclick="añadirMunchiItem(\'' + sec.id + '\', \'picar\')" style="width:100%; background:#a855f7; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR PRODUCTO</button>';
+        html += '</div><button onclick="añadirMunchiItem(\'' + sec.id + '\', \'picar\')" style="width:100%; background: linear-gradient(135deg, ' + color.color + ', ' + color.color + '); border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR PRODUCTO</button>';
       }
       else if (sec.tipo === 'eventos') {
-        html = `<h3 style="color: #b482ff; margin-bottom: 20px;">${sec.icono} ${sec.nombre}</h3><div class="admin-grid">`;
+        html = `<h3 style="color: ${color.color}; margin-bottom: 20px;">${sec.icono} ${sec.nombre}</h3><div class="admin-grid">`;
         sec.items.forEach((img, i) => {
           html += `
-            <div class="admin-card" style="border-color: #b482ff;">
-              <img src="${img}" id="evento-img-${sec.id}-${i}" class="admin-img">
+            <div class="admin-card" style="border-color: ${color.color};">
+              <img src="${img}" id="evento-img-${sec.id}-${i}" class="admin-img" style="border: 2px solid ${color.color};">
               <input type="file" id="evento-file-${sec.id}-${i}" accept="image/*" class="admin-file-input" onchange="subirImagenEvento('${sec.id}', ${i})">
               <button onclick="document.getElementById('evento-file-${sec.id}-${i}').click()" class="admin-btn btn-upload">📷 CAMBIAR FOTO</button>
               <button onclick="eliminarEvento('${sec.id}', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR CARTEL</button>
             </div>
           `;
         });
-        html += '</div><button onclick="añadirEventoItem(\'' + sec.id + '\')" style="width:100%; background:#a855f7; border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR NUEVO CARTEL</button>';
+        html += '</div><button onclick="añadirEventoItem(\'' + sec.id + '\')" style="width:100%; background: linear-gradient(135deg, ' + color.color + ', ' + color.color + '); border:none; border-radius:30px; padding:15px; font-size:1.8rem; margin-top:10px; color:white; cursor:pointer;">➕ AÑADIR NUEVO CARTEL</button>';
       }
       
       document.getElementById('admin-contenido').innerHTML = html;
@@ -616,7 +665,7 @@
       const sec = secciones.find(s => s.id === secId);
       if (sec) {
         if (sec.tipo === 'productos') {
-          sec.items.push({ img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23a855f7"/%3E%3Ctext x="50" y="55" fill="%23d8b4fe"%3ENUEVO%3C/text%3E%3C/svg%3E', nombre: 'NUEVO PRODUCTO', precio: '0€' });
+          sec.items.push({ img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ffffff"/%3E%3Ctext x="50" y="55" fill="black"%3ENUEVO%3C/text%3E%3C/svg%3E', nombre: 'NUEVO PRODUCTO', precio: '0€' });
         } else if (sec.tipo === 'liados') {
           sec.items.push({ nombre: 'NUEVO LIADO', precio: '0€' });
         }
@@ -671,7 +720,7 @@
     function añadirEventoItem(secId) {
       const sec = secciones.find(s => s.id === secId);
       if (sec) {
-        sec.items.push('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23a855f7"/%3E%3Ctext x="100" y="110" fill="%23d8b4fe"%3ENUEVO%3C/text%3E%3C/svg%3E');
+        sec.items.push('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23ffffff"/%3E%3Ctext x="100" y="110" fill="black"%3ENUEVO%3C/text%3E%3C/svg%3E');
         guardarCompleto();
         renderizarTodo();
         mostrarSeccionAdmin(secId);
@@ -754,6 +803,8 @@
     function mostrarIndicator() {
       const indicator = document.getElementById('saveIndicator');
       indicator.style.display = 'block';
+      indicator.style.background = '#00ff88';
+      indicator.style.color = 'black';
       setTimeout(() => indicator.style.display = 'none', 2000);
     }
 
