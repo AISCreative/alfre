@@ -268,8 +268,9 @@
   <div id="saveIndicator" class="save-indicator">✅ GUARDADO</div>
 
   <script>
+    // La contraseña está fija en el código, NO se guarda en ningún lugar
     const CONTRASENA = "0525";
-    const STORAGE_KEY = 'eltioj_datos_papelera_v6';
+    const STORAGE_KEY = 'eltioj_datos_v7'; // Nueva clave para evitar conflictos
 
     const COLORES_NEON = {
       cian: { color: '#00ffff', glow: '#00ffff', bg: 'rgba(0, 255, 255, 0.1)' },
@@ -677,15 +678,21 @@
     function escapeHtml(str) { return String(str || '').replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
 
     // ADMIN
-    function mostrarLogin() { document.getElementById('panel-login').style.display = 'flex'; }
-    function cerrarLogin() { document.getElementById('panel-login').style.display = 'none'; document.getElementById('login-error').style.display = 'none'; }
+    function mostrarLogin() { document.getElementById('panel-login').style.display = 'flex'; document.getElementById('login-password').value = ''; }
+    function cerrarLogin() { document.getElementById('panel-login').style.display = 'none'; document.getElementById('login-error').style.display = 'none'; document.getElementById('login-password').value = ''; }
     function comprobarLogin() {
+      // La contraseña se verifica directamente con la constante fija
+      // No se guarda, no se almacena, solo se compara
       if(document.getElementById('login-password').value === CONTRASENA) {
         document.getElementById('panel-login').style.display = 'none';
         document.getElementById('panel-admin').style.display = 'block';
         document.body.classList.add('admin-mode');
         renderAdminUI();
-      } else { document.getElementById('login-error').style.display = 'block'; }
+        document.getElementById('login-password').value = ''; // Limpiar por seguridad
+      } else { 
+        document.getElementById('login-error').style.display = 'block';
+        document.getElementById('login-password').value = ''; // Limpiar en error también
+      }
     }
     function cerrarAdmin() { document.getElementById('panel-admin').style.display = 'none'; document.body.classList.remove('admin-mode'); }
     
