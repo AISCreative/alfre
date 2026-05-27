@@ -271,7 +271,7 @@
 
   <script>
     const CONTRASENA = "0525";
-    const STORAGE_KEY = 'eltioj_datos_v7';
+    const STORAGE_KEY = 'eltioj_datos_v8';
 
     const COLORES_NEON = {
       cian: { color: '#00ffff', glow: '#00ffff', bg: 'rgba(0, 255, 255, 0.1)' },
@@ -293,6 +293,11 @@
       eventos: COLORES_NEON.azulElectro
     };
 
+    // Función para crear imágenes placeholder con colores y texto
+    function crearImagenPlaceholder(color, texto) {
+      return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='${color}'/%3E%3Ctext x='100' y='110' font-size='22' fill='white' text-anchor='middle' font-weight='bold'%3E${encodeURIComponent(texto.substring(0, 15))}%3C/text%3E%3C/svg%3E`;
+    }
+
     let secciones = [
       { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [], papelera: [], colorKey: "extracciones" },
       { id: "hierbas", nombre: "HIERBAS", icono: "🌿", tipo: "productos", items: [], papelera: [], colorKey: "hierbas" },
@@ -302,31 +307,104 @@
       { id: "eventos", nombre: "EVENTOS", icono: "🎉", tipo: "eventos", items: [], papelera: [], colorKey: "eventos" }
     ];
 
-    const DEFAULT_EXTRA = [
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ff00ff"/%3E%3Ctext x="50" y="55" fill="white" font-size="12" text-anchor="middle"%3EBHO%3C/text%3E%3C/svg%3E', nombre: 'BHO TROPICANA CHERRY', precio: '28€/g' },
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%2300ffff"/%3E%3Ctext x="50" y="55" fill="black" font-size="12"%3EICE%3C/text%3E%3C/svg%3E', nombre: 'ICE MAC1 PLUS', precio: '18€/g' },
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ff6600"/%3E%3Ctext x="50" y="55" fill="white"%3ETAITELLA%3C/text%3E%3C/svg%3E', nombre: 'TAITELLA', precio: '24€/g' }
+    // ========== EXTRACCIONES ==========
+    const EXTRACCIONES_LIST = [
+      "Ice fresh Frozen 90mc", "Ice fresh mix", "Ice frozen Georgia pie", "Ice fresh chapel"
     ];
-    const DEFAULT_HIERBAS = [
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%2300ffaa"/%3E%3Ctext x="50" y="55" fill="black"%3ELONDON%3C/text%3E%3C/svg%3E', nombre: 'LONDON CAKE', precio: '8€/g' },
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ff0033"/%3E%3Ctext x="50" y="55" fill="white"%3EAMNESIA%3C/text%3E%3C/svg%3E', nombre: 'AMNESIA', precio: '4€/g' }
+    
+    // ========== HIERBAS ==========
+    const HIERBAS_LIST = [
+      "Amnesia haze pro", "Chicken waffle", "Green Passion", "White widow", "Trop cherry gas",
+      "Purple fruit", "Tropicanna", "Chapel", "Georgia pie", "OG kush", "Tricho Jordan",
+      "Cheetah piss", "Runtz", "Menthol runtz", "Tropicana cherry", "Gelato", "Chapel max",
+      "Skitlez", "Superboom (CANADA)", "Tangle (CANADA)", "Gelato X purple+"
     ];
-    const DEFAULT_HASH = [
-      { img: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23ff6600"/%3E%3Ctext x="50" y="55" fill="white"%3EGORILA%3C/text%3E%3C/svg%3E', nombre: 'GORILA', precio: '6€/g' }
+    
+    // ========== HASH ==========
+    const HASH_LIST = [
+      "Polen (versión de 3'5)", "Polen (versión de 4)", "Sonic", "Bitcoin", "Banana Runtz",
+      "Mandarin cookies", "Cali gas", "Hash", "Banana cherry", "Cbd", "Chucky dry",
+      "Tropicana cookies", "Mimosa dry", "Skitlez dry", "Dos y dos X Stardawg frozen",
+      "Frozen G10", "Mimosa frozen", "Static", "Frozen forbidden fruit", "Double static"
     ];
-    const DEFAULT_LIADOS = [
-      { nombre: 'CRITICAL X GORILA', precio: '1x3€ | 2x5€' },
-      { nombre: 'AMNESIA', precio: '1x3€ | 2x5€' }
-    ];
-    const DEFAULT_BEBIDAS = [{ nombre: 'COCACOLA', precio: '2€' }, { nombre: 'AGUA', precio: '1.50€' }];
-    const DEFAULT_PICAR = [{ nombre: 'PATATAS', precio: '1.50€' }];
-    const DEFAULT_EVENTOS = [
-      'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%230044ff"/%3E%3Ctext x="100" y="110" fill="white" text-anchor="middle"%3EEVENTO%3C/text%3E%3C/svg%3E',
-      'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23aaff00"/%3E%3Ctext x="100" y="110" fill="black"%3EFIESTA%3C/text%3E%3C/svg%3E'
+    
+    // ========== LIADOS ==========
+    const LIADOS_LIST = [
+      "Liados mix (verde)", "Liados polen", "Liados Bitcoin", "Liados Cali gas", "Liados hash", "Untar Liado con rosin"
     ];
 
-    let draggedIndex = null, currentSecId = null;
-    let papeleraAbierta = {};
+    // Colores para los placeholders
+    const COLOR_MAGENTA = '%23ff00ff';
+    const COLOR_VERDE = '%2300ffaa';
+    const COLOR_NARANJA = '%23ff6600';
+    const COLOR_CIAN = '%2300ffff';
+
+    // Cargar datos (prioriza localStorage, si no hay usa los nuevos productos)
+    function cargarDatos() {
+      const guardado = localStorage.getItem(STORAGE_KEY);
+      if (guardado) {
+        try {
+          const data = JSON.parse(guardado);
+          if (data.secciones) secciones = data.secciones;
+          else secciones = data;
+          renderizarTodo();
+          return;
+        } catch(e) {}
+      }
+      
+      // Si no hay datos guardados, cargar los productos nuevos
+      // EXTRACCIONES
+      secciones[0].items = EXTRACCIONES_LIST.map(nombre => ({
+        img: crearImagenPlaceholder(COLOR_MAGENTA, nombre),
+        nombre: nombre,
+        precio: 'Consultar'
+      }));
+      
+      // HIERBAS
+      secciones[1].items = HIERBAS_LIST.map(nombre => ({
+        img: crearImagenPlaceholder(COLOR_VERDE, nombre),
+        nombre: nombre,
+        precio: 'Consultar'
+      }));
+      
+      // HASH
+      secciones[2].items = HASH_LIST.map(nombre => ({
+        img: crearImagenPlaceholder(COLOR_NARANJA, nombre),
+        nombre: nombre,
+        precio: 'Consultar'
+      }));
+      
+      // LIADOS
+      secciones[3].items = LIADOS_LIST.map(nombre => ({
+        nombre: nombre,
+        precio: 'Consultar'
+      }));
+      
+      // MUNCHIES (mantener los que había)
+      secciones[4].sub = { 
+        bebidas: [{ nombre: 'COCACOLA', precio: '2€' }, { nombre: 'AGUA', precio: '1.50€' }],
+        picar: [{ nombre: 'PATATAS', precio: '1.50€' }]
+      };
+      secciones[4].papelera = { bebidas: [], picar: [] };
+      
+      // EVENTOS (mantener los que había)
+      secciones[5].items = [
+        crearImagenPlaceholder('%230044ff', 'EVENTO PROXIMO'),
+        crearImagenPlaceholder('%23aaff00', 'FIESTA ESPECIAL')
+      ];
+      
+      // Asegurar papeleras vacías
+      secciones.forEach(sec => {
+        if (!sec.papelera) sec.papelera = (sec.tipo === 'munchies') ? { bebidas: [], picar: [] } : [];
+        if (sec.tipo === 'munchies' && sec.papelera && !sec.papelera.bebidas) sec.papelera = { bebidas: [], picar: [] };
+      });
+      
+      guardarCompleto();
+      renderizarTodo();
+    }
+
+    function guardarCompleto() { localStorage.setItem(STORAGE_KEY, JSON.stringify({ secciones: secciones })); mostrarIndicator(); }
+    function mostrarIndicator() { const ind = document.getElementById('saveIndicator'); ind.style.display = 'block'; setTimeout(() => ind.style.display = 'none', 2000); }
 
     function getColorForSection(sec) {
       if (sec.colorKey && COLORES_POR_TIPO[sec.colorKey]) return COLORES_POR_TIPO[sec.colorKey];
@@ -337,6 +415,9 @@
 
     function abrirImagenGrande(url) { document.getElementById('modalImage').src = url; document.getElementById('imageModal').classList.add('active'); }
     function cerrarModalImagen() { document.getElementById('imageModal').classList.remove('active'); document.getElementById('modalImage').src = ''; }
+
+    let papeleraAbierta = {};
+    let draggedIndex = null, currentSecId = null;
 
     function togglePapelera(secId) {
       papeleraAbierta[secId] = !papeleraAbierta[secId];
@@ -415,39 +496,6 @@
         }
       }
     }
-
-    function cargarDatos() {
-      const guardado = localStorage.getItem(STORAGE_KEY);
-      if (guardado) {
-        try {
-          const data = JSON.parse(guardado);
-          if (data.secciones) secciones = data.secciones;
-          else secciones = data;
-        } catch(e) {}
-      }
-      secciones.forEach(sec => {
-        if (!sec.colorKey) {
-          const map = { extracciones:'extracciones', hierbas:'hierbas', hash:'hash', liados:'liados', munchies:'munchies', eventos:'eventos' };
-          sec.colorKey = map[sec.id] || 'cian';
-        }
-        if (!sec.papelera) sec.papelera = (sec.tipo === 'munchies') ? { bebidas: [], picar: [] } : [];
-        if (sec.tipo === 'munchies' && sec.papelera && !sec.papelera.bebidas) sec.papelera = { bebidas: [], picar: [] };
-        
-        if (sec.tipo === 'productos' && (!sec.items || sec.items.length === 0)) {
-          if (sec.id === 'extracciones') sec.items = JSON.parse(JSON.stringify(DEFAULT_EXTRA));
-          else if (sec.id === 'hierbas') sec.items = JSON.parse(JSON.stringify(DEFAULT_HIERBAS));
-          else if (sec.id === 'hash') sec.items = JSON.parse(JSON.stringify(DEFAULT_HASH));
-          else sec.items = [];
-        }
-        if (sec.tipo === 'liados' && (!sec.items || sec.items.length === 0)) sec.items = JSON.parse(JSON.stringify(DEFAULT_LIADOS));
-        if (sec.tipo === 'munchies' && (!sec.sub || !sec.sub.bebidas)) sec.sub = { bebidas: JSON.parse(JSON.stringify(DEFAULT_BEBIDAS)), picar: JSON.parse(JSON.stringify(DEFAULT_PICAR)) };
-        if (sec.tipo === 'eventos' && (!sec.items || sec.items.length === 0)) sec.items = JSON.parse(JSON.stringify(DEFAULT_EVENTOS));
-      });
-      renderizarTodo();
-    }
-
-    function guardarCompleto() { localStorage.setItem(STORAGE_KEY, JSON.stringify({ secciones: secciones })); mostrarIndicator(); }
-    function mostrarIndicator() { const ind = document.getElementById('saveIndicator'); ind.style.display = 'block'; setTimeout(() => ind.style.display = 'none', 2000); }
 
     function renderizarTodo() { renderPestanas(); renderPaneles(); }
 
@@ -541,7 +589,7 @@
         card.style.borderColor = color.color;
         card.style.boxShadow = `0 0 15px ${color.glow}`;
         card.innerHTML = `<button class="delete-btn" onclick="event.stopPropagation(); moverAPapelera('${sec.id}', 'productos', ${idx})">✖</button>
-                          <img src="${item.img}" style="border-color: ${color.color};" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23333%22/%3E%3Ctext x=%2250%22 y=%2255%22 fill=%22white%22 font-size=%2212%22 text-anchor=%22middle%22%3E?%3C/text%3E%3C/svg%3E'"><h4>${escapeHtml(item.nombre)}</h4><div class="producto-precio" style="color:${color.color}; border-color:${color.color};">${escapeHtml(item.precio)}</div>`;
+                          <img src="${item.img}" style="border-color: ${color.color};" onerror="this.src='${crearImagenPlaceholder('%23333333', '?')}'"><h4>${escapeHtml(item.nombre)}</h4><div class="producto-precio" style="color:${color.color}; border-color:${color.color};">${escapeHtml(item.precio)}</div>`;
         card.addEventListener('click', () => { if(item.img) abrirImagenGrande(item.img); });
         grid.appendChild(card);
       });
@@ -596,7 +644,7 @@
         const card = document.createElement('div');
         card.className = 'evento-card';
         card.style.borderColor = color.color;
-        card.innerHTML = `<img src="${img}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23333%22/%3E%3Ctext x=%22100%22 y=%22110%22 fill=%22white%22 text-anchor=%22middle%22%3E?%3C/text%3E%3C/svg%3E'"><button class="evento-delete" onclick="moverAPapelera('${sec.id}', 'eventos', ${idx})">✖</button>`;
+        card.innerHTML = `<img src="${img}" onerror="this.src='${crearImagenPlaceholder('%23333333', '?')}'"><button class="evento-delete" onclick="moverAPapelera('${sec.id}', 'eventos', ${idx})">✖</button>`;
         card.addEventListener('click', (e) => { if(!e.target.classList.contains('evento-delete')) abrirImagenGrande(img); });
         grid.appendChild(card);
       });
@@ -606,14 +654,10 @@
       const container = document.getElementById(`papelera-seccion-${sec.id}`);
       if (!container) return;
       
-      // Limpiar siempre primero
       container.innerHTML = '';
       
-      // Solo mostrar papelera en modo ADMIN
       const esAdmin = document.body.classList.contains('admin-mode');
-      if (!esAdmin) {
-        return;
-      }
+      if (!esAdmin) return;
       
       let totalItems = 0;
       if (sec.tipo === 'munchies') {
@@ -622,9 +666,7 @@
         totalItems = sec.papelera?.length || 0;
       }
       
-      if (totalItems === 0) {
-        return;
-      }
+      if (totalItems === 0) return;
       
       let papeleraHtml = `<div class="papelera-container">
         <div class="papelera-header" onclick="togglePapelera('${sec.id}')">
@@ -762,7 +804,7 @@
         sec.items.forEach((item,i) => {
           html += `<div class="admin-card" style="border-color:${color.color}" draggable="true" ondragstart="iniciarDrag(event,${i},'${sec.id}')" ondragend="finalizarDrag(event)" ondragover="permitirDrop(event)" ondrop="soltarDrop(event,${i},'${sec.id}')" ondragenter="marcarSobreDrop(event)" ondragleave="limpiarMarcador(event)">
                     <div class="drag-handle" style="color:${color.color}">⋮⋮ ARRASTRAR ⋮⋮</div>
-                    <img src="${item.img}" id="admin-img-${sec.id}-${i}" class="admin-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 fill=%22%23333%22/%3E%3Ctext x=%2250%22 y=%2255%22 fill=%22white%22 font-size=%2212%22 text-anchor=%22middle%22%3E?%3C/text%3E%3C/svg%3E'">
+                    <img src="${item.img}" id="admin-img-${sec.id}-${i}" class="admin-img" onerror="this.src='${crearImagenPlaceholder('%23333333', '?')}'">
                     <input type="file" id="file-${sec.id}-${i}" accept="image/*" class="admin-file-input" onchange="subirImagenProducto('${sec.id}',${i})">
                     <button onclick="document.getElementById('file-${sec.id}-${i}').click()" class="admin-btn btn-upload">📷 CAMBIAR FOTO</button>
                     <input type="text" id="nombre-${sec.id}-${i}" value="${escapeHtml(item.nombre)}" class="admin-input" onchange="actualizarProducto('${sec.id}',${i},'nombre',this.value)">
@@ -841,7 +883,7 @@
       }
       else if (sec.tipo === 'eventos') {
         sec.items.forEach((img,i) => {
-          html += `<div class="admin-card" style="border-color:${color.color}"><img src="${img}" id="evento-img-${sec.id}-${i}" class="admin-img" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%23333%22/%3E%3Ctext x=%22100%22 y=%22110%22 fill=%22white%22 text-anchor=%22middle%22%3E?%3C/text%3E%3C/svg%3E'"><input type="file" id="evento-file-${sec.id}-${i}" accept="image/*" class="admin-file-input" onchange="subirImagenEvento('${sec.id}',${i})"><button onclick="document.getElementById('evento-file-${sec.id}-${i}').click()" class="admin-btn btn-upload">📷 CAMBIAR</button><button onclick="moverAPapelera('${sec.id}', 'eventos', ${i})" class="admin-btn btn-delete">🗑️</button></div>`;
+          html += `<div class="admin-card" style="border-color:${color.color}"><img src="${img}" id="evento-img-${sec.id}-${i}" class="admin-img" onerror="this.src='${crearImagenPlaceholder('%23333333', '?')}'"><input type="file" id="evento-file-${sec.id}-${i}" accept="image/*" class="admin-file-input" onchange="subirImagenEvento('${sec.id}',${i})"><button onclick="document.getElementById('evento-file-${sec.id}-${i}').click()" class="admin-btn btn-upload">📷 CAMBIAR</button><button onclick="moverAPapelera('${sec.id}', 'eventos', ${i})" class="admin-btn btn-delete">🗑️</button></div>`;
         });
         html += `</div><button onclick="añadirEventoItem('${sec.id}')" style="width:100%; background:${color.color}; border-radius:30px; padding:15px; margin-top:10px; color:white;">➕ AÑADIR CARTEL</button>`;
         
@@ -860,10 +902,10 @@
     }
 
     function actualizarProducto(secId, idx, campo, val) { const sec = secciones.find(s=>s.id===secId); if(sec && sec.items[idx]) { sec.items[idx][campo]=val; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); } }
-    function añadirProductoItem(secId) { const sec = secciones.find(s=>s.id===secId); if(sec.tipo==='productos') sec.items.push({ img:'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%2300ffff"/%3E%3Ctext x="50" y="55" fill="black"%3ENUEVO%3C/text%3E%3C/svg%3E', nombre:'NUEVO PRODUCTO', precio:'0€' }); else if(sec.tipo==='liados') sec.items.push({ nombre:'NUEVO LIADO', precio:'0€' }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
+    function añadirProductoItem(secId) { const sec = secciones.find(s=>s.id===secId); if(sec.tipo==='productos') sec.items.push({ img: crearImagenPlaceholder('%2300ffff', 'NUEVO'), nombre:'NUEVO PRODUCTO', precio:'0€' }); else if(sec.tipo==='liados') sec.items.push({ nombre:'NUEVO LIADO', precio:'0€' }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
     function actualizarMunchi(secId, sub, idx, campo, val) { const sec = secciones.find(s=>s.id===secId); sec.sub[sub][idx][campo]=val; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
     function añadirMunchiItem(secId, sub) { const sec = secciones.find(s=>s.id===secId); sec.sub[sub].push({ nombre:'NUEVO', precio:'0€' }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
-    function añadirEventoItem(secId) { const sec = secciones.find(s=>s.id===secId); sec.items.push('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%2300ffff"/%3E%3Ctext x="100" y="110" fill="black"%3ENUEVO%3C/text%3E%3C/svg%3E'); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
+    function añadirEventoItem(secId) { const sec = secciones.find(s=>s.id===secId); sec.items.push(crearImagenPlaceholder('%2300ffff', 'NUEVO')); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
     async function subirImagenProducto(secId, idx) { const input = document.getElementById(`file-${secId}-${idx}`); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = async (e) => { const comp = await comprimirImagen(e.target.result); const sec = secciones.find(s=>s.id===secId); sec.items[idx].img = comp; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }; reader.readAsDataURL(input.files[0]); } }
     async function subirImagenEvento(secId, idx) { const input = document.getElementById(`evento-file-${secId}-${idx}`); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = async (e) => { const comp = await comprimirImagen(e.target.result); const sec = secciones.find(s=>s.id===secId); sec.items[idx] = comp; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }; reader.readAsDataURL(input.files[0]); } }
     function comprimirImagen(dataUrl, calidad=0.7, maxAncho=600) { return new Promise(resolve=>{ const img=new Image(); img.onload=()=>{ const canvas=document.createElement('canvas'); let w=img.width, h=img.height; if(w>maxAncho){ h=(maxAncho/w)*h; w=maxAncho; } canvas.width=w; canvas.height=h; canvas.getContext('2d').drawImage(img,0,0,w,h); resolve(canvas.toDataURL('image/jpeg',calidad)); }; img.src=dataUrl; }); }
