@@ -34,21 +34,23 @@
     .panel.activo { display: block; }
     
     .subseccion { background: rgba(4, 4, 10, 0.7); border-radius: 24px; padding: 1.2rem; margin-bottom: 1.5rem; }
-    .subseccion-titulo { font-size: 2.2rem; margin-bottom: 1.2rem; padding-left: 1rem; border-left: 8px solid; text-shadow: 0 0 10px currentColor; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .subseccion-titulo { font-size: 2.2rem; margin-bottom: 1.2rem; padding-left: 1rem; border-left: 8px solid; text-shadow: 0 0 10px currentColor; }
     
     .productos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
     .producto-card { background: rgba(10, 10, 18, 0.9); border: 2px solid; border-radius: 24px; padding: 1.2rem 0.8rem; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.2s ease; cursor: pointer; position: relative; }
     .producto-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 0 25px currentColor; }
-    .producto-card img { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; border: 3px solid; margin-bottom: 0.8rem; box-shadow: 0 0 15px currentColor; pointer-events: none; background: #1a1a2a; }
-    .producto-card h4 { font-size: 1.4rem; color: white; margin-bottom: 0.5rem; pointer-events: none; }
-    .producto-precio { font-size: 1.5rem; font-weight: 800; padding: 0.3rem 1.2rem; border-radius: 40px; display: inline-block; background: rgba(0,0,0,0.5); border: 2px solid; pointer-events: none; }
+    .producto-card img { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; border: 3px solid; margin-bottom: 0.8rem; box-shadow: 0 0 15px currentColor; background: #1a1a2a; }
+    .producto-card h4 { font-size: 1.4rem; color: white; margin-bottom: 0.5rem; }
+    .producto-precio { font-size: 1.5rem; font-weight: 800; padding: 0.3rem 1.2rem; border-radius: 40px; display: inline-block; background: rgba(0,0,0,0.5); border: 2px solid; }
+    .delete-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,0,51,0.9); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; display: none; z-index: 10; font-weight: bold; }
+    .admin-mode .delete-btn { display: flex !important; align-items: center; justify-content: center; }
     
     .liados-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
     .liado-card { background: linear-gradient(145deg, #0e0e18, #080810); border: 2px solid; border-radius: 24px; padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.2s ease; cursor: pointer; position: relative; }
     .liado-card:hover { transform: translateY(-5px); box-shadow: 0 0 25px currentColor; }
-    .liado-icon { font-size: 5rem; margin-bottom: 0.8rem; filter: drop-shadow(0 0 10px currentColor); pointer-events: none; }
-    .liado-card h4 { font-size: 1.6rem; margin-bottom: 0.8rem; pointer-events: none; }
-    .liado-precio { font-size: 1.5rem; font-weight: 800; padding: 0.4rem 1.5rem; border-radius: 40px; display: inline-block; background: rgba(0,0,0,0.5); border: 2px solid; pointer-events: none; }
+    .liado-icon { font-size: 5rem; margin-bottom: 0.8rem; filter: drop-shadow(0 0 10px currentColor); }
+    .liado-card h4 { font-size: 1.6rem; margin-bottom: 0.8rem; }
+    .liado-precio { font-size: 1.5rem; font-weight: 800; padding: 0.4rem 1.5rem; border-radius: 40px; display: inline-block; background: rgba(0,0,0,0.5); border: 2px solid; }
     
     .munchies-categoria { background: rgba(6, 6, 14, 0.6); border: 2px solid; border-radius: 30px; padding: 1.5rem 1.5rem; margin-bottom: 1.5rem; }
     .categoria-titulo { font-size: 2.8rem; margin-bottom: 1.5rem; border-bottom: 3px solid; padding-bottom: 0.5rem; display: inline-block; text-shadow: 0 0 10px currentColor; }
@@ -57,51 +59,57 @@
     .item-munchi:hover { transform: translateX(5px); box-shadow: 0 0 15px currentColor; }
     .item-nombre { font-size: 1.5rem; color: white; text-transform: uppercase; font-weight: 600; }
     .item-precio { font-size: 1.6rem; font-weight: 800; }
+    .munchi-delete { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,0,51,0.9); color: white; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 14px; cursor: pointer; display: none; font-weight: bold; }
+    .admin-mode .munchi-delete { display: flex !important; align-items: center; justify-content: center; }
     
     .eventos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 0.5rem; }
     .evento-card { background: transparent; border: 3px solid; border-radius: 24px; overflow: hidden; aspect-ratio: 1/1.2; position: relative; transition: all 0.2s ease; cursor: pointer; }
     .evento-card:hover { transform: scale(1.02); box-shadow: 0 0 30px currentColor; }
-    .evento-card img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-    
-    .delete-btn { position: absolute; top: 10px; right: 10px; background: rgba(255,0,51,0.9); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; display: none; z-index: 10; font-weight: bold; }
-    .munchi-delete { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(255,0,51,0.9); color: white; border: none; border-radius: 50%; width: 28px; height: 28px; font-size: 14px; cursor: pointer; display: none; font-weight: bold; }
+    .evento-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .evento-delete { position: absolute; top: 8px; right: 8px; background: #ff00ff; color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 22px; cursor: pointer; display: none; z-index: 100; box-shadow: 0 0 10px #ff00ff; font-weight: bold; }
-    .admin-mode .delete-btn, .admin-mode .munchi-delete, .admin-mode .evento-delete { display: flex !important; align-items: center; justify-content: center; }
+    .admin-mode .evento-delete { display: flex !important; align-items: center; justify-content: center; }
     
-    .papelera-container { margin-top: 20px; border-top: 2px solid #ff6600; padding-top: 15px; }
-    .papelera-header { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 10px 15px; background: rgba(255, 102, 0, 0.15); border-radius: 30px; transition: all 0.2s; }
-    .papelera-header:hover { background: rgba(255, 102, 0, 0.25); }
-    .papelera-header h4 { color: #ffaa44; font-size: 1.3rem; margin: 0; }
-    .papelera-count { background: #ff6600; color: white; border-radius: 20px; padding: 2px 10px; font-size: 0.9rem; font-weight: bold; }
-    .papelera-items { display: none; margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 20px; }
-    .papelera-items.open { display: block; }
-    .papelera-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; margin-bottom: 8px; background: rgba(0, 0, 0, 0.7); border: 1px solid #ff6600; border-radius: 15px; flex-wrap: wrap; gap: 10px; color: white; }
-    .restaurar-btn { background: #00ffaa; color: #000; border: none; border-radius: 20px; padding: 6px 18px; cursor: pointer; font-weight: bold; }
-    .vaciar-papelera-btn { background: #ff0033; color: white; border: none; border-radius: 20px; padding: 6px 18px; cursor: pointer; }
-    
+    /* MODAL PARA AMPLIAR IMÁGENES */
     .image-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); z-index: 10000; justify-content: center; align-items: center; cursor: pointer; }
     .image-modal.active { display: flex; }
     .modal-content { max-width: 90vw; max-height: 90vh; position: relative; border-radius: 30px; box-shadow: 0 0 60px #00ffff; border: 3px solid #00ffff; background: #050508; padding: 8px; }
     .modal-content img { max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: 24px; }
     .close-modal { position: absolute; top: -20px; right: -20px; background: #ff00ff; color: white; font-size: 32px; font-weight: bold; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 3px solid #00ffff; }
     
-    .save-indicator { position: fixed; bottom: 100px; right: 30px; background: #ffff00; color: black; padding: 15px 25px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; z-index: 2100; display: none; }
+    /* PAPELERA */
+    .papelera-container { margin-top: 20px; border-top: 2px solid #ff6600; padding-top: 15px; }
+    .papelera-header { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 10px 15px; background: rgba(255, 102, 0, 0.15); border-radius: 30px; transition: all 0.2s; }
+    .papelera-header:hover { background: rgba(255, 102, 0, 0.25); }
+    .papelera-header h4 { color: #ffaa44; font-size: 1.3rem; margin: 0; }
+    .papelera-count { background: #ff6600; color: white; border-radius: 20px; padding: 2px 10px; font-size: 0.9rem; font-weight: bold; }
+    .papelera-items { display: none; margin-top: 15px; padding: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 20px; max-height: 300px; overflow-y: auto; }
+    .papelera-items.open { display: block; }
+    .papelera-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; margin-bottom: 8px; background: rgba(0, 0, 0, 0.7); border: 1px solid #ff6600; border-radius: 15px; flex-wrap: wrap; gap: 10px; color: white; }
+    .restaurar-btn { background: #00ffaa; color: #000; border: none; border-radius: 20px; padding: 6px 18px; cursor: pointer; font-weight: bold; }
+    .vaciar-papelera-btn { background: #ff0033; color: white; border: none; border-radius: 20px; padding: 6px 18px; cursor: pointer; }
+    
+    .save-indicator { position: fixed; bottom: 100px; right: 30px; background: #ffff00; color: black; padding: 15px 25px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; box-shadow: 0 0 25px #ffff00; z-index: 2100; display: none; border: 2px solid #00ffff; }
+
+    /* Admin */
     .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-bottom: 20px; }
-    .admin-card { background: #0c0c16; border: 2px solid; border-radius: 20px; padding: 15px; cursor: grab; }
-    .admin-card.dragging { opacity: 0.5; }
+    .admin-card { background: #0c0c16; border: 2px solid; border-radius: 20px; padding: 15px; cursor: grab; transition: all 0.2s ease; }
+    .admin-card:active { cursor: grabbing; }
+    .admin-card.dragging { opacity: 0.5; cursor: grabbing; }
     .admin-card.drag-over { border: 3px dashed; background: #16162a; }
     .admin-img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 10px; border: 2px solid; background: #1a1a2a; }
-    .admin-input, .admin-precio { width: 100%; padding: 12px; margin-bottom: 10px; background: #030308; border: 2px solid #22223b; border-radius: 10px; color: white; font-size: 1.4rem; }
+    .admin-input { width: 100%; padding: 12px; margin-bottom: 10px; background: #030308; border: 2px solid #22223b; border-radius: 10px; color: white; font-size: 1.4rem; }
+    .admin-input:focus { outline: none; border-color: currentColor; }
+    .admin-precio { width: 100%; padding: 12px; margin-bottom: 10px; background: #030308; border: 2px solid; border-radius: 10px; font-size: 1.4rem; font-weight: bold; }
     .admin-file-input { display: none; }
     .admin-btn { width: 100%; padding: 12px; border: none; border-radius: 30px; font-size: 1.4rem; cursor: pointer; margin-bottom: 5px; font-weight: bold; }
-    .btn-upload { background: #22223b; color: white; border: 1px solid #00ffff; }
+    .btn-upload { background: #22223b; color: white; border: 1px solid; }
     .btn-delete { background: #ff00ff; color: white; }
-    .drag-handle { text-align: center; font-size: 1.2rem; margin-bottom: 10px; background: rgba(255,255,255,0.05); border-radius: 30px; padding: 5px; cursor: grab; }
+    .drag-handle { text-align: center; font-size: 1.2rem; margin-bottom: 10px; cursor: grab; background: rgba(255,255,255,0.05); border-radius: 30px; padding: 5px; border: 1px solid; }
+    .drag-handle:active { cursor: grabbing; }
     .admin-papelera-section { margin-top: 30px; border-top: 2px solid #ff6600; padding-top: 20px; }
     .admin-papelera-section h4 { color: #ffaa44; margin-bottom: 15px; }
     .admin-papelera-item { background: #1a0a00; border: 1px solid #ff6600; border-radius: 12px; padding: 10px 15px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; color: white; }
     .admin-restaurar-btn { background: #00ffaa; color: black; border: none; border-radius: 20px; padding: 5px 15px; cursor: pointer; font-weight: bold; }
-    #btn-admin { width: 80px; height: 80px; border-radius: 50%; background: #0c0c16; border: 3px solid #00ffff; color: #00ffff; font-size: 36px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -113,12 +121,15 @@
       </div>
       <div class="welcome">✨ Bienvenido a El Tio J Club ✨</div>
     </div>
+
     <div class="pestanas-wrapper">
       <div class="pestanas" id="pestanasContainer"></div>
     </div>
+
     <div class="contenido" id="contenidoPaneles"></div>
   </main>
 
+  <!-- MODAL PARA AMPLIAR IMÁGENES -->
   <div id="imageModal" class="image-modal" onclick="cerrarModalImagen()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <img id="modalImage" src="">
@@ -126,60 +137,70 @@
     </div>
   </div>
 
+  <!-- Botón ADMIN -->
   <div style="position: fixed; bottom: 30px; right: 30px; z-index: 2000;">
-    <button id="btn-admin" onclick="mostrarLogin()">⚙️</button>
+    <button id="btn-admin" onclick="mostrarLogin()" style="width: 80px; height: 80px; border-radius: 50%; background: #0c0c16; border: 3px solid #00ffff; color: #00ffff; font-size: 36px; box-shadow: 0 0 25px #00ffff; cursor: pointer;">⚙️</button>
   </div>
 
+  <!-- PANEL LOGIN -->
   <div id="panel-login" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); z-index: 2001; align-items: center; justify-content: center;">
-    <div style="background: #0c0c16; border: 3px solid #00ffff; border-radius: 40px; padding: 40px; width: 90%; max-width: 500px;">
+    <div style="background: #0c0c16; border: 3px solid #00ffff; border-radius: 40px; padding: 40px; width: 90%; max-width: 500px; box-shadow: 0 0 60px #00ffff;">
       <h2 style="background: linear-gradient(135deg, #00ffff, #ff00ff); -webkit-background-clip: text; background-clip: text; color: transparent; text-align: center; font-size: 3rem; margin-bottom: 30px;">🔐 ADMIN</h2>
       <input type="password" id="login-password" placeholder="Contraseña" style="width: 100%; padding: 25px; font-size: 2rem; background: #030308; border: 2px solid #00ffff; border-radius: 30px; color: white; margin-bottom: 30px; text-align: center;">
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-        <button onclick="comprobarLogin()" style="background: #ffff00; border: 2px solid #00ffff; border-radius: 30px; padding: 25px; font-size: 2rem; font-weight: bold; cursor: pointer;">ENTRAR</button>
+        <button onclick="comprobarLogin()" style="background: #ffff00; border: 2px solid #00ffff; border-radius: 30px; padding: 25px; font-size: 2rem; font-weight: bold; color: black; cursor: pointer;">ENTRAR</button>
         <button onclick="cerrarLogin()" style="background: #22223b; border: 2px solid #ff00ff; border-radius: 30px; padding: 25px; font-size: 2rem; font-weight: bold; color: white; cursor: pointer;">CERRAR</button>
       </div>
       <p id="login-error" style="color: #ff00ff; text-align: center; font-size: 1.8rem; margin-top: 20px; display: none;">❌ Contraseña incorrecta</p>
     </div>
   </div>
 
+  <!-- PANEL ADMIN -->
   <div id="panel-admin" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050508; z-index: 2002; overflow-y: auto; padding: 20px;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; background: #0c0c16; padding: 20px; border-radius: 20px; border: 2px solid #00ffff;">
       <h2 style="background: linear-gradient(135deg, #00ffff, #ff00ff, #ffff00); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 2.5rem;">✏️ EDITAR TODO</h2>
       <div style="display: flex; gap: 10px;">
-        <button id="addNewSectionBtn" style="background: #ffff00; border: 2px solid #00ffff; border-radius: 40px; padding: 12px 24px; font-size: 1.4rem; font-weight: bold; cursor: pointer;">➕ AÑADIR SECCIÓN</button>
+        <button id="addNewSectionBtn" style="background: #ffff00; border: 2px solid #00ffff; border-radius: 40px; padding: 12px 24px; font-size: 1.4rem; font-weight: bold; color: black; cursor: pointer;">➕ AÑADIR SECCIÓN</button>
         <button onclick="cerrarAdmin()" style="background: #22223b; border: 2px solid #ff00ff; border-radius: 40px; padding: 12px 24px; font-size: 1.4rem; color: white; cursor: pointer;">CERRAR</button>
       </div>
     </div>
-    <div id="seccionesAdminList" style="margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; background: #0c0c16; padding: 15px; border-radius: 20px;"></div>
+    
+    <div id="seccionesAdminList" style="margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px; background: #0c0c16; padding: 15px; border-radius: 20px; border: 1px solid #22223b;"></div>
+    
     <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;" id="adminTabsContainer"></div>
-    <div id="admin-contenido" style="background: #0c0c16; border-radius: 20px; padding: 20px; margin-bottom: 20px;">
+    
+    <div id="admin-contenido" style="background: #0c0c16; border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid #22223b;">
       <p style="color: #888; text-align: center; font-size: 1.8rem;">Selecciona una sección para editar</p>
     </div>
-    <button onclick="guardarTodo()" style="width: 100%; background: linear-gradient(135deg, #00ffff, #ff00ff); border: 2px solid #ffff00; border-radius: 60px; padding: 25px; font-size: 2.5rem; font-weight: bold; color: white; cursor: pointer;">💾 GUARDAR CAMBIOS</button>
+    
+    <button onclick="guardarTodo()" style="width: 100%; background: linear-gradient(135deg, #00ffff, #ff00ff); border: 2px solid #ffff00; border-radius: 60px; padding: 25px; font-size: 2.5rem; font-weight: bold; color: white; cursor: pointer; box-shadow: 0 0 20px #00ffff;">💾 GUARDAR CAMBIOS</button>
   </div>
 
   <div id="saveIndicator" class="save-indicator">✅ GUARDADO</div>
 
   <script>
-    const CONTRASENA = "0525";
-    const STORAGE_KEY = 'eltioj_v10_final';
+    const CONTRASENA = "alfre123";
+    const STORAGE_KEY = 'eltioj_datos_v11_completa';
 
-    const COLORES_POR_TIPO = {
-      extracciones: { color: '#ff00ff', glow: '#ff00ff' },
-      hierbas: { color: '#00ffaa', glow: '#00ffaa' },
-      hash: { color: '#ff6600', glow: '#ff6600' },
-      liados: { color: '#00ffff', glow: '#00ffff' },
-      munchies: { color: '#ffff00', glow: '#ffff00' },
-      eventos: { color: '#0044ff', glow: '#0044ff' }
+    const COLORES_NEON = {
+      cian: { color: '#00ffff', glow: '#00ffff', bg: 'rgba(0, 255, 255, 0.1)' },
+      magenta: { color: '#ff00ff', glow: '#ff00ff', bg: 'rgba(255, 0, 255, 0.1)' },
+      amarillo: { color: '#ffff00', glow: '#ffff00', bg: 'rgba(255, 255, 0, 0.1)' },
+      verdeMenta: { color: '#00ffaa', glow: '#00ffaa', bg: 'rgba(0, 255, 170, 0.1)' },
+      naranjaQuemado: { color: '#ff6600', glow: '#ff6600', bg: 'rgba(255, 102, 0, 0.1)' },
+      rojoCereza: { color: '#ff0033', glow: '#ff0033', bg: 'rgba(255, 0, 51, 0.1)' },
+      azulElectro: { color: '#0044ff', glow: '#0044ff', bg: 'rgba(0, 68, 255, 0.1)' },
+      lima: { color: '#aaff00', glow: '#aaff00', bg: 'rgba(170, 255, 0, 0.1)' }
     };
 
-    function getColorForSection(sec) {
-      return COLORES_POR_TIPO[sec.colorKey] || COLORES_POR_TIPO.extracciones;
-    }
-
-    function crearImagenPlaceholder(color, texto) {
-      return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='${color}'/%3E%3Ctext x='100' y='110' font-size='22' fill='white' text-anchor='middle' font-weight='bold'%3E${encodeURIComponent(texto)}%3C/text%3E%3C/svg%3E`;
-    }
+    const COLORES_POR_TIPO = {
+      extracciones: COLORES_NEON.magenta,
+      hierbas: COLORES_NEON.verdeMenta,
+      hash: COLORES_NEON.naranjaQuemado,
+      liados: COLORES_NEON.cian,
+      munchies: COLORES_NEON.amarillo,
+      eventos: COLORES_NEON.azulElectro
+    };
 
     let secciones = [
       { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [], papelera: [], colorKey: "extracciones" },
@@ -190,9 +211,14 @@
       { id: "eventos", nombre: "EVENTOS", icono: "🎉", tipo: "eventos", items: [], papelera: [], colorKey: "eventos" }
     ];
 
+    function crearImagenPlaceholder(color, texto) {
+      return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='${color}'/%3E%3Ctext x='100' y='110' font-size='22' fill='white' text-anchor='middle' font-weight='bold'%3E${encodeURIComponent(texto)}%3C/text%3E%3C/svg%3E`;
+    }
+
     const DEFAULT_EXTRA = [
       { img: crearImagenPlaceholder('%23ff00ff', 'BHO'), nombre: 'BHO TROPICANA CHERRY', precio: '28€/g' },
-      { img: crearImagenPlaceholder('%2300ffff', 'ICE'), nombre: 'ICE MAC1 PLUS', precio: '18€/g' }
+      { img: crearImagenPlaceholder('%2300ffff', 'ICE'), nombre: 'ICE MAC1 PLUS', precio: '18€/g' },
+      { img: crearImagenPlaceholder('%23ff6600', 'TAI'), nombre: 'TAITELLA', precio: '24€/g' }
     ];
     const DEFAULT_HIERBAS = [
       { img: crearImagenPlaceholder('%2300ffaa', 'LONDON'), nombre: 'LONDON CAKE', precio: '8€/g' },
@@ -215,49 +241,91 @@
     let draggedIndex = null, currentSecId = null;
     let papeleraAbierta = {};
 
-    function abrirImagenGrande(url) { document.getElementById('modalImage').src = url; document.getElementById('imageModal').classList.add('active'); }
-    function cerrarModalImagen() { document.getElementById('imageModal').classList.remove('active'); }
+    function getColorForSection(sec) {
+      if (sec.colorKey && COLORES_POR_TIPO[sec.colorKey]) return COLORES_POR_TIPO[sec.colorKey];
+      const coloresLista = Object.values(COLORES_NEON);
+      const hash = (sec.id || sec.nombre).length;
+      return coloresLista[hash % coloresLista.length];
+    }
 
-    function togglePapelera(secId) { papeleraAbierta[secId] = !papeleraAbierta[secId]; renderizarTodo(); if (document.getElementById('panel-admin').style.display === 'block') mostrarSeccionAdmin(secId); }
+    function abrirImagenGrande(url) { 
+      document.getElementById('modalImage').src = url; 
+      document.getElementById('imageModal').classList.add('active'); 
+    }
+    function cerrarModalImagen() { 
+      document.getElementById('imageModal').classList.remove('active'); 
+    }
+
+    function togglePapelera(secId) { 
+      papeleraAbierta[secId] = !papeleraAbierta[secId]; 
+      renderizarTodo(); 
+      if (document.getElementById('panel-admin').style.display === 'block') mostrarSeccionAdmin(secId); 
+    }
 
     function moverAPapelera(secId, tipo, index, subtipo = null) {
       const sec = secciones.find(s => s.id === secId);
       if (!sec) return;
       if (tipo === 'productos' || tipo === 'liados' || tipo === 'eventos') {
         const item = sec.items[index];
-        if (item) { sec.items.splice(index, 1); sec.papelera.push({ ...item, eliminadoEn: new Date().toLocaleString() }); }
+        if (item) { 
+          sec.items.splice(index, 1); 
+          if (!sec.papelera) sec.papelera = [];
+          sec.papelera.push({ ...item, eliminadoEn: new Date().toLocaleString() }); 
+        }
       } else if (tipo === 'munchies' && subtipo) {
         const item = sec.sub[subtipo][index];
-        if (item) { sec.sub[subtipo].splice(index, 1); sec.papelera[subtipo].push({ ...item, eliminadoEn: new Date().toLocaleString() }); }
+        if (item) { 
+          sec.sub[subtipo].splice(index, 1); 
+          if (!sec.papelera) sec.papelera = { bebidas: [], picar: [] };
+          if (!sec.papelera[subtipo]) sec.papelera[subtipo] = [];
+          sec.papelera[subtipo].push({ ...item, eliminadoEn: new Date().toLocaleString() }); 
+        }
       }
-      guardarCompleto(); renderizarTodo(); if (document.getElementById('panel-admin').style.display === 'block') mostrarSeccionAdmin(secId);
+      guardarCompleto(); 
+      renderizarTodo(); 
+      if (document.getElementById('panel-admin').style.display === 'block') mostrarSeccionAdmin(secId);
     }
 
     function restaurarDePapelera(secId, tipo, index, subtipo = null) {
       const sec = secciones.find(s => s.id === secId);
       if (!sec) return;
       if (tipo === 'productos' || tipo === 'liados' || tipo === 'eventos') {
-        if (sec.papelera[index]) { sec.items.push(sec.papelera[index]); sec.papelera.splice(index, 1); }
-      } else if (tipo === 'munchies' && subtipo && sec.papelera[subtipo] && sec.papelera[subtipo][index]) {
-        sec.sub[subtipo].push(sec.papelera[subtipo][index]); sec.papelera[subtipo].splice(index, 1);
+        if (sec.papelera && sec.papelera[index]) { 
+          sec.items.push(sec.papelera[index]); 
+          sec.papelera.splice(index, 1); 
+        }
+      } else if (tipo === 'munchies' && subtipo && sec.papelera && sec.papelera[subtipo] && sec.papelera[subtipo][index]) {
+        sec.sub[subtipo].push(sec.papelera[subtipo][index]); 
+        sec.papelera[subtipo].splice(index, 1);
       }
-      guardarCompleto(); renderizarTodo(); if (document.getElementById('panel-admin').style.display === 'block') mostrarSeccionAdmin(secId);
+      guardarCompleto(); 
+      renderizarTodo(); 
+      if (document.getElementById('panel-admin').style.display === 'block') mostrarSeccionAdmin(secId);
     }
 
     function vaciarPapelera(secId, tipo, subtipo = null) {
       const sec = secciones.find(s => s.id === secId);
       if (!sec) return;
       if (confirm('¿Vaciar papelera? Acción irreversible.')) {
-        if (tipo === 'munchies' && subtipo) sec.papelera[subtipo] = [];
-        else sec.papelera = (sec.tipo === 'munchies') ? { bebidas: [], picar: [] } : [];
-        guardarCompleto(); renderizarTodo(); if (document.getElementById('panel-admin').style.display === 'block') mostrarSeccionAdmin(secId);
+        if (tipo === 'munchies' && subtipo) {
+          if (sec.papelera && sec.papelera[subtipo]) sec.papelera[subtipo] = [];
+        } else {
+          sec.papelera = (sec.tipo === 'munchies') ? { bebidas: [], picar: [] } : [];
+        }
+        guardarCompleto(); 
+        renderizarTodo(); 
+        if (document.getElementById('panel-admin').style.display === 'block') mostrarSeccionAdmin(secId);
       }
     }
 
     function cargarDatos() {
       const guardado = localStorage.getItem(STORAGE_KEY);
       if (guardado) {
-        try { const data = JSON.parse(guardado); if (data.secciones) secciones = data.secciones; else secciones = data; } catch(e) {}
+        try {
+          const data = JSON.parse(guardado);
+          if (data.secciones) secciones = data.secciones;
+          else secciones = data;
+        } catch(e) {}
       }
       secciones.forEach(sec => {
         if (!sec.colorKey) sec.colorKey = sec.id;
@@ -275,10 +343,21 @@
       renderizarTodo();
     }
 
-    function guardarCompleto() { localStorage.setItem(STORAGE_KEY, JSON.stringify({ secciones: secciones })); mostrarIndicator(); }
-    function mostrarIndicator() { const ind = document.getElementById('saveIndicator'); ind.style.display = 'block'; setTimeout(() => ind.style.display = 'none', 2000); }
+    function guardarCompleto() { 
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ secciones: secciones })); 
+      mostrarIndicator(); 
+    }
 
-    function renderizarTodo() { renderPestanas(); renderPaneles(); }
+    function mostrarIndicator() { 
+      const ind = document.getElementById('saveIndicator'); 
+      ind.style.display = 'block'; 
+      setTimeout(() => ind.style.display = 'none', 2000); 
+    }
+
+    function renderizarTodo() { 
+      renderPestanas(); 
+      renderPaneles(); 
+    }
 
     function renderPestanas() {
       const container = document.getElementById('pestanasContainer');
