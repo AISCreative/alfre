@@ -271,7 +271,7 @@
 
   <script>
     const CONTRASENA = "0525";
-    const STORAGE_KEY = 'eltioj_datos_v8';
+    const STORAGE_KEY = 'eltioj_datos_v9';
 
     const COLORES_NEON = {
       cian: { color: '#00ffff', glow: '#00ffff', bg: 'rgba(0, 255, 255, 0.1)' },
@@ -293,9 +293,8 @@
       eventos: COLORES_NEON.azulElectro
     };
 
-    // Función para crear imágenes placeholder con colores y texto
     function crearImagenPlaceholder(color, texto) {
-      return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='${color}'/%3E%3Ctext x='100' y='110' font-size='22' fill='white' text-anchor='middle' font-weight='bold'%3E${encodeURIComponent(texto.substring(0, 15))}%3C/text%3E%3C/svg%3E`;
+      return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='${color}'/%3E%3Ctext x='100' y='110' font-size='20' fill='white' text-anchor='middle' font-weight='bold'%3E${encodeURIComponent(texto.substring(0, 18))}%3C/text%3E%3C/svg%3E`;
     }
 
     let secciones = [
@@ -307,39 +306,78 @@
       { id: "eventos", nombre: "EVENTOS", icono: "🎉", tipo: "eventos", items: [], papelera: [], colorKey: "eventos" }
     ];
 
-    // ========== EXTRACCIONES ==========
+    // ========== EXTRACCIONES con precios ==========
     const EXTRACCIONES_LIST = [
-      "Ice fresh Frozen 90mc", "Ice fresh mix", "Ice frozen Georgia pie", "Ice fresh chapel"
+      { nombre: "Ice fresh Frozen 90mc", precio: "12" },
+      { nombre: "Ice fresh mix", precio: "18" },
+      { nombre: "Ice frozen Georgia pie", precio: "20" },
+      { nombre: "Ice fresh chapel", precio: "20" }
     ];
     
-    // ========== HIERBAS ==========
+    // ========== HIERBAS con precios ==========
     const HIERBAS_LIST = [
-      "Amnesia haze pro", "Chicken waffle", "Green Passion", "White widow", "Trop cherry gas",
-      "Purple fruit", "Tropicanna", "Chapel", "Georgia pie", "OG kush", "Tricho Jordan",
-      "Cheetah piss", "Runtz", "Menthol runtz", "Tropicana cherry", "Gelato", "Chapel max",
-      "Skitlez", "Superboom (CANADA)", "Tangle (CANADA)", "Gelato X purple+"
+      { nombre: "Amnesia haze pro", precio: "4" },
+      { nombre: "Chicken waffle", precio: "4" },
+      { nombre: "Green Passion", precio: "4" },
+      { nombre: "White widow", precio: "4.5" },
+      { nombre: "Trop cherry gas", precio: "4.5" },
+      { nombre: "Purple fruit", precio: "4.5" },
+      { nombre: "Tropicanna", precio: "5" },
+      { nombre: "Chapel", precio: "5" },
+      { nombre: "Georgia pie", precio: "5" },
+      { nombre: "OG kush", precio: "5" },
+      { nombre: "Tricho Jordan", precio: "5" },
+      { nombre: "Cheetah piss", precio: "5" },
+      { nombre: "Runtz", precio: "5" },
+      { nombre: "Menthol runtz", precio: "5" },
+      { nombre: "Tropicana cherry", precio: "5.5" },
+      { nombre: "Gelato", precio: "5.5" },
+      { nombre: "Chapel max", precio: "5.5" },
+      { nombre: "Skitlez", precio: "5.5" },
+      { nombre: "Superboom (CANADA)", precio: "7" },
+      { nombre: "Tangle (CANADA)", precio: "7" },
+      { nombre: "Gelato X purple+", precio: "7" }
     ];
     
-    // ========== HASH ==========
+    // ========== HASH con precios ==========
     const HASH_LIST = [
-      "Polen (versión de 3'5)", "Polen (versión de 4)", "Sonic", "Bitcoin", "Banana Runtz",
-      "Mandarin cookies", "Cali gas", "Hash", "Banana cherry", "Cbd", "Chucky dry",
-      "Tropicana cookies", "Mimosa dry", "Skitlez dry", "Dos y dos X Stardawg frozen",
-      "Frozen G10", "Mimosa frozen", "Static", "Frozen forbidden fruit", "Double static"
+      { nombre: "Polen", precio: "3.5" },
+      { nombre: "Polen", precio: "4" },
+      { nombre: "Sonic", precio: "4" },
+      { nombre: "Bitcoin", precio: "5" },
+      { nombre: "Banana Runtz", precio: "5" },
+      { nombre: "Mandarin cookies", precio: "5.5" },
+      { nombre: "Cali gas", precio: "6" },
+      { nombre: "Hash", precio: "6" },
+      { nombre: "Banana cherry", precio: "6" },
+      { nombre: "Cbd", precio: "6" },
+      { nombre: "Chucky dry", precio: "6.5" },
+      { nombre: "Tropicana cookies", precio: "6.5" },
+      { nombre: "Mimosa dry", precio: "7" },
+      { nombre: "Skitlez dry", precio: "7" },
+      { nombre: "Dos y dos X Stardawg frozen", precio: "8.5" },
+      { nombre: "Frozen G10", precio: "9" },
+      { nombre: "Mimosa frozen", precio: "10" },
+      { nombre: "Static", precio: "10" },
+      { nombre: "Frozen forbidden fruit", precio: "10.5" },
+      { nombre: "Double static", precio: "12" }
     ];
     
-    // ========== LIADOS ==========
+    // ========== LIADOS con precios ==========
     const LIADOS_LIST = [
-      "Liados mix (verde)", "Liados polen", "Liados Bitcoin", "Liados Cali gas", "Liados hash", "Untar Liado con rosin"
+      { nombre: "Liados mix (verde)", precio: "1x3 | 2x5 | 5x10" },
+      { nombre: "Liados polen", precio: "1x3 | 2x5" },
+      { nombre: "Liados Bitcoin", precio: "1x3.5" },
+      { nombre: "Liados Cali gas", precio: "1x3.5" },
+      { nombre: "Liados hash", precio: "1x3.5" },
+      { nombre: "Untar Liado con rosin", precio: "2.5" }
     ];
 
-    // Colores para los placeholders
+    // Colores para placeholders
     const COLOR_MAGENTA = '%23ff00ff';
     const COLOR_VERDE = '%2300ffaa';
     const COLOR_NARANJA = '%23ff6600';
-    const COLOR_CIAN = '%2300ffff';
 
-    // Cargar datos (prioriza localStorage, si no hay usa los nuevos productos)
     function cargarDatos() {
       const guardado = localStorage.getItem(STORAGE_KEY);
       if (guardado) {
@@ -352,48 +390,46 @@
         } catch(e) {}
       }
       
-      // Si no hay datos guardados, cargar los productos nuevos
       // EXTRACCIONES
-      secciones[0].items = EXTRACCIONES_LIST.map(nombre => ({
-        img: crearImagenPlaceholder(COLOR_MAGENTA, nombre),
-        nombre: nombre,
-        precio: 'Consultar'
+      secciones[0].items = EXTRACCIONES_LIST.map(item => ({
+        img: crearImagenPlaceholder(COLOR_MAGENTA, item.nombre),
+        nombre: item.nombre,
+        precio: item.precio
       }));
       
       // HIERBAS
-      secciones[1].items = HIERBAS_LIST.map(nombre => ({
-        img: crearImagenPlaceholder(COLOR_VERDE, nombre),
-        nombre: nombre,
-        precio: 'Consultar'
+      secciones[1].items = HIERBAS_LIST.map(item => ({
+        img: crearImagenPlaceholder(COLOR_VERDE, item.nombre),
+        nombre: item.nombre,
+        precio: item.precio
       }));
       
       // HASH
-      secciones[2].items = HASH_LIST.map(nombre => ({
-        img: crearImagenPlaceholder(COLOR_NARANJA, nombre),
-        nombre: nombre,
-        precio: 'Consultar'
+      secciones[2].items = HASH_LIST.map(item => ({
+        img: crearImagenPlaceholder(COLOR_NARANJA, item.nombre),
+        nombre: item.nombre,
+        precio: item.precio
       }));
       
       // LIADOS
-      secciones[3].items = LIADOS_LIST.map(nombre => ({
-        nombre: nombre,
-        precio: 'Consultar'
+      secciones[3].items = LIADOS_LIST.map(item => ({
+        nombre: item.nombre,
+        precio: item.precio
       }));
       
-      // MUNCHIES (mantener los que había)
+      // MUNCHIES
       secciones[4].sub = { 
-        bebidas: [{ nombre: 'COCACOLA', precio: '2€' }, { nombre: 'AGUA', precio: '1.50€' }],
-        picar: [{ nombre: 'PATATAS', precio: '1.50€' }]
+        bebidas: [{ nombre: 'COCACOLA', precio: '2' }, { nombre: 'AGUA', precio: '1.50' }],
+        picar: [{ nombre: 'PATATAS', precio: '1.50' }]
       };
       secciones[4].papelera = { bebidas: [], picar: [] };
       
-      // EVENTOS (mantener los que había)
+      // EVENTOS
       secciones[5].items = [
         crearImagenPlaceholder('%230044ff', 'EVENTO PROXIMO'),
         crearImagenPlaceholder('%23aaff00', 'FIESTA ESPECIAL')
       ];
       
-      // Asegurar papeleras vacías
       secciones.forEach(sec => {
         if (!sec.papelera) sec.papelera = (sec.tipo === 'munchies') ? { bebidas: [], picar: [] } : [];
         if (sec.tipo === 'munchies' && sec.papelera && !sec.papelera.bebidas) sec.papelera = { bebidas: [], picar: [] };
@@ -902,9 +938,9 @@
     }
 
     function actualizarProducto(secId, idx, campo, val) { const sec = secciones.find(s=>s.id===secId); if(sec && sec.items[idx]) { sec.items[idx][campo]=val; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); } }
-    function añadirProductoItem(secId) { const sec = secciones.find(s=>s.id===secId); if(sec.tipo==='productos') sec.items.push({ img: crearImagenPlaceholder('%2300ffff', 'NUEVO'), nombre:'NUEVO PRODUCTO', precio:'0€' }); else if(sec.tipo==='liados') sec.items.push({ nombre:'NUEVO LIADO', precio:'0€' }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
+    function añadirProductoItem(secId) { const sec = secciones.find(s=>s.id===secId); if(sec.tipo==='productos') sec.items.push({ img: crearImagenPlaceholder('%2300ffff', 'NUEVO'), nombre:'NUEVO PRODUCTO', precio:'0' }); else if(sec.tipo==='liados') sec.items.push({ nombre:'NUEVO LIADO', precio:'0' }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
     function actualizarMunchi(secId, sub, idx, campo, val) { const sec = secciones.find(s=>s.id===secId); sec.sub[sub][idx][campo]=val; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
-    function añadirMunchiItem(secId, sub) { const sec = secciones.find(s=>s.id===secId); sec.sub[sub].push({ nombre:'NUEVO', precio:'0€' }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
+    function añadirMunchiItem(secId, sub) { const sec = secciones.find(s=>s.id===secId); sec.sub[sub].push({ nombre:'NUEVO', precio:'0' }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
     function añadirEventoItem(secId) { const sec = secciones.find(s=>s.id===secId); sec.items.push(crearImagenPlaceholder('%2300ffff', 'NUEVO')); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
     async function subirImagenProducto(secId, idx) { const input = document.getElementById(`file-${secId}-${idx}`); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = async (e) => { const comp = await comprimirImagen(e.target.result); const sec = secciones.find(s=>s.id===secId); sec.items[idx].img = comp; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }; reader.readAsDataURL(input.files[0]); } }
     async function subirImagenEvento(secId, idx) { const input = document.getElementById(`evento-file-${secId}-${idx}`); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = async (e) => { const comp = await comprimirImagen(e.target.result); const sec = secciones.find(s=>s.id===secId); sec.items[idx] = comp; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }; reader.readAsDataURL(input.files[0]); } }
