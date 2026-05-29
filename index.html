@@ -69,7 +69,6 @@
     .evento-delete { position: absolute; top: 8px; right: 8px; background: #ff00ff; color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 22px; cursor: pointer; display: none; z-index: 100; box-shadow: 0 0 10px #ff00ff; font-weight: bold; align-items: center; justify-content: center; }
     .admin-mode .evento-delete { display: flex !important; }
     
-    /* PAPELERA - SOLO VISIBLE EN ADMIN */
     .papelera-container {
       margin-top: 20px;
       border-top: 2px solid rgba(255, 102, 0, 0.5);
@@ -149,7 +148,6 @@
       margin-left: 10px;
     }
     
-    /* MODAL IMAGEN */
     .image-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(15px); z-index: 10000; justify-content: center; align-items: center; cursor: pointer; }
     .image-modal.active { display: flex; animation: fadeInModal 0.2s ease; }
     @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
@@ -161,7 +159,6 @@
     
     .save-indicator { position: fixed; bottom: 100px; right: 30px; background: #ffff00; color: black; padding: 15px 25px; border-radius: 50px; font-size: 1.6rem; font-weight: bold; box-shadow: 0 0 25px #ffff00; z-index: 2100; display: none; border: 2px solid #00ffff; }
 
-    /* Admin */
     .admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; margin-bottom: 20px; }
     .admin-card { background: #0c0c16; border: 2px solid; border-radius: 20px; padding: 15px; cursor: grab; transition: all 0.2s ease; }
     .admin-card:active { cursor: grabbing; }
@@ -224,7 +221,6 @@
     <div class="contenido" id="contenidoPaneles"></div>
   </main>
 
-  <!-- MODAL IMAGEN -->
   <div id="imageModal" class="image-modal" onclick="cerrarModalImagen()">
     <div class="modal-content" onclick="event.stopPropagation()">
       <img id="modalImage" src="" alt="Vista ampliada">
@@ -232,12 +228,10 @@
     </div>
   </div>
 
-  <!-- BOTÓN ADMIN -->
   <div style="position: fixed; bottom: 30px; right: 30px; z-index: 2000;">
     <button id="btn-admin" onclick="mostrarLogin()" style="width: 80px; height: 80px; border-radius: 50%; background: #0c0c16; border: 3px solid #00ffff; color: #00ffff; font-size: 36px; box-shadow: 0 0 25px #00ffff; cursor: pointer;">⚙️</button>
   </div>
 
-  <!-- LOGIN -->
   <div id="panel-login" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(8px); z-index: 2001; align-items: center; justify-content: center;">
     <div style="background: #0c0c16; border: 3px solid #00ffff; border-radius: 40px; padding: 40px; width: 90%; max-width: 500px; box-shadow: 0 0 60px #00ffff;">
       <h2 style="background: linear-gradient(135deg, #00ffff, #ff00ff); -webkit-background-clip: text; background-clip: text; color: transparent; text-align: center; font-size: 3rem; margin-bottom: 30px;">🔐 ADMIN</h2>
@@ -250,7 +244,6 @@
     </div>
   </div>
 
-  <!-- PANEL ADMIN -->
   <div id="panel-admin" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #050508; z-index: 2002; overflow-y: auto; padding: 20px;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; background: #0c0c16; padding: 20px; border-radius: 20px; border: 2px solid #00ffff;">
       <h2 style="background: linear-gradient(135deg, #00ffff, #ff00ff, #ffff00); -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 2.5rem;">✏️ EDITAR TODO</h2>
@@ -294,7 +287,12 @@
     };
 
     function crearImagenPlaceholder(color, texto) {
-      return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='${color}'/%3E%3Ctext x='100' y='110' font-size='20' fill='white' text-anchor='middle' font-weight='bold'%3E${encodeURIComponent(texto.substring(0, 18))}%3C/text%3E%3C/svg%3E`;
+      return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='" + color + "'/%3E%3Ctext x='100' y='110' font-size='20' fill='white' text-anchor='middle' font-weight='bold'%3E" + encodeURIComponent(texto.substring(0, 18)) + "%3C/text%3E%3C/svg%3E";
+    }
+
+    function formatoPrecio(precio) {
+      if (!precio) return "0";
+      return precio.toString().replace(/\./g, ',');
     }
 
     let secciones = [
@@ -306,7 +304,6 @@
       { id: "eventos", nombre: "EVENTOS", icono: "🎉", tipo: "eventos", items: [], papelera: [], colorKey: "eventos" }
     ];
 
-    // ========== EXTRACCIONES con precios ==========
     const EXTRACCIONES_LIST = [
       { nombre: "Ice fresh Frozen 90mc", precio: "12" },
       { nombre: "Ice fresh mix", precio: "18" },
@@ -314,14 +311,13 @@
       { nombre: "Ice fresh chapel", precio: "20" }
     ];
     
-    // ========== HIERBAS con precios ==========
     const HIERBAS_LIST = [
       { nombre: "Amnesia haze pro", precio: "4" },
       { nombre: "Chicken waffle", precio: "4" },
       { nombre: "Green Passion", precio: "4" },
-      { nombre: "White widow", precio: "4.5" },
-      { nombre: "Trop cherry gas", precio: "4.5" },
-      { nombre: "Purple fruit", precio: "4.5" },
+      { nombre: "White widow", precio: "4,5" },
+      { nombre: "Trop cherry gas", precio: "4,5" },
+      { nombre: "Purple fruit", precio: "4,5" },
       { nombre: "Tropicanna", precio: "5" },
       { nombre: "Chapel", precio: "5" },
       { nombre: "Georgia pie", precio: "5" },
@@ -330,53 +326,50 @@
       { nombre: "Cheetah piss", precio: "5" },
       { nombre: "Runtz", precio: "5" },
       { nombre: "Menthol runtz", precio: "5" },
-      { nombre: "Tropicana cherry", precio: "5.5" },
-      { nombre: "Gelato", precio: "5.5" },
-      { nombre: "Chapel max", precio: "5.5" },
-      { nombre: "Skitlez", precio: "5.5" },
+      { nombre: "Tropicana cherry", precio: "5,5" },
+      { nombre: "Gelato", precio: "5,5" },
+      { nombre: "Chapel max", precio: "5,5" },
+      { nombre: "Skitlez", precio: "5,5" },
       { nombre: "Superboom (CANADA)", precio: "7" },
       { nombre: "Tangle (CANADA)", precio: "7" },
       { nombre: "Gelato X purple+", precio: "7" }
     ];
     
-    // ========== HASH con precios ==========
     const HASH_LIST = [
-      { nombre: "Polen", precio: "3.5" },
+      { nombre: "Polen", precio: "3,5" },
       { nombre: "Polen", precio: "4" },
       { nombre: "Sonic", precio: "4" },
       { nombre: "Bitcoin", precio: "5" },
       { nombre: "Banana Runtz", precio: "5" },
-      { nombre: "Mandarin cookies", precio: "5.5" },
+      { nombre: "Mandarin cookies", precio: "5,5" },
       { nombre: "Cali gas", precio: "6" },
       { nombre: "Hash", precio: "6" },
       { nombre: "Banana cherry", precio: "6" },
       { nombre: "Cbd", precio: "6" },
-      { nombre: "Chucky dry", precio: "6.5" },
-      { nombre: "Tropicana cookies", precio: "6.5" },
+      { nombre: "Chucky dry", precio: "6,5" },
+      { nombre: "Tropicana cookies", precio: "6,5" },
       { nombre: "Mimosa dry", precio: "7" },
       { nombre: "Skitlez dry", precio: "7" },
-      { nombre: "Dos y dos X Stardawg frozen", precio: "8.5" },
+      { nombre: "Dos y dos X Stardawg frozen", precio: "8,5" },
       { nombre: "Frozen G10", precio: "9" },
       { nombre: "Mimosa frozen", precio: "10" },
       { nombre: "Static", precio: "10" },
-      { nombre: "Frozen forbidden fruit", precio: "10.5" },
+      { nombre: "Frozen forbidden fruit", precio: "10,5" },
       { nombre: "Double static", precio: "12" }
     ];
     
-    // ========== LIADOS con precios ==========
     const LIADOS_LIST = [
       { nombre: "Liados mix (verde)", precio: "1x3 | 2x5 | 5x10" },
       { nombre: "Liados polen", precio: "1x3 | 2x5" },
-      { nombre: "Liados Bitcoin", precio: "1x3.5" },
-      { nombre: "Liados Cali gas", precio: "1x3.5" },
-      { nombre: "Liados hash", precio: "1x3.5" },
-      { nombre: "Untar Liado con rosin", precio: "2.5" }
+      { nombre: "Liados Bitcoin", precio: "1x3,5" },
+      { nombre: "Liados Cali gas", precio: "1x3,5" },
+      { nombre: "Liados hash", precio: "1x3,5" },
+      { nombre: "Untar Liado con rosin", precio: "2,5" }
     ];
 
-    // Colores para placeholders
-    const COLOR_MAGENTA = '%23ff00ff';
-    const COLOR_VERDE = '%2300ffaa';
-    const COLOR_NARANJA = '%23ff6600';
+    const COLOR_MAGENTA = "%23ff00ff";
+    const COLOR_VERDE = "%2300ffaa";
+    const COLOR_NARANJA = "%23ff6600";
 
     function cargarDatos() {
       const guardado = localStorage.getItem(STORAGE_KEY);
@@ -390,49 +383,43 @@
         } catch(e) {}
       }
       
-      // EXTRACCIONES
       secciones[0].items = EXTRACCIONES_LIST.map(item => ({
         img: crearImagenPlaceholder(COLOR_MAGENTA, item.nombre),
         nombre: item.nombre,
         precio: item.precio
       }));
       
-      // HIERBAS
       secciones[1].items = HIERBAS_LIST.map(item => ({
         img: crearImagenPlaceholder(COLOR_VERDE, item.nombre),
         nombre: item.nombre,
         precio: item.precio
       }));
       
-      // HASH
       secciones[2].items = HASH_LIST.map(item => ({
         img: crearImagenPlaceholder(COLOR_NARANJA, item.nombre),
         nombre: item.nombre,
         precio: item.precio
       }));
       
-      // LIADOS
       secciones[3].items = LIADOS_LIST.map(item => ({
         nombre: item.nombre,
         precio: item.precio
       }));
       
-      // MUNCHIES
       secciones[4].sub = { 
-        bebidas: [{ nombre: 'COCACOLA', precio: '2' }, { nombre: 'AGUA', precio: '1.50' }],
-        picar: [{ nombre: 'PATATAS', precio: '1.50' }]
+        bebidas: [{ nombre: "COCACOLA", precio: "2" }, { nombre: "AGUA", precio: "1,50" }],
+        picar: [{ nombre: "PATATAS", precio: "1,50" }]
       };
       secciones[4].papelera = { bebidas: [], picar: [] };
       
-      // EVENTOS
       secciones[5].items = [
-        crearImagenPlaceholder('%230044ff', 'EVENTO PROXIMO'),
-        crearImagenPlaceholder('%23aaff00', 'FIESTA ESPECIAL')
+        crearImagenPlaceholder("%230044ff", "EVENTO PROXIMO"),
+        crearImagenPlaceholder("%23aaff00", "FIESTA ESPECIAL")
       ];
       
       secciones.forEach(sec => {
-        if (!sec.papelera) sec.papelera = (sec.tipo === 'munchies') ? { bebidas: [], picar: [] } : [];
-        if (sec.tipo === 'munchies' && sec.papelera && !sec.papelera.bebidas) sec.papelera = { bebidas: [], picar: [] };
+        if (!sec.papelera) sec.papelera = (sec.tipo === "munchies") ? { bebidas: [], picar: [] } : [];
+        if (sec.tipo === "munchies" && sec.papelera && !sec.papelera.bebidas) sec.papelera = { bebidas: [], picar: [] };
       });
       
       guardarCompleto();
@@ -440,7 +427,7 @@
     }
 
     function guardarCompleto() { localStorage.setItem(STORAGE_KEY, JSON.stringify({ secciones: secciones })); mostrarIndicator(); }
-    function mostrarIndicator() { const ind = document.getElementById('saveIndicator'); ind.style.display = 'block'; setTimeout(() => ind.style.display = 'none', 2000); }
+    function mostrarIndicator() { const ind = document.getElementById("saveIndicator"); ind.style.display = "block"; setTimeout(() => ind.style.display = "none", 2000); }
 
     function getColorForSection(sec) {
       if (sec.colorKey && COLORES_POR_TIPO[sec.colorKey]) return COLORES_POR_TIPO[sec.colorKey];
@@ -449,8 +436,8 @@
       return coloresLista[hash % coloresLista.length];
     }
 
-    function abrirImagenGrande(url) { document.getElementById('modalImage').src = url; document.getElementById('imageModal').classList.add('active'); }
-    function cerrarModalImagen() { document.getElementById('imageModal').classList.remove('active'); document.getElementById('modalImage').src = ''; }
+    function abrirImagenGrande(url) { document.getElementById("modalImage").src = url; document.getElementById("imageModal").classList.add("active"); }
+    function cerrarModalImagen() { document.getElementById("imageModal").classList.remove("active"); document.getElementById("modalImage").src = ""; }
 
     let papeleraAbierta = {};
     let draggedIndex = null, currentSecId = null;
@@ -458,7 +445,7 @@
     function togglePapelera(secId) {
       papeleraAbierta[secId] = !papeleraAbierta[secId];
       renderizarTodo();
-      if (document.getElementById('panel-admin').style.display === 'block') {
+      if (document.getElementById("panel-admin").style.display === "block") {
         mostrarSeccionAdmin(secId);
       }
     }
@@ -467,14 +454,14 @@
       const sec = secciones.find(s => s.id === secId);
       if (!sec) return;
       
-      if (tipo === 'productos' || tipo === 'liados' || tipo === 'eventos') {
+      if (tipo === "productos" || tipo === "liados" || tipo === "eventos") {
         const itemEliminado = sec.items[index];
         if (itemEliminado) {
           sec.items.splice(index, 1);
           if (!sec.papelera) sec.papelera = [];
           sec.papelera.push({ ...itemEliminado, eliminadoEn: new Date().toLocaleString() });
         }
-      } else if (tipo === 'munchies' && subtipo) {
+      } else if (tipo === "munchies" && subtipo) {
         const itemEliminado = sec.sub[subtipo][index];
         if (itemEliminado) {
           sec.sub[subtipo].splice(index, 1);
@@ -485,7 +472,7 @@
       }
       guardarCompleto();
       renderizarTodo();
-      if (document.getElementById('panel-admin').style.display === 'block') {
+      if (document.getElementById("panel-admin").style.display === "block") {
         mostrarSeccionAdmin(secId);
       }
     }
@@ -494,14 +481,14 @@
       const sec = secciones.find(s => s.id === secId);
       if (!sec) return;
       
-      if (tipo === 'productos' || tipo === 'liados' || tipo === 'eventos') {
+      if (tipo === "productos" || tipo === "liados" || tipo === "eventos") {
         if (sec.papelera && sec.papelera[index]) {
           const itemRestaurado = sec.papelera[index];
           delete itemRestaurado.eliminadoEn;
           sec.items.push(itemRestaurado);
           sec.papelera.splice(index, 1);
         }
-      } else if (tipo === 'munchies' && subtipo) {
+      } else if (tipo === "munchies" && subtipo) {
         if (sec.papelera && sec.papelera[subtipo] && sec.papelera[subtipo][index]) {
           const itemRestaurado = sec.papelera[subtipo][index];
           delete itemRestaurado.eliminadoEn;
@@ -511,7 +498,7 @@
       }
       guardarCompleto();
       renderizarTodo();
-      if (document.getElementById('panel-admin').style.display === 'block') {
+      if (document.getElementById("panel-admin").style.display === "block") {
         mostrarSeccionAdmin(secId);
       }
     }
@@ -519,15 +506,15 @@
     function vaciarPapelera(secId, tipo, subtipo = null) {
       const sec = secciones.find(s => s.id === secId);
       if (!sec) return;
-      if (confirm('¿Vaciar completamente la papelera? Esta acción no se puede deshacer.')) {
-        if (tipo === 'munchies' && subtipo) {
+      if (confirm("¿Vaciar completamente la papelera? Esta acción no se puede deshacer.")) {
+        if (tipo === "munchies" && subtipo) {
           if (sec.papelera && sec.papelera[subtipo]) sec.papelera[subtipo] = [];
         } else {
-          if (sec.papelera) sec.papelera = (sec.tipo === 'munchies') ? { bebidas: [], picar: [] } : [];
+          if (sec.papelera) sec.papelera = (sec.tipo === "munchies") ? { bebidas: [], picar: [] } : [];
         }
         guardarCompleto();
         renderizarTodo();
-        if (document.getElementById('panel-admin').style.display === 'block') {
+        if (document.getElementById("panel-admin").style.display === "block") {
           mostrarSeccionAdmin(secId);
         }
       }
@@ -536,167 +523,132 @@
     function renderizarTodo() { renderPestanas(); renderPaneles(); }
 
     function renderPestanas() {
-      const container = document.getElementById('pestanasContainer');
-      container.innerHTML = '';
+      const container = document.getElementById("pestanasContainer");
+      container.innerHTML = "";
       secciones.forEach((sec, idx) => {
-        const pest = document.createElement('div');
-        pest.className = 'pestana';
-        if (idx === 0) pest.classList.add('activa');
+        const pest = document.createElement("div");
+        pest.className = "pestana";
+        if (idx === 0) pest.classList.add("activa");
         const color = getColorForSection(sec);
         pest.style.borderColor = color.color;
         pest.style.color = color.color;
-        if (pest.classList.contains('activa')) pest.style.boxShadow = `0 0 25px ${color.color}`;
-        pest.innerHTML = `<div class="pestana-icon">${sec.icono}</div><div class="pestana-text">${sec.nombre}</div>`;
-        pest.addEventListener('click', () => {
-          document.querySelectorAll('.pestana').forEach(p => { p.classList.remove('activa'); p.style.boxShadow = ''; });
-          pest.classList.add('activa');
-          pest.style.boxShadow = `0 0 25px ${color.color}`;
-          document.querySelectorAll('.panel').forEach((p, i) => { p.classList.toggle('activo', i === idx); });
-        });
+        if (pest.classList.contains("activa")) pest.style.boxShadow = "0 0 25px " + color.color;
+        pest.innerHTML = "<div class=\"pestana-icon\">" + sec.icono + "</div><div class=\"pestana-text\">" + sec.nombre + "</div>";
+        pest.addEventListener("click", (function(p, i, c) { return function() {
+          document.querySelectorAll(".pestana").forEach(function(pest) { pest.classList.remove("activa"); pest.style.boxShadow = ""; });
+          p.classList.add("activa");
+          p.style.boxShadow = "0 0 25px " + c.color;
+          document.querySelectorAll(".panel").forEach(function(pn, pi) { pn.classList.toggle("activo", pi === i); });
+        }; })(pest, idx, color));
         container.appendChild(pest);
       });
     }
 
     function renderPaneles() {
-      const contenedor = document.getElementById('contenidoPaneles');
-      contenedor.innerHTML = '';
+      const contenedor = document.getElementById("contenidoPaneles");
+      contenedor.innerHTML = "";
       secciones.forEach((sec, idx) => {
-        const panel = document.createElement('div');
-        panel.className = 'panel' + (idx === 0 ? ' activo' : '');
-        let html = '';
-        if (sec.tipo === 'productos') {
-          html = `<div class="subseccion" style="border: 1px solid ${getColorForSection(sec).color};">
-                    <div class="subseccion-titulo" style="border-left-color: ${getColorForSection(sec).color}; color: ${getColorForSection(sec).color};">
-                      ${sec.icono} ${sec.nombre}
-                    </div>
-                    <div class="productos-grid" id="grid-${sec.id}"></div>
-                    <div id="papelera-seccion-${sec.id}"></div>
-                  </div>`;
-        } else if (sec.tipo === 'liados') {
-          html = `<div class="subseccion" style="border: 1px solid ${getColorForSection(sec).color};">
-                    <div class="subseccion-titulo" style="border-left-color: ${getColorForSection(sec).color}; color: ${getColorForSection(sec).color};">
-                      🚬 ${sec.nombre}
-                    </div>
-                    <div class="liados-grid" id="grid-${sec.id}"></div>
-                    <div id="papelera-seccion-${sec.id}"></div>
-                  </div>`;
-        } else if (sec.tipo === 'munchies') {
-          html = `<div>
-                    <div class="munchies-categoria" style="border-color: ${getColorForSection(sec).color};">
-                      <div class="categoria-titulo" style="color: ${getColorForSection(sec).color}; border-bottom-color: ${getColorForSection(sec).color};">🥤 BEBIDAS</div>
-                      <div class="items-lista" id="bebidas-lista-${sec.id}"></div>
-                    </div>
-                    <div class="munchies-categoria" style="border-color: ${getColorForSection(sec).color};">
-                      <div class="categoria-titulo" style="color: ${getColorForSection(sec).color}; border-bottom-color: ${getColorForSection(sec).color};">🍿 PICAR</div>
-                      <div class="items-lista" id="picar-lista-${sec.id}"></div>
-                    </div>
-                    <div id="papelera-seccion-${sec.id}"></div>
-                  </div>`;
-        } else if (sec.tipo === 'eventos') {
-          html = `<div class="subseccion" style="border: 1px solid ${getColorForSection(sec).color};">
-                    <div class="subseccion-titulo" style="border-left-color: ${getColorForSection(sec).color}; color: ${getColorForSection(sec).color};">
-                      🎉 ${sec.nombre}
-                    </div>
-                    <div class="eventos-grid" id="eventos-grid-${sec.id}"></div>
-                    <div id="papelera-seccion-${sec.id}"></div>
-                  </div>`;
+        const panel = document.createElement("div");
+        panel.className = "panel" + (idx === 0 ? " activo" : "");
+        let html = "";
+        const secColor = getColorForSection(sec);
+        if (sec.tipo === "productos") {
+          html = "<div class=\"subseccion\" style=\"border: 1px solid " + secColor.color + ";\"><div class=\"subseccion-titulo\" style=\"border-left-color: " + secColor.color + "; color: " + secColor.color + ";\">" + sec.icono + " " + sec.nombre + "</div><div class=\"productos-grid\" id=\"grid-" + sec.id + "\"></div><div id=\"papelera-seccion-" + sec.id + "\"></div></div>";
+        } else if (sec.tipo === "liados") {
+          html = "<div class=\"subseccion\" style=\"border: 1px solid " + secColor.color + ";\"><div class=\"subseccion-titulo\" style=\"border-left-color: " + secColor.color + "; color: " + secColor.color + ";\">🚬 " + sec.nombre + "</div><div class=\"liados-grid\" id=\"grid-" + sec.id + "\"></div><div id=\"papelera-seccion-" + sec.id + "\"></div></div>";
+        } else if (sec.tipo === "munchies") {
+          html = "<div><div class=\"munchies-categoria\" style=\"border-color: " + secColor.color + ";\"><div class=\"categoria-titulo\" style=\"color: " + secColor.color + "; border-bottom-color: " + secColor.color + ";\">🥤 BEBIDAS</div><div class=\"items-lista\" id=\"bebidas-lista-" + sec.id + "\"></div></div><div class=\"munchies-categoria\" style=\"border-color: " + secColor.color + ";\"><div class=\"categoria-titulo\" style=\"color: " + secColor.color + "; border-bottom-color: " + secColor.color + ";\">🍿 PICAR</div><div class=\"items-lista\" id=\"picar-lista-" + sec.id + "\"></div></div><div id=\"papelera-seccion-" + sec.id + "\"></div></div>";
+        } else if (sec.tipo === "eventos") {
+          html = "<div class=\"subseccion\" style=\"border: 1px solid " + secColor.color + ";\"><div class=\"subseccion-titulo\" style=\"border-left-color: " + secColor.color + "; color: " + secColor.color + ";\">🎉 " + sec.nombre + "</div><div class=\"eventos-grid\" id=\"eventos-grid-" + sec.id + "\"></div><div id=\"papelera-seccion-" + sec.id + "\"></div></div>";
         }
         panel.innerHTML = html;
         contenedor.appendChild(panel);
       });
       
       secciones.forEach(sec => {
-        if (sec.tipo === 'productos') llenarProductos(sec);
-        if (sec.tipo === 'liados') llenarLiados(sec);
-        if (sec.tipo === 'munchies') llenarMunchies(sec);
-        if (sec.tipo === 'eventos') llenarEventos(sec);
+        if (sec.tipo === "productos") llenarProductos(sec);
+        if (sec.tipo === "liados") llenarLiados(sec);
+        if (sec.tipo === "munchies") llenarMunchies(sec);
+        if (sec.tipo === "eventos") llenarEventos(sec);
         llenarPapelera(sec);
       });
     }
 
     function llenarProductos(sec) {
-      const grid = document.getElementById(`grid-${sec.id}`);
+      const grid = document.getElementById("grid-" + sec.id);
       if (!grid) return;
       const color = getColorForSection(sec);
-      grid.innerHTML = '';
+      grid.innerHTML = "";
       sec.items.forEach((item, idx) => {
-        const card = document.createElement('div');
-        card.className = 'producto-card';
+        const card = document.createElement("div");
+        card.className = "producto-card";
         card.style.borderColor = color.color;
-        card.style.boxShadow = `0 0 15px ${color.glow}`;
-        card.innerHTML = `<button class="delete-btn" onclick="event.stopPropagation(); moverAPapelera('${sec.id}', 'productos', ${idx})">✖</button>
-                          <img src="${item.img}" style="border-color: ${color.color};" onerror="this.src='${crearImagenPlaceholder('%23333333', '?')}'"><h4>${escapeHtml(item.nombre)}</h4><div class="producto-precio" style="color:${color.color}; border-color:${color.color};">${escapeHtml(item.precio)}</div>`;
-        card.addEventListener('click', () => { if(item.img) abrirImagenGrande(item.img); });
+        card.style.boxShadow = "0 0 15px " + color.glow;
+        card.innerHTML = "<button class=\"delete-btn\" onclick=\"event.stopPropagation(); moverAPapelera('" + sec.id + "', 'productos', " + idx + ")\">✖</button><img src=\"" + item.img + "\" style=\"border-color: " + color.color + ";\" onerror=\"this.src='" + crearImagenPlaceholder("%23333333", "?") + "'\"><h4>" + escapeHtml(item.nombre) + "</h4><div class=\"producto-precio\" style=\"color:" + color.color + "; border-color:" + color.color + ";\">" + escapeHtml(formatoPrecio(item.precio)) + "</div>";
+        card.addEventListener("click", function() { if(item.img) abrirImagenGrande(item.img); });
         grid.appendChild(card);
       });
     }
 
     function llenarLiados(sec) {
-      const grid = document.getElementById(`grid-${sec.id}`);
+      const grid = document.getElementById("grid-" + sec.id);
       if (!grid) return;
       const color = getColorForSection(sec);
-      grid.innerHTML = '';
+      grid.innerHTML = "";
       sec.items.forEach((item, idx) => {
-        const div = document.createElement('div');
-        div.className = 'liado-card';
+        const div = document.createElement("div");
+        div.className = "liado-card";
         div.style.borderColor = color.color;
-        div.innerHTML = `<button class="delete-btn" onclick="event.stopPropagation(); moverAPapelera('${sec.id}', 'liados', ${idx})">✖</button>
-                         <div class="liado-icon" style="filter: drop-shadow(0 0 10px ${color.color});">🚬</div><h4 style="color:${color.color};">${escapeHtml(item.nombre)}</h4><div class="liado-precio" style="color:${color.color}; border-color:${color.color};">${escapeHtml(item.precio)}</div>`;
-        div.addEventListener('click', () => alert(`${item.nombre}\n${item.precio}`));
+        div.innerHTML = "<button class=\"delete-btn\" onclick=\"event.stopPropagation(); moverAPapelera('" + sec.id + "', 'liados', " + idx + ")\">✖</button><div class=\"liado-icon\" style=\"filter: drop-shadow(0 0 10px " + color.color + ");\">🚬</div><h4 style=\"color:" + color.color + ";\">" + escapeHtml(item.nombre) + "</h4><div class=\"liado-precio\" style=\"color:" + color.color + "; border-color:" + color.color + ";\">" + escapeHtml(item.precio) + "</div>";
+        div.addEventListener("click", function() { alert(item.nombre + "\n" + item.precio); });
         grid.appendChild(div);
       });
     }
 
     function llenarMunchies(sec) {
       const color = getColorForSection(sec);
-      const bebidasDiv = document.getElementById(`bebidas-lista-${sec.id}`);
-      const picarDiv = document.getElementById(`picar-lista-${sec.id}`);
+      const bebidasDiv = document.getElementById("bebidas-lista-" + sec.id);
+      const picarDiv = document.getElementById("picar-lista-" + sec.id);
       if(bebidasDiv) {
-        bebidasDiv.innerHTML = '';
+        bebidasDiv.innerHTML = "";
         sec.sub.bebidas.forEach((item, idx) => {
-          bebidasDiv.innerHTML += `<div class="item-munchi" style="border-color:${color.color};">
-            <button class="munchi-delete" onclick="moverAPapelera('${sec.id}', 'munchies', ${idx}, 'bebidas')">✖</button>
-            <span class="item-nombre">${escapeHtml(item.nombre)}</span><span class="item-precio" style="color:${color.color};">${escapeHtml(item.precio)}</span>
-          </div>`;
+          bebidasDiv.innerHTML += "<div class=\"item-munchi\" style=\"border-color:" + color.color + ";\"><button class=\"munchi-delete\" onclick=\"moverAPapelera('" + sec.id + "', 'munchies', " + idx + ", 'bebidas')\">✖</button><span class=\"item-nombre\">" + escapeHtml(item.nombre) + "</span><span class=\"item-precio\" style=\"color:" + color.color + ";\">" + escapeHtml(formatoPrecio(item.precio)) + "</span></div>";
         });
       }
       if(picarDiv) {
-        picarDiv.innerHTML = '';
+        picarDiv.innerHTML = "";
         sec.sub.picar.forEach((item, idx) => {
-          picarDiv.innerHTML += `<div class="item-munchi" style="border-color:${color.color};">
-            <button class="munchi-delete" onclick="moverAPapelera('${sec.id}', 'munchies', ${idx}, 'picar')">✖</button>
-            <span class="item-nombre">${escapeHtml(item.nombre)}</span><span class="item-precio" style="color:${color.color};">${escapeHtml(item.precio)}</span>
-          </div>`;
+          picarDiv.innerHTML += "<div class=\"item-munchi\" style=\"border-color:" + color.color + ";\"><button class=\"munchi-delete\" onclick=\"moverAPapelera('" + sec.id + "', 'munchies', " + idx + ", 'picar')\">✖</button><span class=\"item-nombre\">" + escapeHtml(item.nombre) + "</span><span class=\"item-precio\" style=\"color:" + color.color + ";\">" + escapeHtml(formatoPrecio(item.precio)) + "</span></div>";
         });
       }
     }
 
     function llenarEventos(sec) {
-      const grid = document.getElementById(`eventos-grid-${sec.id}`);
+      const grid = document.getElementById("eventos-grid-" + sec.id);
       if(!grid) return;
       const color = getColorForSection(sec);
-      grid.innerHTML = '';
+      grid.innerHTML = "";
       sec.items.forEach((img, idx) => {
-        const card = document.createElement('div');
-        card.className = 'evento-card';
+        const card = document.createElement("div");
+        card.className = "evento-card";
         card.style.borderColor = color.color;
-        card.innerHTML = `<img src="${img}" onerror="this.src='${crearImagenPlaceholder('%23333333', '?')}'"><button class="evento-delete" onclick="moverAPapelera('${sec.id}', 'eventos', ${idx})">✖</button>`;
-        card.addEventListener('click', (e) => { if(!e.target.classList.contains('evento-delete')) abrirImagenGrande(img); });
+        card.innerHTML = "<img src=\"" + img + "\" onerror=\"this.src='" + crearImagenPlaceholder("%23333333", "?") + "'\"><button class=\"evento-delete\" onclick=\"moverAPapelera('" + sec.id + "', 'eventos', " + idx + ")\">✖</button>";
+        card.addEventListener("click", function(e) { if(!e.target.classList.contains("evento-delete")) abrirImagenGrande(img); });
         grid.appendChild(card);
       });
     }
 
     function llenarPapelera(sec) {
-      const container = document.getElementById(`papelera-seccion-${sec.id}`);
+      const container = document.getElementById("papelera-seccion-" + sec.id);
       if (!container) return;
       
-      container.innerHTML = '';
+      container.innerHTML = "";
       
-      const esAdmin = document.body.classList.contains('admin-mode');
+      const esAdmin = document.body.classList.contains("admin-mode");
       if (!esAdmin) return;
       
       let totalItems = 0;
-      if (sec.tipo === 'munchies') {
+      if (sec.tipo === "munchies") {
         totalItems = (sec.papelera?.bebidas?.length || 0) + (sec.papelera?.picar?.length || 0);
       } else {
         totalItems = sec.papelera?.length || 0;
@@ -704,257 +656,211 @@
       
       if (totalItems === 0) return;
       
-      let papeleraHtml = `<div class="papelera-container">
-        <div class="papelera-header" onclick="togglePapelera('${sec.id}')">
-          <span class="papelera-icon">🗑️</span>
-          <h4>PAPELERA</h4>
-          <span class="papelera-count">${totalItems}</span>
-          <span style="margin-left:auto;">${papeleraAbierta[sec.id] ? '▼' : '▶'}</span>
-        </div>
-        <div class="papelera-items" id="papelera-items-${sec.id}">`;
+      let papeleraHtml = "<div class=\"papelera-container\"><div class=\"papelera-header\" onclick=\"togglePapelera('" + sec.id + "')\"><span class=\"papelera-icon\">🗑️</span><h4>PAPELERA</h4><span class=\"papelera-count\">" + totalItems + "</span><span style=\"margin-left:auto;\">" + (papeleraAbierta[sec.id] ? "▼" : "▶") + "</span></div><div class=\"papelera-items\" id=\"papelera-items-" + sec.id + "\">";
       
-      if (sec.tipo === 'munchies') {
+      if (sec.tipo === "munchies") {
         if (sec.papelera?.bebidas?.length > 0) {
-          papeleraHtml += `<div style="margin-bottom:10px;"><strong style="color:#ffaa44;">🥤 Bebidas eliminadas:</strong></div>`;
+          papeleraHtml += "<div style=\"margin-bottom:10px;\"><strong style=\"color:#ffaa44;\">🥤 Bebidas eliminadas:</strong></div>";
           sec.papelera.bebidas.forEach((item, idx) => {
-            papeleraHtml += `<div class="papelera-item">
-              <div class="papelera-item-info">
-                🍹 <span>${escapeHtml(item.nombre)}</span> - <span>${escapeHtml(item.precio)}</span>
-                <div class="papelera-item-fecha">🗑️ ${item.eliminadoEn || ''}</div>
-              </div>
-              <button class="restaurar-btn" onclick="restaurarDePapelera('${sec.id}', 'munchies', ${idx}, 'bebidas')">↩️ RESTAURAR</button>
-            </div>`;
+            papeleraHtml += "<div class=\"papelera-item\"><div class=\"papelera-item-info\">🍹 <span>" + escapeHtml(item.nombre) + "</span> - <span>" + escapeHtml(formatoPrecio(item.precio)) + "</span><div class=\"papelera-item-fecha\">🗑️ " + (item.eliminadoEn || "") + "</div></div><button class=\"restaurar-btn\" onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'bebidas')\">↩️ RESTAURAR</button></div>";
           });
         }
         if (sec.papelera?.picar?.length > 0) {
-          papeleraHtml += `<div style="margin:10px 0 5px;"><strong style="color:#ffaa44;">🍿 Picar eliminados:</strong></div>`;
+          papeleraHtml += "<div style=\"margin:10px 0 5px;\"><strong style=\"color:#ffaa44;\">🍿 Picar eliminados:</strong></div>";
           sec.papelera.picar.forEach((item, idx) => {
-            papeleraHtml += `<div class="papelera-item">
-              <div class="papelera-item-info">
-                🍿 <span>${escapeHtml(item.nombre)}</span> - <span>${escapeHtml(item.precio)}</span>
-                <div class="papelera-item-fecha">🗑️ ${item.eliminadoEn || ''}</div>
-              </div>
-              <button class="restaurar-btn" onclick="restaurarDePapelera('${sec.id}', 'munchies', ${idx}, 'picar')">↩️ RESTAURAR</button>
-            </div>`;
+            papeleraHtml += "<div class=\"papelera-item\"><div class=\"papelera-item-info\">🍿 <span>" + escapeHtml(item.nombre) + "</span> - <span>" + escapeHtml(formatoPrecio(item.precio)) + "</span><div class=\"papelera-item-fecha\">🗑️ " + (item.eliminadoEn || "") + "</div></div><button class=\"restaurar-btn\" onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'picar')\">↩️ RESTAURAR</button></div>";
           });
         }
-        papeleraHtml += `<div style="margin-top:10px;"><button class="vaciar-papelera-btn" onclick="vaciarPapelera('${sec.id}', 'munchies')">🗑️ VACIAR TODA LA PAPELERA</button></div>`;
+        papeleraHtml += "<div style=\"margin-top:10px;\"><button class=\"vaciar-papelera-btn\" onclick=\"vaciarPapelera('" + sec.id + "', 'munchies')\">🗑️ VACIAR TODA LA PAPELERA</button></div>";
       } else {
         sec.papelera.forEach((item, idx) => {
-          const nombreMostrar = item.nombre || (sec.tipo === 'eventos' ? 'Cartel' : 'Producto');
-          const precioMostrar = item.precio ? ` - ${item.precio}` : '';
-          papeleraHtml += `<div class="papelera-item">
-            <div class="papelera-item-info">
-              <span>${escapeHtml(nombreMostrar)}</span>${precioMostrar}
-              <div class="papelera-item-fecha">🗑️ ${item.eliminadoEn || ''}</div>
-            </div>
-            <button class="restaurar-btn" onclick="restaurarDePapelera('${sec.id}', '${sec.tipo}', ${idx})">↩️ RESTAURAR</button>
-          </div>`;
+          const nombreMostrar = item.nombre || (sec.tipo === "eventos" ? "Cartel" : "Producto");
+          const precioMostrar = item.precio ? " - " + formatoPrecio(item.precio) : "";
+          papeleraHtml += "<div class=\"papelera-item\"><div class=\"papelera-item-info\"><span>" + escapeHtml(nombreMostrar) + "</span>" + precioMostrar + "<div class=\"papelera-item-fecha\">🗑️ " + (item.eliminadoEn || "") + "</div></div><button class=\"restaurar-btn\" onclick=\"restaurarDePapelera('" + sec.id + "', '" + sec.tipo + "', " + idx + ")\">↩️ RESTAURAR</button></div>";
         });
-        papeleraHtml += `<div style="margin-top:10px;"><button class="vaciar-papelera-btn" onclick="vaciarPapelera('${sec.id}', '${sec.tipo}')">🗑️ VACIAR PAPELERA</button></div>`;
+        papeleraHtml += "<div style=\"margin-top:10px;\"><button class=\"vaciar-papelera-btn\" onclick=\"vaciarPapelera('" + sec.id + "', '" + sec.tipo + "')\">🗑️ VACIAR PAPELERA</button></div>";
       }
       
-      papeleraHtml += `</div></div>`;
+      papeleraHtml += "</div></div>";
       container.innerHTML = papeleraHtml;
       
       if (papeleraAbierta[sec.id]) {
-        document.getElementById(`papelera-items-${sec.id}`)?.classList.add('open');
+        var itemsDiv = document.getElementById("papelera-items-" + sec.id);
+        if(itemsDiv) itemsDiv.classList.add("open");
       }
     }
 
-    function escapeHtml(str) { return String(str || '').replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+    function escapeHtml(str) { return String(str || "").replace(/[&<>]/g, function(m){ if(m==="&") return "&amp;"; if(m==="<") return "&lt;"; if(m===">") return "&gt;"; return m;}); }
 
-    // ADMIN
-    function mostrarLogin() { document.getElementById('panel-login').style.display = 'flex'; document.getElementById('login-password').value = ''; }
-    function cerrarLogin() { document.getElementById('panel-login').style.display = 'none'; document.getElementById('login-error').style.display = 'none'; document.getElementById('login-password').value = ''; }
+    function mostrarLogin() { document.getElementById("panel-login").style.display = "flex"; document.getElementById("login-password").value = ""; }
+    function cerrarLogin() { document.getElementById("panel-login").style.display = "none"; document.getElementById("login-error").style.display = "none"; document.getElementById("login-password").value = ""; }
     function comprobarLogin() {
-      if(document.getElementById('login-password').value === CONTRASENA) {
-        document.getElementById('panel-login').style.display = 'none';
-        document.getElementById('panel-admin').style.display = 'block';
-        document.body.classList.add('admin-mode');
+      if(document.getElementById("login-password").value === CONTRASENA) {
+        document.getElementById("panel-login").style.display = "none";
+        document.getElementById("panel-admin").style.display = "block";
+        document.body.classList.add("admin-mode");
         renderAdminUI();
         renderizarTodo();
-        document.getElementById('login-password').value = '';
+        document.getElementById("login-password").value = "";
       } else { 
-        document.getElementById('login-error').style.display = 'block';
-        document.getElementById('login-password').value = '';
+        document.getElementById("login-error").style.display = "block";
+        document.getElementById("login-password").value = "";
       }
     }
     function cerrarAdmin() { 
-      document.getElementById('panel-admin').style.display = 'none'; 
-      document.body.classList.remove('admin-mode');
+      document.getElementById("panel-admin").style.display = "none"; 
+      document.body.classList.remove("admin-mode");
       renderizarTodo();
     }
     
     function renderAdminUI() {
-      const seccionesList = document.getElementById('seccionesAdminList');
-      seccionesList.innerHTML = '<strong style="color:#ff00ff;">🗑️ Eliminar sección:</strong>';
+      const seccionesList = document.getElementById("seccionesAdminList");
+      seccionesList.innerHTML = "<strong style=\"color:#ff00ff;\">🗑️ Eliminar sección:</strong>";
       secciones.forEach((sec, idx) => {
-        const btn = document.createElement('button');
-        btn.textContent = `❌ ${sec.nombre}`;
+        const btn = document.createElement("button");
+        btn.textContent = "❌ " + sec.nombre;
         btn.style.background = getColorForSection(sec).color;
-        btn.style.borderRadius = '20px'; btn.style.padding = '8px 16px'; btn.style.margin = '4px'; btn.style.cursor = 'pointer';
-        btn.onclick = () => eliminarSeccion(idx);
+        btn.style.borderRadius = "20px"; btn.style.padding = "8px 16px"; btn.style.margin = "4px"; btn.style.cursor = "pointer";
+        btn.onclick = function() { eliminarSeccion(idx); };
         seccionesList.appendChild(btn);
       });
-      const tabs = document.getElementById('adminTabsContainer');
-      tabs.innerHTML = '';
+      const tabs = document.getElementById("adminTabsContainer");
+      tabs.innerHTML = "";
       secciones.forEach(sec => {
         const col = getColorForSection(sec);
-        const btn = document.createElement('button');
-        btn.textContent = `${sec.icono} ${sec.nombre}`;
-        btn.style.background = col.bg; btn.style.border = `2px solid ${col.color}`; btn.style.borderRadius = '20px'; btn.style.padding = '10px 20px'; btn.style.cursor = 'pointer'; btn.style.color = col.color;
-        btn.onclick = () => mostrarSeccionAdmin(sec.id);
+        const btn = document.createElement("button");
+        btn.textContent = sec.icono + " " + sec.nombre;
+        btn.style.background = col.bg; btn.style.border = "2px solid " + col.color; btn.style.borderRadius = "20px"; btn.style.padding = "10px 20px"; btn.style.cursor = "pointer"; btn.style.color = col.color;
+        btn.onclick = function() { mostrarSeccionAdmin(sec.id); };
         tabs.appendChild(btn);
       });
-      document.getElementById('addNewSectionBtn').onclick = () => añadirNuevaSeccion();
+      document.getElementById("addNewSectionBtn").onclick = function() { añadirNuevaSeccion(); };
     }
     
-    function eliminarSeccion(idx) { if(secciones.length<=1) { alert("No se puede eliminar la única sección"); return; } if(confirm(`¿Eliminar ${secciones[idx].nombre}?`)) { secciones.splice(idx,1); guardarCompleto(); renderizarTodo(); renderAdminUI(); document.getElementById('admin-contenido').innerHTML = '<p style="color:#888;">Selecciona una sección</p>'; } }
+    function eliminarSeccion(idx) { if(secciones.length<=1) { alert("No se puede eliminar la única sección"); return; } if(confirm("¿Eliminar " + secciones[idx].nombre + "?")) { secciones.splice(idx,1); guardarCompleto(); renderizarTodo(); renderAdminUI(); document.getElementById("admin-contenido").innerHTML = "<p style=\"color:#888;\">Selecciona una sección</p>"; } }
     
     function añadirNuevaSeccion() {
       let nombre = prompt("Nombre:"); if(!nombre) return;
       let icono = prompt("Icono:", "📦") || "📦";
       let tipo = prompt("Tipo (productos/liados/eventos/munchies):", "productos");
-      if(!['productos','liados','eventos','munchies'].includes(tipo)) tipo="productos";
+      if(!["productos","liados","eventos","munchies"].includes(tipo)) tipo="productos";
       const newId = "sec_"+Date.now();
       const coloresLista = Object.keys(COLORES_NEON);
       const colorAleatorio = coloresLista[Math.floor(Math.random() * coloresLista.length)];
-      let nueva = { id:newId, nombre:nombre.toUpperCase(), icono, tipo, colorKey:colorAleatorio };
-      if(tipo==='productos') { nueva.items = []; nueva.papelera = []; }
-      else if(tipo==='liados') { nueva.items = []; nueva.papelera = []; }
-      else if(tipo==='eventos') { nueva.items = []; nueva.papelera = []; }
-      else if(tipo==='munchies') { nueva.sub = { bebidas: [], picar: [] }; nueva.papelera = { bebidas: [], picar: [] }; }
+      let nueva = { id:newId, nombre:nombre.toUpperCase(), icono:icono, tipo:tipo, colorKey:colorAleatorio };
+      if(tipo==="productos") { nueva.items = []; nueva.papelera = []; }
+      else if(tipo==="liados") { nueva.items = []; nueva.papelera = []; }
+      else if(tipo==="eventos") { nueva.items = []; nueva.papelera = []; }
+      else if(tipo==="munchies") { nueva.sub = { bebidas: [], picar: [] }; nueva.papelera = { bebidas: [], picar: [] }; }
       secciones.push(nueva);
       guardarCompleto(); renderizarTodo(); renderAdminUI(); mostrarSeccionAdmin(newId);
     }
     
     function mostrarSeccionAdmin(secId) {
-      const sec = secciones.find(s=>s.id===secId);
+      const sec = secciones.find(function(s){ return s.id === secId; });
       if(!sec) return;
       const color = getColorForSection(sec);
-      let html = `<h3 style="color:${color.color}">${sec.icono} ${sec.nombre}</h3>
-                  <div class="admin-grid" id="admin-grid-${sec.id}">`;
+      let html = "<h3 style=\"color:" + color.color + "\">" + sec.icono + " " + sec.nombre + "</h3><div class=\"admin-grid\" id=\"admin-grid-" + sec.id + "\">";
       
-      if (sec.tipo === 'productos') {
-        sec.items.forEach((item,i) => {
-          html += `<div class="admin-card" style="border-color:${color.color}" draggable="true" ondragstart="iniciarDrag(event,${i},'${sec.id}')" ondragend="finalizarDrag(event)" ondragover="permitirDrop(event)" ondrop="soltarDrop(event,${i},'${sec.id}')" ondragenter="marcarSobreDrop(event)" ondragleave="limpiarMarcador(event)">
-                    <div class="drag-handle" style="color:${color.color}">⋮⋮ ARRASTRAR ⋮⋮</div>
-                    <img src="${item.img}" id="admin-img-${sec.id}-${i}" class="admin-img" onerror="this.src='${crearImagenPlaceholder('%23333333', '?')}'">
-                    <input type="file" id="file-${sec.id}-${i}" accept="image/*" class="admin-file-input" onchange="subirImagenProducto('${sec.id}',${i})">
-                    <button onclick="document.getElementById('file-${sec.id}-${i}').click()" class="admin-btn btn-upload">📷 CAMBIAR FOTO</button>
-                    <input type="text" id="nombre-${sec.id}-${i}" value="${escapeHtml(item.nombre)}" class="admin-input" onchange="actualizarProducto('${sec.id}',${i},'nombre',this.value)">
-                    <input type="text" id="precio-${sec.id}-${i}" value="${escapeHtml(item.precio)}" class="admin-precio" style="border-color:${color.color};color:${color.color}" onchange="actualizarProducto('${sec.id}',${i},'precio',this.value)">
-                    <button onclick="moverAPapelera('${sec.id}', 'productos', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR</button>
-                  </div>`;
+      if (sec.tipo === "productos") {
+        sec.items.forEach(function(item,i){
+          html += "<div class=\"admin-card\" style=\"border-color:" + color.color + "\" draggable=\"true\" ondragstart=\"iniciarDrag(event," + i + ",'" + sec.id + "')\" ondragend=\"finalizarDrag(event)\" ondragover=\"permitirDrop(event)\" ondrop=\"soltarDrop(event," + i + ",'" + sec.id + "')\" ondragenter=\"marcarSobreDrop(event)\" ondragleave=\"limpiarMarcador(event)\"><div class=\"drag-handle\" style=\"color:" + color.color + "\">⋮⋮ ARRASTRAR ⋮⋮</div><img src=\"" + item.img + "\" id=\"admin-img-" + sec.id + "-" + i + "\" class=\"admin-img\" onerror=\"this.src='" + crearImagenPlaceholder("%23333333", "?") + "'\"><input type=\"file\" id=\"file-" + sec.id + "-" + i + "\" accept=\"image/*\" class=\"admin-file-input\" onchange=\"subirImagenProducto('" + sec.id + "'," + i + ")\"><button onclick=\"document.getElementById('file-" + sec.id + "-" + i + "').click()\" class=\"admin-btn btn-upload\">📷 CAMBIAR FOTO</button><input type=\"text\" id=\"nombre-" + sec.id + "-" + i + "\" value=\"" + escapeHtml(item.nombre) + "\" class=\"admin-input\" onchange=\"actualizarProducto('" + sec.id + "'," + i + ",'nombre',this.value)\"><input type=\"text\" id=\"precio-" + sec.id + "-" + i + "\" value=\"" + escapeHtml(item.precio) + "\" class=\"admin-precio\" style=\"border-color:" + color.color + ";color:" + color.color + "\" onchange=\"actualizarProducto('" + sec.id + "'," + i + ",'precio',this.value)\"><button onclick=\"moverAPapelera('" + sec.id + "', 'productos', " + i + ")\" class=\"admin-btn btn-delete\">🗑️ ELIMINAR</button></div>";
         });
-        html += `</div><button onclick="añadirProductoItem('${sec.id}')" style="width:100%; background:${color.color}; border-radius:30px; padding:15px; margin-top:10px; color:white;">➕ AÑADIR PRODUCTO</button>`;
+        html += "</div><button onclick=\"añadirProductoItem('" + sec.id + "')\" style=\"width:100%; background:" + color.color + "; border-radius:30px; padding:15px; margin-top:10px; color:white;\">➕ AÑADIR PRODUCTO</button>";
         
         if (sec.papelera && sec.papelera.length > 0) {
-          html += `<div class="admin-papelera-section"><h4>🗑️ PAPELERA (${sec.papelera.length} items)</h4>`;
-          sec.papelera.forEach((item, idx) => {
-            html += `<div class="admin-papelera-item">
-                      <span>${escapeHtml(item.nombre)} - ${escapeHtml(item.precio)}</span>
-                      <button onclick="restaurarDePapelera('${sec.id}', 'productos', ${idx})" class="admin-restaurar-btn">↩️ RESTAURAR</button>
-                    </div>`;
+          html += "<div class=\"admin-papelera-section\"><h4>🗑️ PAPELERA (" + sec.papelera.length + " items)</h4>";
+          sec.papelera.forEach(function(item, idx) {
+            html += "<div class=\"admin-papelera-item\"><span>" + escapeHtml(item.nombre) + " - " + escapeHtml(formatoPrecio(item.precio)) + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'productos', " + idx + ")\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
           });
-          html += `<button onclick="vaciarPapelera('${sec.id}', 'productos')" style="background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin-top:10px; cursor:pointer;">🗑️ VACIAR PAPELERA</button></div>`;
+          html += "<button onclick=\"vaciarPapelera('" + sec.id + "', 'productos')\" style=\"background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin-top:10px; cursor:pointer;\">🗑️ VACIAR PAPELERA</button></div>";
         } else {
-          html += `<div class="admin-papelera-section"><h4 style="color:#888;">🗑️ PAPELERA VACÍA</h4></div>`;
+          html += "<div class=\"admin-papelera-section\"><h4 style=\"color:#888;\">🗑️ PAPELERA VACÍA</h4></div>";
         }
       }
-      else if (sec.tipo === 'liados') {
-        sec.items.forEach((item,i) => {
-          html += `<div class="admin-card" style="border-color:${color.color}" draggable="true" ondragstart="iniciarDrag(event,${i},'${sec.id}')" ondragend="finalizarDrag(event)" ondragover="permitirDrop(event)" ondrop="soltarDrop(event,${i},'${sec.id}')" ondragenter="marcarSobreDrop(event)" ondragleave="limpiarMarcador(event)">
-                    <div class="drag-handle" style="color:${color.color}">⋮⋮ ARRASTRAR ⋮⋮</div>
-                    <div style="font-size:4rem; text-align:center;">🚬</div>
-                    <input type="text" id="nombre-${sec.id}-${i}" value="${escapeHtml(item.nombre)}" class="admin-input" onchange="actualizarProducto('${sec.id}',${i},'nombre',this.value)">
-                    <input type="text" id="precio-${sec.id}-${i}" value="${escapeHtml(item.precio)}" class="admin-precio" style="border-color:${color.color};color:${color.color}" onchange="actualizarProducto('${sec.id}',${i},'precio',this.value)">
-                    <button onclick="moverAPapelera('${sec.id}', 'liados', ${i})" class="admin-btn btn-delete">🗑️ ELIMINAR</button>
-                  </div>`;
+      else if (sec.tipo === "liados") {
+        sec.items.forEach(function(item,i){
+          html += "<div class=\"admin-card\" style=\"border-color:" + color.color + "\" draggable=\"true\" ondragstart=\"iniciarDrag(event," + i + ",'" + sec.id + "')\" ondragend=\"finalizarDrag(event)\" ondragover=\"permitirDrop(event)\" ondrop=\"soltarDrop(event," + i + ",'" + sec.id + "')\" ondragenter=\"marcarSobreDrop(event)\" ondragleave=\"limpiarMarcador(event)\"><div class=\"drag-handle\" style=\"color:" + color.color + "\">⋮⋮ ARRASTRAR ⋮⋮</div><div style=\"font-size:4rem; text-align:center;\">🚬</div><input type=\"text\" id=\"nombre-" + sec.id + "-" + i + "\" value=\"" + escapeHtml(item.nombre) + "\" class=\"admin-input\" onchange=\"actualizarProducto('" + sec.id + "'," + i + ",'nombre',this.value)\"><input type=\"text\" id=\"precio-" + sec.id + "-" + i + "\" value=\"" + escapeHtml(item.precio) + "\" class=\"admin-precio\" style=\"border-color:" + color.color + ";color:" + color.color + "\" onchange=\"actualizarProducto('" + sec.id + "'," + i + ",'precio',this.value)\"><button onclick=\"moverAPapelera('" + sec.id + "', 'liados', " + i + ")\" class=\"admin-btn btn-delete\">🗑️ ELIMINAR</button></div>";
         });
-        html += `</div><button onclick="añadirProductoItem('${sec.id}')" style="width:100%; background:${color.color}; border-radius:30px; padding:15px; margin-top:10px; color:white;">➕ AÑADIR LIADO</button>`;
+        html += "</div><button onclick=\"añadirProductoItem('" + sec.id + "')\" style=\"width:100%; background:" + color.color + "; border-radius:30px; padding:15px; margin-top:10px; color:white;\">➕ AÑADIR LIADO</button>";
         
         if (sec.papelera && sec.papelera.length > 0) {
-          html += `<div class="admin-papelera-section"><h4>🗑️ PAPELERA (${sec.papelera.length} items)</h4>`;
-          sec.papelera.forEach((item, idx) => {
-            html += `<div class="admin-papelera-item">
-                      <span>${escapeHtml(item.nombre)} - ${escapeHtml(item.precio)}</span>
-                      <button onclick="restaurarDePapelera('${sec.id}', 'liados', ${idx})" class="admin-restaurar-btn">↩️ RESTAURAR</button>
-                    </div>`;
+          html += "<div class=\"admin-papelera-section\"><h4>🗑️ PAPELERA (" + sec.papelera.length + " items)</h4>";
+          sec.papelera.forEach(function(item, idx) {
+            html += "<div class=\"admin-papelera-item\"><span>" + escapeHtml(item.nombre) + " - " + escapeHtml(item.precio) + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'liados', " + idx + ")\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
           });
-          html += `<button onclick="vaciarPapelera('${sec.id}', 'liados')" style="background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin-top:10px; cursor:pointer;">🗑️ VACIAR PAPELERA</button></div>`;
+          html += "<button onclick=\"vaciarPapelera('" + sec.id + "', 'liados')\" style=\"background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin-top:10px; cursor:pointer;\">🗑️ VACIAR PAPELERA</button></div>";
         } else {
-          html += `<div class="admin-papelera-section"><h4 style="color:#888;">🗑️ PAPELERA VACÍA</h4></div>`;
+          html += "<div class=\"admin-papelera-section\"><h4 style=\"color:#888;\">🗑️ PAPELERA VACÍA</h4></div>";
         }
       }
-      else if (sec.tipo === 'munchies') {
-        html += `<h4 style="color:${color.color}">BEBIDAS</h4>`;
-        sec.sub.bebidas.forEach((item,i) => {
-          html += `<div class="admin-card" style="border-color:${color.color}"><input type="text" value="${escapeHtml(item.nombre)}" class="admin-input" onchange="actualizarMunchi('${sec.id}','bebidas',${i},'nombre',this.value)"><input type="text" value="${item.precio}" class="admin-precio" style="border-color:${color.color}" onchange="actualizarMunchi('${sec.id}','bebidas',${i},'precio',this.value)"><button onclick="moverAPapelera('${sec.id}', 'munchies', ${i}, 'bebidas')" class="admin-btn btn-delete">🗑️</button></div>`;
+      else if (sec.tipo === "munchies") {
+        html += "<h4 style=\"color:" + color.color + "\">BEBIDAS</h4>";
+        sec.sub.bebidas.forEach(function(item,i){
+          html += "<div class=\"admin-card\" style=\"border-color:" + color.color + "\"><input type=\"text\" value=\"" + escapeHtml(item.nombre) + "\" class=\"admin-input\" onchange=\"actualizarMunchi('" + sec.id + "','bebidas'," + i + ",'nombre',this.value)\"><input type=\"text\" value=\"" + item.precio + "\" class=\"admin-precio\" style=\"border-color:" + color.color + "\" onchange=\"actualizarMunchi('" + sec.id + "','bebidas'," + i + ",'precio',this.value)\"><button onclick=\"moverAPapelera('" + sec.id + "', 'munchies', " + i + ", 'bebidas')\" class=\"admin-btn btn-delete\">🗑️</button></div>";
         });
-        html += `<button onclick="añadirMunchiItem('${sec.id}','bebidas')" style="background:${color.color}; border-radius:30px; padding:10px; margin:10px 0; color:white;">➕ AÑADIR BEBIDA</button>`;
-        html += `<h4 style="color:${color.color}; margin-top:20px;">PICAR</h4>`;
-        sec.sub.picar.forEach((item,i) => {
-          html += `<div class="admin-card" style="border-color:${color.color}"><input type="text" value="${escapeHtml(item.nombre)}" class="admin-input" onchange="actualizarMunchi('${sec.id}','picar',${i},'nombre',this.value)"><input type="text" value="${item.precio}" class="admin-precio" style="border-color:${color.color}" onchange="actualizarMunchi('${sec.id}','picar',${i},'precio',this.value)"><button onclick="moverAPapelera('${sec.id}', 'munchies', ${i}, 'picar')" class="admin-btn btn-delete">🗑️</button></div>`;
+        html += "<button onclick=\"añadirMunchiItem('" + sec.id + "','bebidas')\" style=\"background:" + color.color + "; border-radius:30px; padding:10px; margin:10px 0; color:white;\">➕ AÑADIR BEBIDA</button>";
+        html += "<h4 style=\"color:" + color.color + "; margin-top:20px;\">PICAR</h4>";
+        sec.sub.picar.forEach(function(item,i){
+          html += "<div class=\"admin-card\" style=\"border-color:" + color.color + "\"><input type=\"text\" value=\"" + escapeHtml(item.nombre) + "\" class=\"admin-input\" onchange=\"actualizarMunchi('" + sec.id + "','picar'," + i + ",'nombre',this.value)\"><input type=\"text\" value=\"" + item.precio + "\" class=\"admin-precio\" style=\"border-color:" + color.color + "\" onchange=\"actualizarMunchi('" + sec.id + "','picar'," + i + ",'precio',this.value)\"><button onclick=\"moverAPapelera('" + sec.id + "', 'munchies', " + i + ", 'picar')\" class=\"admin-btn btn-delete\">🗑️</button></div>";
         });
-        html += `<button onclick="añadirMunchiItem('${sec.id}','picar')" style="background:${color.color}; border-radius:30px; padding:10px; margin:10px 0; color:white;">➕ AÑADIR PRODUCTO</button>`;
+        html += "<button onclick=\"añadirMunchiItem('" + sec.id + "','picar')\" style=\"background:" + color.color + "; border-radius:30px; padding:10px; margin:10px 0; color:white;\">➕ AÑADIR PRODUCTO</button>";
         
-        html += `<div class="admin-papelera-section"><h4>🗑️ PAPELERA BEBIDAS (${sec.papelera?.bebidas?.length || 0})</h4>`;
+        html += "<div class=\"admin-papelera-section\"><h4>🗑️ PAPELERA BEBIDAS (" + (sec.papelera?.bebidas?.length || 0) + ")</h4>";
         if (sec.papelera?.bebidas?.length > 0) {
-          sec.papelera.bebidas.forEach((item, idx) => {
-            html += `<div class="admin-papelera-item"><span>${escapeHtml(item.nombre)} - ${escapeHtml(item.precio)}</span><button onclick="restaurarDePapelera('${sec.id}', 'munchies', ${idx}, 'bebidas')" class="admin-restaurar-btn">↩️ RESTAURAR</button></div>`;
+          sec.papelera.bebidas.forEach(function(item, idx) {
+            html += "<div class=\"admin-papelera-item\"><span>" + escapeHtml(item.nombre) + " - " + escapeHtml(formatoPrecio(item.precio)) + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'bebidas')\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
           });
-          html += `<button onclick="vaciarPapelera('${sec.id}', 'munchies', 'bebidas')" style="background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin:10px 0; cursor:pointer;">🗑️ VACIAR PAPELERA BEBIDAS</button>`;
-        } else { html += `<p class="papelera-vacia">Vacía</p>`; }
+          html += "<button onclick=\"vaciarPapelera('" + sec.id + "', 'munchies', 'bebidas')\" style=\"background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin:10px 0; cursor:pointer;\">🗑️ VACIAR PAPELERA BEBIDAS</button>";
+        } else { html += "<p class=\"papelera-vacia\">Vacía</p>"; }
         
-        html += `<h4 style="margin-top:20px;">🗑️ PAPELERA PICAR (${sec.papelera?.picar?.length || 0})</h4>`;
+        html += "<h4 style=\"margin-top:20px;\">🗑️ PAPELERA PICAR (" + (sec.papelera?.picar?.length || 0) + ")</h4>";
         if (sec.papelera?.picar?.length > 0) {
-          sec.papelera.picar.forEach((item, idx) => {
-            html += `<div class="admin-papelera-item"><span>${escapeHtml(item.nombre)} - ${escapeHtml(item.precio)}</span><button onclick="restaurarDePapelera('${sec.id}', 'munchies', ${idx}, 'picar')" class="admin-restaurar-btn">↩️ RESTAURAR</button></div>`;
+          sec.papelera.picar.forEach(function(item, idx) {
+            html += "<div class=\"admin-papelera-item\"><span>" + escapeHtml(item.nombre) + " - " + escapeHtml(formatoPrecio(item.precio)) + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'picar')\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
           });
-          html += `<button onclick="vaciarPapelera('${sec.id}', 'munchies', 'picar')" style="background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin:10px 0; cursor:pointer;">🗑️ VACIAR PAPELERA PICAR</button>`;
-        } else { html += `<p class="papelera-vacia">Vacía</p>`; }
-        html += `</div>`;
+          html += "<button onclick=\"vaciarPapelera('" + sec.id + "', 'munchies', 'picar')\" style=\"background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin:10px 0; cursor:pointer;\">🗑️ VACIAR PAPELERA PICAR</button>";
+        } else { html += "<p class=\"papelera-vacia\">Vacía</p>"; }
+        html += "</div>";
       }
-      else if (sec.tipo === 'eventos') {
-        sec.items.forEach((img,i) => {
-          html += `<div class="admin-card" style="border-color:${color.color}"><img src="${img}" id="evento-img-${sec.id}-${i}" class="admin-img" onerror="this.src='${crearImagenPlaceholder('%23333333', '?')}'"><input type="file" id="evento-file-${sec.id}-${i}" accept="image/*" class="admin-file-input" onchange="subirImagenEvento('${sec.id}',${i})"><button onclick="document.getElementById('evento-file-${sec.id}-${i}').click()" class="admin-btn btn-upload">📷 CAMBIAR</button><button onclick="moverAPapelera('${sec.id}', 'eventos', ${i})" class="admin-btn btn-delete">🗑️</button></div>`;
+      else if (sec.tipo === "eventos") {
+        sec.items.forEach(function(img,i){
+          html += "<div class=\"admin-card\" style=\"border-color:" + color.color + "\"><img src=\"" + img + "\" id=\"evento-img-" + sec.id + "-" + i + "\" class=\"admin-img\" onerror=\"this.src='" + crearImagenPlaceholder("%23333333", "?") + "'\"><input type=\"file\" id=\"evento-file-" + sec.id + "-" + i + "\" accept=\"image/*\" class=\"admin-file-input\" onchange=\"subirImagenEvento('" + sec.id + "'," + i + ")\"><button onclick=\"document.getElementById('evento-file-" + sec.id + "-" + i + "').click()\" class=\"admin-btn btn-upload\">📷 CAMBIAR</button><button onclick=\"moverAPapelera('" + sec.id + "', 'eventos', " + i + ")\" class=\"admin-btn btn-delete\">🗑️</button></div>";
         });
-        html += `</div><button onclick="añadirEventoItem('${sec.id}')" style="width:100%; background:${color.color}; border-radius:30px; padding:15px; margin-top:10px; color:white;">➕ AÑADIR CARTEL</button>`;
+        html += "</div><button onclick=\"añadirEventoItem('" + sec.id + "')\" style=\"width:100%; background:" + color.color + "; border-radius:30px; padding:15px; margin-top:10px; color:white;\">➕ AÑADIR CARTEL</button>";
         
         if (sec.papelera && sec.papelera.length > 0) {
-          html += `<div class="admin-papelera-section"><h4>🗑️ PAPELERA (${sec.papelera.length} carteles)</h4>`;
-          sec.papelera.forEach((item, idx) => {
-            html += `<div class="admin-papelera-item"><span>Cartel eliminado - ${item.eliminadoEn || ''}</span><button onclick="restaurarDePapelera('${sec.id}', 'eventos', ${idx})" class="admin-restaurar-btn">↩️ RESTAURAR</button></div>`;
+          html += "<div class=\"admin-papelera-section\"><h4>🗑️ PAPELERA (" + sec.papelera.length + " carteles)</h4>";
+          sec.papelera.forEach(function(item, idx) {
+            html += "<div class=\"admin-papelera-item\"><span>Cartel eliminado - " + (item.eliminadoEn || "") + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'eventos', " + idx + ")\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
           });
-          html += `<button onclick="vaciarPapelera('${sec.id}', 'eventos')" style="background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin-top:10px; cursor:pointer;">🗑️ VACIAR PAPELERA</button></div>`;
+          html += "<button onclick=\"vaciarPapelera('" + sec.id + "', 'eventos')\" style=\"background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin-top:10px; cursor:pointer;\">🗑️ VACIAR PAPELERA</button></div>";
         } else {
-          html += `<div class="admin-papelera-section"><h4 style="color:#888;">🗑️ PAPELERA VACÍA</h4></div>`;
+          html += "<div class=\"admin-papelera-section\"><h4 style=\"color:#888;\">🗑️ PAPELERA VACÍA</h4></div>";
         }
       }
       
-      document.getElementById('admin-contenido').innerHTML = html;
+      document.getElementById("admin-contenido").innerHTML = html;
     }
 
-    function actualizarProducto(secId, idx, campo, val) { const sec = secciones.find(s=>s.id===secId); if(sec && sec.items[idx]) { sec.items[idx][campo]=val; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); } }
-    function añadirProductoItem(secId) { const sec = secciones.find(s=>s.id===secId); if(sec.tipo==='productos') sec.items.push({ img: crearImagenPlaceholder('%2300ffff', 'NUEVO'), nombre:'NUEVO PRODUCTO', precio:'0' }); else if(sec.tipo==='liados') sec.items.push({ nombre:'NUEVO LIADO', precio:'0' }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
-    function actualizarMunchi(secId, sub, idx, campo, val) { const sec = secciones.find(s=>s.id===secId); sec.sub[sub][idx][campo]=val; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
-    function añadirMunchiItem(secId, sub) { const sec = secciones.find(s=>s.id===secId); sec.sub[sub].push({ nombre:'NUEVO', precio:'0' }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
-    function añadirEventoItem(secId) { const sec = secciones.find(s=>s.id===secId); sec.items.push(crearImagenPlaceholder('%2300ffff', 'NUEVO')); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
-    async function subirImagenProducto(secId, idx) { const input = document.getElementById(`file-${secId}-${idx}`); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = async (e) => { const comp = await comprimirImagen(e.target.result); const sec = secciones.find(s=>s.id===secId); sec.items[idx].img = comp; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }; reader.readAsDataURL(input.files[0]); } }
-    async function subirImagenEvento(secId, idx) { const input = document.getElementById(`evento-file-${secId}-${idx}`); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = async (e) => { const comp = await comprimirImagen(e.target.result); const sec = secciones.find(s=>s.id===secId); sec.items[idx] = comp; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }; reader.readAsDataURL(input.files[0]); } }
-    function comprimirImagen(dataUrl, calidad=0.7, maxAncho=600) { return new Promise(resolve=>{ const img=new Image(); img.onload=()=>{ const canvas=document.createElement('canvas'); let w=img.width, h=img.height; if(w>maxAncho){ h=(maxAncho/w)*h; w=maxAncho; } canvas.width=w; canvas.height=h; canvas.getContext('2d').drawImage(img,0,0,w,h); resolve(canvas.toDataURL('image/jpeg',calidad)); }; img.src=dataUrl; }); }
+    function actualizarProducto(secId, idx, campo, val) { const sec = secciones.find(function(s){ return s.id === secId; }); if(sec && sec.items[idx]) { sec.items[idx][campo] = val; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); } }
+    function añadirProductoItem(secId) { const sec = secciones.find(function(s){ return s.id === secId; }); if(sec.tipo === "productos") sec.items.push({ img: crearImagenPlaceholder("%2300ffff", "NUEVO"), nombre: "NUEVO PRODUCTO", precio: "0" }); else if(sec.tipo === "liados") sec.items.push({ nombre: "NUEVO LIADO", precio: "0" }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
+    function actualizarMunchi(secId, sub, idx, campo, val) { const sec = secciones.find(function(s){ return s.id === secId; }); sec.sub[sub][idx][campo] = val; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
+    function añadirMunchiItem(secId, sub) { const sec = secciones.find(function(s){ return s.id === secId; }); sec.sub[sub].push({ nombre: "NUEVO", precio: "0" }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
+    function añadirEventoItem(secId) { const sec = secciones.find(function(s){ return s.id === secId; }); sec.items.push(crearImagenPlaceholder("%2300ffff", "NUEVO")); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
+    async function subirImagenProducto(secId, idx) { const input = document.getElementById("file-" + secId + "-" + idx); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = async function(e) { const comp = await comprimirImagen(e.target.result); const sec = secciones.find(function(s){ return s.id === secId; }); sec.items[idx].img = comp; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }; reader.readAsDataURL(input.files[0]); } }
+    async function subirImagenEvento(secId, idx) { const input = document.getElementById("evento-file-" + secId + "-" + idx); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = async function(e) { const comp = await comprimirImagen(e.target.result); const sec = secciones.find(function(s){ return s.id === secId; }); sec.items[idx] = comp; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }; reader.readAsDataURL(input.files[0]); } }
+    function comprimirImagen(dataUrl, calidad, maxAncho) { calidad = calidad || 0.7; maxAncho = maxAncho || 600; return new Promise(function(resolve){ var img = new Image(); img.onload = function(){ var canvas = document.createElement("canvas"); var w = img.width, h = img.height; if(w > maxAncho){ h = (maxAncho / w) * h; w = maxAncho; } canvas.width = w; canvas.height = h; canvas.getContext("2d").drawImage(img, 0, 0, w, h); resolve(canvas.toDataURL("image/jpeg", calidad)); }; img.src = dataUrl; }); }
     function guardarTodo() { guardarCompleto(); alert("✅ Guardado"); }
     
-    function iniciarDrag(e, idx, secId) { draggedIndex=idx; currentSecId=secId; e.dataTransfer.setData('text/plain',idx); e.target.closest('.admin-card')?.classList.add('dragging'); }
-    function finalizarDrag(e) { e.target.closest('.admin-card')?.classList.remove('dragging'); draggedIndex=null; currentSecId=null; }
+    function iniciarDrag(e, idx, secId) { draggedIndex = idx; currentSecId = secId; e.dataTransfer.setData("text/plain", idx); var card = e.target.closest(".admin-card"); if(card) card.classList.add("dragging"); }
+    function finalizarDrag(e) { var card = e.target.closest(".admin-card"); if(card) card.classList.remove("dragging"); draggedIndex = null; currentSecId = null; }
     function permitirDrop(e) { e.preventDefault(); }
-    function soltarDrop(e, targetIdx, secId) { e.preventDefault(); if(draggedIndex!==null && currentSecId===secId && draggedIndex!==targetIdx) { const sec = secciones.find(s=>s.id===secId); if(sec && sec.items) { const [moved] = sec.items.splice(draggedIndex,1); sec.items.splice(targetIdx,0,moved); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); } } document.querySelectorAll('.admin-card').forEach(c=>c.classList.remove('drag-over','dragging')); }
-    function marcarSobreDrop(e) { e.preventDefault(); const card = e.target.closest('.admin-card'); if(card) { document.querySelectorAll('.admin-card').forEach(c=>c.classList.remove('drag-over')); card.classList.add('drag-over'); } }
-    function limpiarMarcador(e) { const card = e.target.closest('.admin-card'); if(card) card.classList.remove('drag-over'); }
+    function soltarDrop(e, targetIdx, secId) { e.preventDefault(); if(draggedIndex !== null && currentSecId === secId && draggedIndex !== targetIdx) { var sec = secciones.find(function(s){ return s.id === secId; }); if(sec && sec.items) { var moved = sec.items.splice(draggedIndex, 1)[0]; sec.items.splice(targetIdx, 0, moved); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); } } document.querySelectorAll(".admin-card").forEach(function(c){ c.classList.remove("drag-over", "dragging"); }); }
+    function marcarSobreDrop(e) { e.preventDefault(); var card = e.target.closest(".admin-card"); if(card) { document.querySelectorAll(".admin-card").forEach(function(c){ c.classList.remove("drag-over"); }); card.classList.add("drag-over"); } }
+    function limpiarMarcador(e) { var card = e.target.closest(".admin-card"); if(card) card.classList.remove("drag-over"); }
 
-    window.addEventListener('load', cargarDatos);
+    window.addEventListener("load", cargarDatos);
   </script>
 </body>
 </html>
