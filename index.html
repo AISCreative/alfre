@@ -290,9 +290,10 @@
       return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='" + color + "'/%3E%3Ctext x='100' y='110' font-size='20' fill='white' text-anchor='middle' font-weight='bold'%3E" + encodeURIComponent(texto.substring(0, 18)) + "%3C/text%3E%3C/svg%3E";
     }
 
-    function formatoPrecio(precio) {
-      if (!precio) return "0";
-      return precio.toString().replace(/\./g, ',');
+    // Función que muestra el precio exactamente como está (con comas, sin añadir nada)
+    function mostrarPrecio(precio) {
+      if (!precio) return "";
+      return precio;
     }
 
     let secciones = [
@@ -378,6 +379,10 @@
           const data = JSON.parse(guardado);
           if (data.secciones) secciones = data.secciones;
           else secciones = data;
+          secciones.forEach(sec => {
+            if (!sec.papelera) sec.papelera = (sec.tipo === "munchies") ? { bebidas: [], picar: [] } : [];
+            if (sec.tipo === "munchies" && sec.papelera && !sec.papelera.bebidas) sec.papelera = { bebidas: [], picar: [] };
+          });
           renderizarTodo();
           return;
         } catch(e) {}
@@ -584,7 +589,7 @@
         card.className = "producto-card";
         card.style.borderColor = color.color;
         card.style.boxShadow = "0 0 15px " + color.glow;
-        card.innerHTML = "<button class=\"delete-btn\" onclick=\"event.stopPropagation(); moverAPapelera('" + sec.id + "', 'productos', " + idx + ")\">✖</button><img src=\"" + item.img + "\" style=\"border-color: " + color.color + ";\" onerror=\"this.src='" + crearImagenPlaceholder("%23333333", "?") + "'\"><h4>" + escapeHtml(item.nombre) + "</h4><div class=\"producto-precio\" style=\"color:" + color.color + "; border-color:" + color.color + ";\">" + escapeHtml(formatoPrecio(item.precio)) + "</div>";
+        card.innerHTML = "<button class=\"delete-btn\" onclick=\"event.stopPropagation(); moverAPapelera('" + sec.id + "', 'productos', " + idx + ")\">✖</button><img src=\"" + item.img + "\" style=\"border-color: " + color.color + ";\" onerror=\"this.src='" + crearImagenPlaceholder("%23333333", "?") + "'\"><h4>" + escapeHtml(item.nombre) + "</h4><div class=\"producto-precio\" style=\"color:" + color.color + "; border-color:" + color.color + ";\">" + escapeHtml(mostrarPrecio(item.precio)) + "</div>";
         card.addEventListener("click", function() { if(item.img) abrirImagenGrande(item.img); });
         grid.appendChild(card);
       });
@@ -612,13 +617,13 @@
       if(bebidasDiv) {
         bebidasDiv.innerHTML = "";
         sec.sub.bebidas.forEach((item, idx) => {
-          bebidasDiv.innerHTML += "<div class=\"item-munchi\" style=\"border-color:" + color.color + ";\"><button class=\"munchi-delete\" onclick=\"moverAPapelera('" + sec.id + "', 'munchies', " + idx + ", 'bebidas')\">✖</button><span class=\"item-nombre\">" + escapeHtml(item.nombre) + "</span><span class=\"item-precio\" style=\"color:" + color.color + ";\">" + escapeHtml(formatoPrecio(item.precio)) + "</span></div>";
+          bebidasDiv.innerHTML += "<div class=\"item-munchi\" style=\"border-color:" + color.color + ";\"><button class=\"munchi-delete\" onclick=\"moverAPapelera('" + sec.id + "', 'munchies', " + idx + ", 'bebidas')\">✖</button><span class=\"item-nombre\">" + escapeHtml(item.nombre) + "</span><span class=\"item-precio\" style=\"color:" + color.color + ";\">" + escapeHtml(mostrarPrecio(item.precio)) + "</span></div>";
         });
       }
       if(picarDiv) {
         picarDiv.innerHTML = "";
         sec.sub.picar.forEach((item, idx) => {
-          picarDiv.innerHTML += "<div class=\"item-munchi\" style=\"border-color:" + color.color + ";\"><button class=\"munchi-delete\" onclick=\"moverAPapelera('" + sec.id + "', 'munchies', " + idx + ", 'picar')\">✖</button><span class=\"item-nombre\">" + escapeHtml(item.nombre) + "</span><span class=\"item-precio\" style=\"color:" + color.color + ";\">" + escapeHtml(formatoPrecio(item.precio)) + "</span></div>";
+          picarDiv.innerHTML += "<div class=\"item-munchi\" style=\"border-color:" + color.color + ";\"><button class=\"munchi-delete\" onclick=\"moverAPapelera('" + sec.id + "', 'munchies', " + idx + ", 'picar')\">✖</button><span class=\"item-nombre\">" + escapeHtml(item.nombre) + "</span><span class=\"item-precio\" style=\"color:" + color.color + ";\">" + escapeHtml(mostrarPrecio(item.precio)) + "</span></div>";
         });
       }
     }
@@ -662,20 +667,20 @@
         if (sec.papelera?.bebidas?.length > 0) {
           papeleraHtml += "<div style=\"margin-bottom:10px;\"><strong style=\"color:#ffaa44;\">🥤 Bebidas eliminadas:</strong></div>";
           sec.papelera.bebidas.forEach((item, idx) => {
-            papeleraHtml += "<div class=\"papelera-item\"><div class=\"papelera-item-info\">🍹 <span>" + escapeHtml(item.nombre) + "</span> - <span>" + escapeHtml(formatoPrecio(item.precio)) + "</span><div class=\"papelera-item-fecha\">🗑️ " + (item.eliminadoEn || "") + "</div></div><button class=\"restaurar-btn\" onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'bebidas')\">↩️ RESTAURAR</button></div>";
+            papeleraHtml += "<div class=\"papelera-item\"><div class=\"papelera-item-info\">🍹 <span>" + escapeHtml(item.nombre) + "</span> - <span>" + escapeHtml(mostrarPrecio(item.precio)) + "</span><div class=\"papelera-item-fecha\">🗑️ " + (item.eliminadoEn || "") + "</div></div><button class=\"restaurar-btn\" onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'bebidas')\">↩️ RESTAURAR</button></div>";
           });
         }
         if (sec.papelera?.picar?.length > 0) {
           papeleraHtml += "<div style=\"margin:10px 0 5px;\"><strong style=\"color:#ffaa44;\">🍿 Picar eliminados:</strong></div>";
           sec.papelera.picar.forEach((item, idx) => {
-            papeleraHtml += "<div class=\"papelera-item\"><div class=\"papelera-item-info\">🍿 <span>" + escapeHtml(item.nombre) + "</span> - <span>" + escapeHtml(formatoPrecio(item.precio)) + "</span><div class=\"papelera-item-fecha\">🗑️ " + (item.eliminadoEn || "") + "</div></div><button class=\"restaurar-btn\" onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'picar')\">↩️ RESTAURAR</button></div>";
+            papeleraHtml += "<div class=\"papelera-item\"><div class=\"papelera-item-info\">🍿 <span>" + escapeHtml(item.nombre) + "</span> - <span>" + escapeHtml(mostrarPrecio(item.precio)) + "</span><div class=\"papelera-item-fecha\">🗑️ " + (item.eliminadoEn || "") + "</div></div><button class=\"restaurar-btn\" onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'picar')\">↩️ RESTAURAR</button></div>";
           });
         }
         papeleraHtml += "<div style=\"margin-top:10px;\"><button class=\"vaciar-papelera-btn\" onclick=\"vaciarPapelera('" + sec.id + "', 'munchies')\">🗑️ VACIAR TODA LA PAPELERA</button></div>";
       } else {
         sec.papelera.forEach((item, idx) => {
           const nombreMostrar = item.nombre || (sec.tipo === "eventos" ? "Cartel" : "Producto");
-          const precioMostrar = item.precio ? " - " + formatoPrecio(item.precio) : "";
+          const precioMostrar = item.precio ? " - " + mostrarPrecio(item.precio) : "";
           papeleraHtml += "<div class=\"papelera-item\"><div class=\"papelera-item-info\"><span>" + escapeHtml(nombreMostrar) + "</span>" + precioMostrar + "<div class=\"papelera-item-fecha\">🗑️ " + (item.eliminadoEn || "") + "</div></div><button class=\"restaurar-btn\" onclick=\"restaurarDePapelera('" + sec.id + "', '" + sec.tipo + "', " + idx + ")\">↩️ RESTAURAR</button></div>";
         });
         papeleraHtml += "<div style=\"margin-top:10px;\"><button class=\"vaciar-papelera-btn\" onclick=\"vaciarPapelera('" + sec.id + "', '" + sec.tipo + "')\">🗑️ VACIAR PAPELERA</button></div>";
@@ -771,7 +776,7 @@
         if (sec.papelera && sec.papelera.length > 0) {
           html += "<div class=\"admin-papelera-section\"><h4>🗑️ PAPELERA (" + sec.papelera.length + " items)</h4>";
           sec.papelera.forEach(function(item, idx) {
-            html += "<div class=\"admin-papelera-item\"><span>" + escapeHtml(item.nombre) + " - " + escapeHtml(formatoPrecio(item.precio)) + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'productos', " + idx + ")\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
+            html += "<div class=\"admin-papelera-item\"><span>" + escapeHtml(item.nombre) + " - " + escapeHtml(mostrarPrecio(item.precio)) + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'productos', " + idx + ")\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
           });
           html += "<button onclick=\"vaciarPapelera('" + sec.id + "', 'productos')\" style=\"background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin-top:10px; cursor:pointer;\">🗑️ VACIAR PAPELERA</button></div>";
         } else {
@@ -809,7 +814,7 @@
         html += "<div class=\"admin-papelera-section\"><h4>🗑️ PAPELERA BEBIDAS (" + (sec.papelera?.bebidas?.length || 0) + ")</h4>";
         if (sec.papelera?.bebidas?.length > 0) {
           sec.papelera.bebidas.forEach(function(item, idx) {
-            html += "<div class=\"admin-papelera-item\"><span>" + escapeHtml(item.nombre) + " - " + escapeHtml(formatoPrecio(item.precio)) + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'bebidas')\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
+            html += "<div class=\"admin-papelera-item\"><span>" + escapeHtml(item.nombre) + " - " + escapeHtml(mostrarPrecio(item.precio)) + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'bebidas')\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
           });
           html += "<button onclick=\"vaciarPapelera('" + sec.id + "', 'munchies', 'bebidas')\" style=\"background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin:10px 0; cursor:pointer;\">🗑️ VACIAR PAPELERA BEBIDAS</button>";
         } else { html += "<p class=\"papelera-vacia\">Vacía</p>"; }
@@ -817,7 +822,7 @@
         html += "<h4 style=\"margin-top:20px;\">🗑️ PAPELERA PICAR (" + (sec.papelera?.picar?.length || 0) + ")</h4>";
         if (sec.papelera?.picar?.length > 0) {
           sec.papelera.picar.forEach(function(item, idx) {
-            html += "<div class=\"admin-papelera-item\"><span>" + escapeHtml(item.nombre) + " - " + escapeHtml(formatoPrecio(item.precio)) + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'picar')\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
+            html += "<div class=\"admin-papelera-item\"><span>" + escapeHtml(item.nombre) + " - " + escapeHtml(mostrarPrecio(item.precio)) + "</span><button onclick=\"restaurarDePapelera('" + sec.id + "', 'munchies', " + idx + ", 'picar')\" class=\"admin-restaurar-btn\">↩️ RESTAURAR</button></div>";
           });
           html += "<button onclick=\"vaciarPapelera('" + sec.id + "', 'munchies', 'picar')\" style=\"background:#ff0033; color:white; border:none; border-radius:20px; padding:8px 16px; margin:10px 0; cursor:pointer;\">🗑️ VACIAR PAPELERA PICAR</button>";
         } else { html += "<p class=\"papelera-vacia\">Vacía</p>"; }
@@ -848,9 +853,97 @@
     function actualizarMunchi(secId, sub, idx, campo, val) { const sec = secciones.find(function(s){ return s.id === secId; }); sec.sub[sub][idx][campo] = val; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
     function añadirMunchiItem(secId, sub) { const sec = secciones.find(function(s){ return s.id === secId; }); sec.sub[sub].push({ nombre: "NUEVO", precio: "0" }); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
     function añadirEventoItem(secId) { const sec = secciones.find(function(s){ return s.id === secId; }); sec.items.push(crearImagenPlaceholder("%2300ffff", "NUEVO")); guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }
-    async function subirImagenProducto(secId, idx) { const input = document.getElementById("file-" + secId + "-" + idx); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = async function(e) { const comp = await comprimirImagen(e.target.result); const sec = secciones.find(function(s){ return s.id === secId; }); sec.items[idx].img = comp; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }; reader.readAsDataURL(input.files[0]); } }
-    async function subirImagenEvento(secId, idx) { const input = document.getElementById("evento-file-" + secId + "-" + idx); if(input.files && input.files[0]) { const reader = new FileReader(); reader.onload = async function(e) { const comp = await comprimirImagen(e.target.result); const sec = secciones.find(function(s){ return s.id === secId; }); sec.items[idx] = comp; guardarCompleto(); renderizarTodo(); mostrarSeccionAdmin(secId); }; reader.readAsDataURL(input.files[0]); } }
-    function comprimirImagen(dataUrl, calidad, maxAncho) { calidad = calidad || 0.7; maxAncho = maxAncho || 600; return new Promise(function(resolve){ var img = new Image(); img.onload = function(){ var canvas = document.createElement("canvas"); var w = img.width, h = img.height; if(w > maxAncho){ h = (maxAncho / w) * h; w = maxAncho; } canvas.width = w; canvas.height = h; canvas.getContext("2d").drawImage(img, 0, 0, w, h); resolve(canvas.toDataURL("image/jpeg", calidad)); }; img.src = dataUrl; }); }
+    
+    async function subirImagenProducto(secId, idx) {
+      const input = document.getElementById("file-" + secId + "-" + idx);
+      if (input.files && input.files[0]) {
+        try {
+          const file = input.files[0];
+          const reader = new FileReader();
+          reader.onload = async function(e) {
+            try {
+              const comp = await comprimirImagen(e.target.result, 0.7, 600);
+              const sec = secciones.find(s => s.id === secId);
+              if (sec && sec.items[idx]) {
+                sec.items[idx].img = comp;
+                guardarCompleto();
+                renderizarTodo();
+                mostrarSeccionAdmin(secId);
+              }
+            } catch(err) {
+              console.error("Error al comprimir:", err);
+              alert("Error al procesar la imagen");
+            }
+          };
+          reader.readAsDataURL(file);
+        } catch(err) {
+          console.error("Error al leer archivo:", err);
+          alert("Error al leer la imagen");
+        }
+      }
+    }
+    
+    async function subirImagenEvento(secId, idx) {
+      const input = document.getElementById("evento-file-" + secId + "-" + idx);
+      if (input.files && input.files[0]) {
+        try {
+          const file = input.files[0];
+          const reader = new FileReader();
+          reader.onload = async function(e) {
+            try {
+              const comp = await comprimirImagen(e.target.result, 0.7, 600);
+              const sec = secciones.find(s => s.id === secId);
+              if (sec && sec.items[idx]) {
+                sec.items[idx] = comp;
+                guardarCompleto();
+                renderizarTodo();
+                mostrarSeccionAdmin(secId);
+              }
+            } catch(err) {
+              console.error("Error al comprimir:", err);
+              alert("Error al procesar la imagen");
+            }
+          };
+          reader.readAsDataURL(file);
+        } catch(err) {
+          console.error("Error al leer archivo:", err);
+          alert("Error al leer la imagen");
+        }
+      }
+    }
+    
+    function comprimirImagen(dataUrl, calidad = 0.7, maxAncho = 600) {
+      return new Promise(function(resolve, reject) {
+        try {
+          const img = new Image();
+          img.onload = function() {
+            try {
+              const canvas = document.createElement("canvas");
+              let w = img.width;
+              let h = img.height;
+              if (w > maxAncho) {
+                h = (maxAncho / w) * h;
+                w = maxAncho;
+              }
+              canvas.width = w;
+              canvas.height = h;
+              const ctx = canvas.getContext("2d");
+              ctx.drawImage(img, 0, 0, w, h);
+              resolve(canvas.toDataURL("image/jpeg", calidad));
+            } catch(err) {
+              reject(err);
+            }
+          };
+          img.onerror = function() {
+            reject(new Error("No se pudo cargar la imagen"));
+          };
+          img.src = dataUrl;
+        } catch(err) {
+          reject(err);
+        }
+      });
+    }
+    
     function guardarTodo() { guardarCompleto(); alert("✅ Guardado"); }
     
     function iniciarDrag(e, idx, secId) { draggedIndex = idx; currentSecId = secId; e.dataTransfer.setData("text/plain", idx); var card = e.target.closest(".admin-card"); if(card) card.classList.add("dragging"); }
