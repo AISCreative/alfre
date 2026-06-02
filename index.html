@@ -57,7 +57,7 @@
     .productos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
     .producto-card { background: rgba(10, 10, 18, 0.9); border: 2px solid; border-radius: 24px; padding: 1.2rem 0.8rem; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.2s ease; cursor: pointer; }
     .producto-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 0 25px currentColor; }
-    .producto-card img { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; border: 3px solid; margin-bottom: 0.8rem; box-shadow: 0 0 15px currentColor; background: #1a1a2a; }
+    .producto-card img { width: 130px; height: 130px; object-fit: cover; border-radius: 50%; border: 3px solid; margin-bottom: 0.8rem; box-shadow: 0 0 15px currentColor; background: #0a0a12; }
     .producto-card h4 { font-size: 1.4rem; color: white; margin-bottom: 0.5rem; }
     .producto-precio { font-size: 1.5rem; font-weight: 800; padding: 0.3rem 1.2rem; border-radius: 40px; display: inline-block; background: rgba(0,0,0,0.5); border: 2px solid; }
     
@@ -79,7 +79,7 @@
     .eventos-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 0.5rem; }
     .evento-card { background: transparent; border: 3px solid; border-radius: 24px; overflow: hidden; aspect-ratio: 1/1.2; position: relative; transition: all 0.2s ease; cursor: pointer; }
     .evento-card:hover { transform: scale(1.02); box-shadow: 0 0 30px currentColor; }
-    .evento-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .evento-card img { width: 100%; height: 100%; object-fit: cover; display: block; background: #0a0a12; }
     .evento-delete { position: absolute; top: 8px; right: 8px; background: #ff00ff; color: white; border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 22px; cursor: pointer; display: none; z-index: 100; box-shadow: 0 0 10px #ff00ff; }
     .admin-mode .evento-delete { display: block; }
     
@@ -98,7 +98,7 @@
     .admin-card:active { cursor: grabbing; }
     .admin-card.dragging { opacity: 0.5; cursor: grabbing; }
     .admin-card.drag-over { border: 3px dashed; background: #16162a; }
-    .admin-img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 10px; border: 2px solid; background: #1a1a2a; }
+    .admin-img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 10px; border: 2px solid; background: #0a0a12; }
     .admin-input { width: 100%; padding: 12px; margin-bottom: 10px; background: #030308; border: 2px solid #22223b; border-radius: 10px; color: white; font-size: 1.4rem; }
     .admin-input:focus { outline: none; border-color: currentColor; }
     .admin-precio { width: 100%; padding: 12px; margin-bottom: 10px; background: #030308; border: 2px solid; border-radius: 10px; font-size: 1.4rem; font-weight: bold; }
@@ -189,7 +189,7 @@
 
   <script>
     const CONTRASENA = "0525";
-    const STORAGE_KEY = 'eltioj_datos_v10';
+    const STORAGE_KEY = 'eltioj_datos_v12';
 
     const COLORES_NEON = {
       cian: { color: '#00ffff', glow: '#00ffff', bg: 'rgba(0, 255, 255, 0.1)' },
@@ -211,8 +211,9 @@
       eventos: COLORES_NEON.azulElectro
     };
 
-    function crearImagenPlaceholder(color, texto) {
-      return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='" + color + "'/%3E%3Ctext x='100' y='110' font-size='20' fill='white' text-anchor='middle' font-weight='bold'%3E" + encodeURIComponent(texto.substring(0, 18)) + "%3C/text%3E%3C/svg%3E";
+    // Placeholder VACÍO - sin color, sin texto (SVG transparente)
+    function crearImagenPlaceholder() {
+      return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3C/svg%3E";
     }
 
     // ========== PRODUCTOS COMPLETOS DE INDEX35 ==========
@@ -279,10 +280,6 @@
       { nombre: "Untar Liado con rosin", precio: "2,5" }
     ];
 
-    const COLOR_MAGENTA = "%23ff00ff";
-    const COLOR_VERDE = "%2300ffaa";
-    const COLOR_NARANJA = "%23ff6600";
-
     let secciones = [
       { id: "extracciones", nombre: "EXTRACCIONES", icono: "⚡", tipo: "productos", items: [], colorKey: "extracciones" },
       { id: "hierbas", nombre: "HIERBAS", icono: "🌿", tipo: "productos", items: [], colorKey: "hierbas" },
@@ -305,19 +302,19 @@
       }
       
       secciones[0].items = EXTRACCIONES_LIST.map(item => ({
-        img: crearImagenPlaceholder(COLOR_MAGENTA, item.nombre),
+        img: crearImagenPlaceholder(),
         nombre: item.nombre,
         precio: item.precio
       }));
       
       secciones[1].items = HIERBAS_LIST.map(item => ({
-        img: crearImagenPlaceholder(COLOR_VERDE, item.nombre),
+        img: crearImagenPlaceholder(),
         nombre: item.nombre,
         precio: item.precio
       }));
       
       secciones[2].items = HASH_LIST.map(item => ({
-        img: crearImagenPlaceholder(COLOR_NARANJA, item.nombre),
+        img: crearImagenPlaceholder(),
         nombre: item.nombre,
         precio: item.precio
       }));
@@ -333,8 +330,8 @@
       };
       
       secciones[5].items = [
-        crearImagenPlaceholder("%230044ff", "EVENTO PROXIMO"),
-        crearImagenPlaceholder("%23aaff00", "FIESTA ESPECIAL")
+        crearImagenPlaceholder(),
+        crearImagenPlaceholder()
       ];
       
       guardarCompleto();
@@ -741,7 +738,7 @@
       const sec = secciones.find(s => s.id === secId);
       if (sec) {
         if (sec.tipo === 'productos') {
-          sec.items.push({ img: crearImagenPlaceholder("%2300ffff", "NUEVO"), nombre: 'NUEVO PRODUCTO', precio: '0' });
+          sec.items.push({ img: crearImagenPlaceholder(), nombre: 'NUEVO PRODUCTO', precio: '0' });
         } else if (sec.tipo === 'liados') {
           sec.items.push({ nombre: 'NUEVO LIADO', precio: '0' });
         }
@@ -796,7 +793,7 @@
     function añadirEventoItem(secId) {
       const sec = secciones.find(s => s.id === secId);
       if (sec) {
-        sec.items.push(crearImagenPlaceholder("%2300ffff", "NUEVO"));
+        sec.items.push(crearImagenPlaceholder());
         guardarCompleto();
         renderizarTodo();
         mostrarSeccionAdmin(secId);
