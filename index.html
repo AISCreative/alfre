@@ -190,7 +190,6 @@
     const DB_NAME = 'ElTioJDB';
     const STORE_NAME = 'catalogo';
     
-    // Colores neón
     const COLORES_NEON = {
       cian: { color: '#00ffff', glow: '#00ffff', bg: 'rgba(0, 255, 255, 0.1)' },
       magenta: { color: '#ff00ff', glow: '#ff00ff', bg: 'rgba(255, 0, 255, 0.1)' },
@@ -211,7 +210,6 @@
       eventos: COLORES_NEON.azulElectro
     };
 
-    // Datos iniciales
     const EXTRACCIONES_LIST = [
       { nombre: "Ice fresh Frozen 90mc", precio: "12" },
       { nombre: "Ice fresh mix", precio: "18" },
@@ -268,7 +266,6 @@
       return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23222'/%3E%3Ctext x='100' y='110' fill='%23666' text-anchor='middle' font-size='14'%3ESIN FOTO%3C/text%3E%3C/svg%3E";
     }
 
-    // IndexedDB functions
     function abrirDB() {
       return new Promise((resolve, reject) => {
         const request = indexedDB.open(DB_NAME, 1);
@@ -325,7 +322,6 @@
         return;
       }
       
-      // Datos por defecto
       secciones[0].items = EXTRACCIONES_LIST.map(item => ({
         img: crearImagenPlaceholder(),
         nombre: item.nombre,
@@ -354,7 +350,6 @@
         picar: [{ nombre: "PATATAS", precio: "1,50" }]
       };
       
-      // EVENTOS: VACÍO - el cliente añade los que quiera
       secciones[5].items = [];
       
       await guardarCompleto();
@@ -454,7 +449,8 @@
         card.style.borderColor = color.color;
         card.style.boxShadow = `0 0 15px ${color.glow}`;
         card.style.color = color.color;
-        card.innerHTML = `<img src="${item.img}" style="border-color: ${color.color}; box-shadow: 0 0 15px ${color.color};"><h4 style="color: white;">${escapeHtml(item.nombre)}</h4><div class="producto-precio" style="color: ${color.color}; border-color: ${color.color}; background: ${color.bg};">${escapeHtml(item.precio)}€</div>`;
+        // SIN SÍMBOLO DE EURO - solo el número
+        card.innerHTML = `<img src="${item.img}" style="border-color: ${color.color}; box-shadow: 0 0 15px ${color.color};"><h4 style="color: white;">${escapeHtml(item.nombre)}</h4><div class="producto-precio" style="color: ${color.color}; border-color: ${color.color}; background: ${color.bg};">${escapeHtml(item.precio)}</div>`;
         card.addEventListener('click', () => { if(item.img) abrirImagenGrande(item.img); });
         grid.appendChild(card);
       });
@@ -471,6 +467,7 @@
         div.style.borderColor = color.color;
         div.style.boxShadow = `0 0 15px ${color.glow}`;
         div.style.color = color.color;
+        // SIN SÍMBOLO - se muestra exactamente como está guardado (1x3 | 2x5 o 2,5)
         div.innerHTML = `<div class="liado-icon" style="filter: drop-shadow(0 0 10px ${color.color});">🚬</div><h4 style="color: ${color.color};">${escapeHtml(item.nombre)}</h4><div class="liado-precio" style="color: ${color.color}; border-color: ${color.color}; background: ${color.bg};">${escapeHtml(item.precio)}</div>`;
         grid.appendChild(div);
       });
@@ -483,13 +480,15 @@
       if (bebidasDiv) {
         bebidasDiv.innerHTML = '';
         sec.sub.bebidas.forEach(item => { 
-          bebidasDiv.innerHTML += `<div class="item-munchi" style="border-color: ${color.color};"><span class="item-nombre">${escapeHtml(item.nombre)}</span><span class="item-precio" style="color: ${color.color};">${escapeHtml(item.precio)}€</span></div>`; 
+          // SIN SÍMBOLO DE EURO
+          bebidasDiv.innerHTML += `<div class="item-munchi" style="border-color: ${color.color};"><span class="item-nombre">${escapeHtml(item.nombre)}</span><span class="item-precio" style="color: ${color.color};">${escapeHtml(item.precio)}</span></div>`; 
         });
       }
       if (picarDiv) {
         picarDiv.innerHTML = '';
         sec.sub.picar.forEach(item => { 
-          picarDiv.innerHTML += `<div class="item-munchi" style="border-color: ${color.color};"><span class="item-nombre">${escapeHtml(item.nombre)}</span><span class="item-precio" style="color: ${color.color};">${escapeHtml(item.precio)}€</span></div>`; 
+          // SIN SÍMBOLO DE EURO
+          picarDiv.innerHTML += `<div class="item-munchi" style="border-color: ${color.color};"><span class="item-nombre">${escapeHtml(item.nombre)}</span><span class="item-precio" style="color: ${color.color};">${escapeHtml(item.precio)}</span></div>`; 
         });
       }
     }
@@ -532,7 +531,6 @@
       }); 
     }
 
-    // ========== ADMIN ==========
     let draggedItem = null;
     let draggedIndex = null;
     let currentSecId = null;
@@ -874,7 +872,6 @@
       alert("✅ Todos los cambios guardados correctamente");
     }
 
-    // Drag & Drop
     function iniciarDrag(e, index, secId) {
       draggedIndex = index;
       currentSecId = secId;
